@@ -120,7 +120,7 @@ class S3FilesStore(object):
 
     def _get_boto_bucket(self):
         # disable ssl (is_secure=False) because of this python bug:
-        # http://bugs.python.org/issue5103
+        # https://bugs.python.org/issue5103
         c = self.S3Connection(self.AWS_ACCESS_KEY_ID, self.AWS_SECRET_ACCESS_KEY, is_secure=False)
         return c.get_bucket(self.bucket, validate=False)
 
@@ -194,6 +194,47 @@ class S3FilesStore(object):
         return extra
 
 
+class GCSFilesStore(object):
+
+    GCS_PROJECT_ID = None
+
+    CACHE_CONTROL = 'max-age=172800'
+
+    def __init__(self, uri):
+        from google.cloud import storage
+        client = storage.Client(project=self.GCS_PROJECT_ID)
+        bucket, prefix = uri[5:].split('/', 1)
+        self.bucket = client.bucket(bucket)
+        self.prefix = prefix
+
+    def stat_file(self, path, info):
+        def _onsuccess(blob):
+            if blob:
+                checksum = blob.md5_hash
+                last_modified = time.mktime(blob.updated.timetuple())
+                return {'checksum': checksum, 'last_modified': last_modified}
+            else:
+                return {}
+
+        return threads.deferToThread(self.bucket.get_blob, path).addCallback(_onsuccess)
+
+    def _get_content_type(self, headers):
+        if headers and 'Content-Type' in headers:
+            return headers['Content-Type']
+        else:
+            return 'application/octet-stream'
+
+    def persist_file(self, path, buf, info, meta=None, headers=None):
+        blob = self.bucket.blob(self.prefix + path)
+        blob.cache_control = self.CACHE_CONTROL
+        blob.metadata = {k: str(v) for k, v in six.iteritems(meta or {})}
+        return threads.deferToThread(
+            blob.upload_from_string,
+            data=buf.getvalue(),
+            content_type=self._get_content_type(headers)
+        )
+
+
 class FilesPipeline(MediaPipeline):
     """Abstract pipeline that implement the file downloading
 
@@ -219,6 +260,7 @@ class FilesPipeline(MediaPipeline):
         '': FSFilesStore,
         'file': FSFilesStore,
         's3': S3FilesStore,
+        'gs': GCSFilesStore,
     }
     DEFAULT_FILES_URLS_FIELD = 'file_urls'
     DEFAULT_FILES_RESULT_FIELD = 'files'
@@ -226,7 +268,7 @@ class FilesPipeline(MediaPipeline):
     def __init__(self, store_uri, download_func=None, settings=None):
         if not store_uri:
             raise NotConfigured
-        
+
         if isinstance(settings, dict) or settings is None:
             settings = Settings(settings)
 
@@ -257,6 +299,9 @@ class FilesPipeline(MediaPipeline):
         s3store.AWS_ACCESS_KEY_ID = settings['AWS_ACCESS_KEY_ID']
         s3store.AWS_SECRET_ACCESS_KEY = settings['AWS_SECRET_ACCESS_KEY']
         s3store.POLICY = settings['FILES_STORE_S3_ACL']
+
+        gcs_store = cls.STORE_SCHEMES['gs']
+        gcs_store.GCS_PROJECT_ID = settings['GCS_PROJECT_ID']
 
         store_uri = settings['FILES_STORE']
         return cls(store_uri, settings=settings)
