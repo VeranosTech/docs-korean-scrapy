@@ -38,13 +38,13 @@ Scrapy |version| 문서
    intro/tutorial
    intro/examples
 
-:doc:`intro/overview`
+:doc:`intro/overview_ko`
     Scrapy가 무엇이고 어떻게 도와주는지 이해하기.
 
-:doc:`intro/install`
+:doc:`intro/install_ko`
     컴퓨터에 Scrapy 설치하기.
 
-:doc:`intro/tutorial`
+:doc:`intro/tutorial_ko`
     첫 번째 Scrapy 프로젝트 만들기.
 
 :doc:`intro/examples`
