@@ -1,13 +1,13 @@
 .. _intro-install:
 
 ==================
-설치 가이
+설치 가이드
 ==================
 
-Scrapy 설치
-=================
+스크래피(Scrapy) 설치
+=========================
 
-Scrapy는 Python 2.7과 Python 3.3 이상에서 실행된다.
+스크래피는 Python 2.7과 Python 3.3 이상에서 실행된다.
 
 `Anaconda`_ 또는 `Miniconda`_\ 를 사용하고 있다면, 리눅스, 윈도우, OS X를 위한
 최신 패키지를 보유하고 있는 `conda-forge`_ 채널로부터 패키지를
@@ -17,16 +17,16 @@ Scrapy는 Python 2.7과 Python 3.3 이상에서 실행된다.
 
   conda install -c conda-forge scrapy
 
-파이썬 패키지 설치에 익숙하다면 Scrapy와 의존성으로
+파이썬 패키지 설치에 익숙하다면 스크래피와 의존성으로
 PyPI로 아래와 같이 설치할 수 있다::
 
     pip install Scrapy
 
-종종 운영체제에 따라서 Scrapy 의존성에 대한 컴파일 이슈 해결을 요구하는 경우도 있다.
+종종 운영체제에 따라서 스크래피 의존성에 대한 컴파일 이슈 해결을 요구하는 경우도 있다.
 그러면 :ref:`intro-install-platform-notes`\ 를 확인해 보아라.
 
 당신의 시스템 패키지와 충돌하는 것을 피하기 위해서
-Scrapy를 :ref:`a dedicated virtualenv <intro-using-virtualenv>`\ 에
+스크래피를 :ref:`a dedicated virtualenv <intro-using-virtualenv>`\ 에
 설치하는 것을 강하게 추천하는 바이다.
 
 더 자세한 정보와 플랫폼 세부 안내는 앞으로 설명할 것이다.

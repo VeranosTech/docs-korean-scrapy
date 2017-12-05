@@ -1,8 +1,8 @@
 .. _topics-spiders:
 
-==========
-스파이더
-==========
+==================
+스파이더(Spider)
+==================
 
 스파이더는 특정 사이트(또는 사이트 그룹)을 어떻게 스크랩할 건지 정의하는 클래스이며,
 크롤링을(예, 링크 따라가기 등) 수행하는 방식과, 페이지에서 구조화된 데이터(스크랩되는 아이템)를
@@ -23,7 +23,7 @@
    :class:`~scrapy.item.Item` 객체, :class:`~scrapy.http.Request` 객체,
    또는 반복가능한 이러한 객체들을 반환한다.
    반환되는 리리퀘스트들도 콜백 함수를 포함하고 있으며 (일반적으로 자기자신)
-   Scrapy로 다운로드된 후 리스펀스는 콜백 함수에 의해 처리된다.
+   스크래피로 다운로드된 후 리스펀스는 콜백 함수에 의해 처리된다.
 
 3. 콜백 함수는 페이지 컨텐츠를 일반적으로 :ref:`topics-selectors`\ 를 사용해서
    파싱하고(BeautifuulSoup, lxml 등 원하는 어떤 메커니즘을 사용해도 상관없다)
@@ -33,7 +33,7 @@
    (:ref:`Item Pipeline <topics-item-pipeline>`\ 을 통해서) 또는 :ref:`topics-feed-exports`\ 를
    사용해서 파일로 작성된다.
 
-이 사이클은 모든 종류의 스파이더에 적용되지만, Scrapy에 번들로 포함된 다른 목적을 위한
+이 사이클은 모든 종류의 스파이더에 적용되지만, 스크래피에 번들로 포함된 다른 목적을 위한
 다른 종류의 스파이더도 있다. 앞으로 이 타입에 대해서 다루어볼 것이다.
 
 .. module:: scrapy.spiders
@@ -47,14 +47,14 @@ scrapy.Spider
 .. class:: Spider()
 
    이것은 가장 간단한 스파이더이며 다른 모든 스파이더들이 반드시 상속받아야 하는 것 중에 하나다.
-   (직접 제작한 스파이더뿐만 아니라 Scrapy와 번들로 제공되는 스파이더 포함)
+   (직접 제작한 스파이더뿐만 아니라 스크래피와 번들로 제공되는 스파이더 포함)
    이 스파이더는 특별한 기능을 제공하지는 않는다.
    이것은 단지 :attr:`start_urls`\ 스파이더 속성에서 리퀘스트를 보내는 :meth:`start_requests` 구현을
    제공하고 얻어진 각 결과의 리스펀스를 위한 스파이더의 메서드 ``parse``\ 를 호출한다.
 
    .. attribute:: name
 
-       스파이더의 이름을 정의하는 문자열. 스파이더 이름은 Scrapy에 의해
+       스파이더의 이름을 정의하는 문자열. 스파이더 이름은 스크래피에 의해
        찾아지고 (그리고 인스턴스화되는) 방식이므로, 따라서 반드시 유일해야 한다.
        그러나 같은 스파이더를 하나 이상 인스턴스화하는 것은 가능하다ㅏ.
        이것은 스파이더 속성중에서 가장 중요한 것이며 꼭 필요하다.
@@ -101,50 +101,49 @@ scrapy.Spider
 
    .. attribute:: settings
 
-      Configuration for running this spider. This is a
-      :class:`~scrapy.settings.Settings` instance, see the
-      :ref:`topics-settings` topic for a detailed introduction on this subject.
+      스파이더 실행에 관한 설정. 이것은
+      :class:`~scrapy.settings.Settings` 인스턴스다,
+      이 주제에 대한 자세한 사항은 :ref:`topics-settings`\ 를 참고하라.
 
    .. attribute:: logger
 
-      Python logger created with the Spider's :attr:`name`. You can use it to
-      send log messages through it as described on
-      :ref:`topics-logging-from-spiders`.
+      스파이더의 :attr:`name`\ 과 함께 생성된 파이썬 logger.
+      :ref:`topics-logging-from-spiders`\ 에 나온대로 이것을 사용해서 로그 메세지를
+      보낼 수 있다.
 
    .. method:: from_crawler(crawler, \*args, \**kwargs)
 
-       This is the class method used by Scrapy to create your spiders.
+       스크래피가 스파이더를 만들기위해 사용하는 클래스 메서드.
 
-       You probably won't need to override this directly because the default
-       implementation acts as a proxy to the :meth:`__init__` method, calling
-       it with the given arguments `args` and named arguments `kwargs`.
+       직접 이것을 오버라이드할 필요는 없을 것이다, 왜냐하면 기본 구현이
+       :meth:`__init__` 메서드에 대한 프록시로서 주어진 인자 `args`\ 와 키워드 인자
+       `kwargs`\ 를 호출하면서 작동하기 때문이다.
 
-       Nonetheless, this method sets the :attr:`crawler` and :attr:`settings`
-       attributes in the new instance so they can be accessed later inside the
-       spider's code.
+       그럼에도 불구하고, 이 메서드는 새 인스턴스의 :attr:`crawler`\ 와 :attr:`settings` 속성을
+       지정해서 나중에 스파이더 코드 내에서 접근 가능하게 만든다.
 
-       :param crawler: crawler to which the spider will be bound
-       :type crawler: :class:`~scrapy.crawler.Crawler` instance
+       :param crawler: 스파이더와 바인드될 크롤러
+       :type crawler: :class:`~scrapy.crawler.Crawler` 인스턴스
 
-       :param args: arguments passed to the :meth:`__init__` method
-       :type args: list
+       :param args: :meth:`__init__` 메서드에 전달될 인자
+       :type args: 리스트
 
-       :param kwargs: keyword arguments passed to the :meth:`__init__` method
-       :type kwargs: dict
+       :param kwargs: :meth:`__init__` 메서드에 전달될 키워드 인자
+       :type kwargs: 딕셔너리
 
    .. method:: start_requests()
 
-       This method must return an iterable with the first Requests to crawl for
-       this spider. It is called by Scrapy when the spider is opened for
-       scraping. Scrapy calls it only once, so it is safe to implement
-       :meth:`start_requests` as a generator.
+       이 메서드는 스파이더가 크롤링할 첫 번째 리퀘스트가 있는 이터러블을 반환해야 된다.
+       스크랩을 위해서 스파이더가 열렸을 때 스크래피에 의해서 호출된다.
+       스크래피는 이것을 한 번만 호출해서 :meth:`start_requests`\ 를
+       제네레이터로 구현해도 안전하다.
 
-       The default implementation generates ``Request(url, dont_filter=True)``
-       for each url in :attr:`start_urls`.
+       기본 구현은 :attr:`start_urls`\ 에 있는 각 url에 대한 ``Request(url, dont_filter=True)``\ 를
+       생성한다.
 
-       If you want to change the Requests used to start scraping a domain, this is
-       the method to override. For example, if you need to start by logging in using
-       a POST request, you could do::
+       만약 도메인 스크랩핑을 시작하기위해 사용되는 리퀘스트를 변경하고 싶으면,
+       이 메서드를 오버라이드 하면 된다. 예를 들어, POST 리퀘스트를 사용해서 로그인하면서 시작해야
+       한다면 아래와 같이 쓸 수 있다::
 
            class MySpider(scrapy.Spider):
                name = 'myspider'
@@ -161,32 +160,31 @@ scrapy.Spider
 
    .. method:: parse(response)
 
-       This is the default callback used by Scrapy to process downloaded
-       responses, when their requests don't specify a callback.
+       리퀘스트가 콜백을 지정하지 않았을 때, 스크래피가 다운로드된
+       리스펀스를 처리하기 위해 사용하는 기본 콜백이다.
 
-       The ``parse`` method is in charge of processing the response and returning
-       scraped data and/or more URLs to follow. Other Requests callbacks have
-       the same requirements as the :class:`Spider` class.
+       ``parse`` 메소드는 리스펀스를 처리하고 스크랩된 데이터와 추가적으로 따라갈 URL을
+       반환하는 역할을 맡고 있다. 다른 리퀘스트 콜백도 :class:`Spider` 클래스와 동일한
+       요구사항을 가지고 있다.
 
-       This method, as well as any other Request callback, must return an
-       iterable of :class:`~scrapy.http.Request` and/or
-       dicts or :class:`~scrapy.item.Item` objects.
+       다른 리퀘스트 콜백뿐만 아니라 이 메서드도 :class:`~scrapy.http.Request` 또는 딕셔너리,
+       :class:`~scrapy.item.Item` 객체 이터러블을 반환해야 한다.
 
-       :param response: the response to parse
+       :param response: 파싱할 리스펀스
        :type response: :class:`~scrapy.http.Response`
 
    .. method:: log(message, [level, component])
 
-       Wrapper that sends a log message through the Spider's :attr:`logger`,
-       kept for backwards compatibility. For more information see
-       :ref:`topics-logging-from-spiders`.
+       스파이더의 :attr:`logger`\ 를 통해 로그 메세지를 보내는 래퍼(Wrapper),
+       백워드 호환성을 위해 유지됨. 더 자세한 정보는
+       :ref:`topics-logging-from-spiders` 참고하라.
 
    .. method:: closed(reason)
 
-       Called when the spider closes. This method provides a shortcut to
-       signals.connect() for the :signal:`spider_closed` signal.
+       스파이더가 종료될 때 호출된다. 이 메서드는 :signal:`spider_closed` 시그널을 위해
+       signals.connect()에 대한 숏컷을 제공한다.
 
-Let's see an example::
+예시를 보자::
 
     import scrapy
 
@@ -203,7 +201,7 @@ Let's see an example::
         def parse(self, response):
             self.logger.info('A response from %s just arrived!', response.url)
 
-Return multiple Requests and items from a single callback::
+하나의 콜백으로부터 여러 리퀘스트와 아이템을 반환한다::
 
     import scrapy
 
@@ -223,8 +221,8 @@ Return multiple Requests and items from a single callback::
             for url in response.xpath('//a/@href').extract():
                 yield scrapy.Request(url, callback=self.parse)
 
-Instead of :attr:`~.start_urls` you can use :meth:`~.start_requests` directly;
-to give data more structure you can use :ref:`topics-items`::
+:attr:`~.start_urls` 대신 :meth:`~.start_requests`\ 를 직접 사용할 수 있다;
+데이터를 더 구조화하기 위해서 :ref:`topics-items`\ 를 사용할 수 있다::
 
     import scrapy
     from myproject.items import MyItem
@@ -247,20 +245,18 @@ to give data more structure you can use :ref:`topics-items`::
 
 .. _spiderargs:
 
-Spider arguments
+스파이더 인자
 ================
 
-Spiders can receive arguments that modify their behaviour. Some common uses for
-spider arguments are to define the start URLs or to restrict the crawl to
-certain sections of the site, but they can be used to configure any
-functionality of the spider.
+스파이더는 스파이더의 작동을 변경시킬 수 있는 인자를 받는다.
+일반적으로는 시작 URL을 정의하거나 사이트의 특정 섹션을 크롤링하도록 제한하는 데
+사용하지만 스파이더의 기능을 설정하는 데도 사용된다.
 
-Spider arguments are passed through the :command:`crawl` command using the
-``-a`` option. For example::
+스파이더 인자는 :command:`crawl` 커맨드의 ``-a`` 옵션을 사용해서 전달된다. 예를 들면::
 
     scrapy crawl myspider -a category=electronics
 
-Spiders can access arguments in their `__init__` methods::
+스파이더는 `__init__` 메서드의 인자에 접근할 수 있다::
 
     import scrapy
 
@@ -272,9 +268,9 @@ Spiders can access arguments in their `__init__` methods::
             self.start_urls = ['http://www.example.com/categories/%s' % category]
             # ...
 
-The default `__init__` method will take any spider arguments
-and copy them to the spider as attributes.
-The above example can also be written as follows::
+기본 `__init__` 메서드는 모든 스파이더 인자를 받아서 스파이더에
+속성으로 복사하는 것이다.
+위의 예제는 아래와 같이 작성될 수도 있다::
 
     import scrapy
 
@@ -284,40 +280,36 @@ The above example can also be written as follows::
         def start_requests(self):
             yield scrapy.Request('http://www.example.com/categories/%s' % self.category)
 
-Keep in mind that spider arguments are only strings.
-The spider will not do any parsing on its own.
-If you were to set the `start_urls` attribute from the command line,
-you would have to parse it on your own into a list
-using something like
-`ast.literal_eval <https://docs.python.org/library/ast.html#ast.literal_eval>`_
-or `json.loads <https://docs.python.org/library/json.html#json.loads>`_
-and then set it as an attribute.
-Otherwise, you would cause iteration over a `start_urls` string
-(a very common python pitfall)
-resulting in each character being seen as a separate url.
+스파이더 인자는 문자열이라는 사실을 명심하라.
+스파이더는 알아서 파싱을 하지 않는다.
+만약 `start_urls` 속성을 커맨드라인에서 설정하려면
+직접 `ast.literal_eval <https://docs.python.org/library/ast.html#ast.literal_eval>`_ 또는
+`json.loads <https://docs.python.org/library/json.html#json.loads>`_ 같은 것을 활용해
+리스트로 파싱을 한 다음 속성으로 지정해야 한다.
+그렇지 않으면, `start_urls` 문자열에 대해서 문자 각각을 별개의 url로 인식하는 이터레이션 (매우
+일반적인 파이썬 함정)을 발생킬 수 있다.
 
-A valid use case is to set the http auth credentials
-used by :class:`~scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware`
-or the user agent
-used by :class:`~scrapy.downloadermiddlewares.useragent.UserAgentMiddleware`::
+유요한 사용 케이스는 :class:`~scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware`\ 가 사용하는
+사용되는 http 인증 자격증명이나 :class:`~scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware`\ 가
+사용하는 사용자 에이전트를 설정하는 경우다.
 
     scrapy crawl myspider -a http_user=myuser -a http_pass=mypassword -a user_agent=mybot
 
-Spider arguments can also be passed through the Scrapyd ``schedule.json`` API.
-See `Scrapyd documentation`_.
+스파이더 인자는 Scrapyd ``schedule.json`` API를 통해서 전달될 수도 있다.
+`Scrapyd documentation`_\ 를 참고하라
 
 .. _builtin-spiders:
 
-Generic Spiders
-===============
+범용 스파이더
+==================
 
-Scrapy comes with some useful generic spiders that you can use to subclass
-your spiders from. Their aim is to provide convenient functionality for a few
-common scraping cases, like following all links on a site based on certain
-rules, crawling from `Sitemaps`_, or parsing an XML/CSV feed.
+스크래피는 사용자의 스파이더가 상속하는 데 사용할 수 있는 유용한 범용 스파이더를 제공한다.
+그것들의 목표는 몇가지 일반적인 스크랩핑의 경우를 위한 편리한 기능을 제공하는 것이다.
+일반적인 경우는 특정한 룰에 따라 사이트에 있는 모든 링크를 따라가거나, `Sitemaps`_\ 에서
+크롤링 하거나, 또는 XML/CSV 피드를 파싱하는 경우를 말한다.
 
-For the examples used in the following spiders, we'll assume you have a project
-with a ``TestItem`` declared in a ``myproject.items`` module::
+아래의 스파이더에서 사용되는 예시의 경우, ``myproject.items`` 모듈에 ``TestItem``\ 이 선언된
+프로젝트가 있다고 가정한다::
 
     import scrapy
 
@@ -334,71 +326,67 @@ CrawlSpider
 
 .. class:: CrawlSpider
 
-   This is the most commonly used spider for crawling regular websites, as it
-   provides a convenient mechanism for following links by defining a set of rules.
-   It may not be the best suited for your particular web sites or project, but
-   it's generic enough for several cases, so you can start from it and override it
-   as needed for more custom functionality, or just implement your own spider.
+   일반적인 웹사이트를 크롤링하는데 가장 보편적으로 사용되는 것으로,
+   규칙을 정의함으로써 링크를 따라가는 데 편리한 메커니즘을 제공한다.
+   특정한 웹사이트나 프로젝트에 가장 적합한 스파이더는 아닐 수 있지만
+   여러 경우에 일반적으로 쓰기에는 충분하다. 그러므로 이 스파이더로 시작해서
+   커스텀 기능이 필요한 경우는 오버라이드 하거나 직접 구현하면 된다.
 
-   Apart from the attributes inherited from Spider (that you must
-   specify), this class supports a new attribute:
+   스파이더에서 상속받은 속성 외에도 이 클래스는 새 속성을 지원한다:
 
    .. attribute:: rules
 
-       Which is a list of one (or more) :class:`Rule` objects.  Each :class:`Rule`
-       defines a certain behaviour for crawling the site. Rules objects are
-       described below. If multiple rules match the same link, the first one
-       will be used, according to the order they're defined in this attribute.
+       하나 이상의 :class:`Rule` 객체 리스트. 각각의 :class:`Rule`\ 은
+       사이트 크롤링에 관한 특정한 작동을 정의한다.같은 링크에
+       여러 rule이 매칭된다면, 속성에서 정의된 순서에 따라 첫 번째가 사용된다.
 
-   This spider also exposes an overrideable method:
+   이 스파이더는 오버라이드 가능한 메서드도 노출하고 있다:
 
    .. method:: parse_start_url(response)
 
-      This method is called for the start_urls responses. It allows to parse
-      the initial responses and must return either an
-      :class:`~scrapy.item.Item` object, a :class:`~scrapy.http.Request`
-      object, or an iterable containing any of them.
+      이 메서드는 start_urls 리스펀스를 위해서 호출된다. 이것은
+      최초 리스펀스를 파싱하게 해주고 반드시
+      :class:`~scrapy.item.Item` 객체나, :class:`~scrapy.http.Request`
+      객체, 또는 둘 중 하나를 포함하는 이터러블을 반환해야 한다.
 
 Crawling rules
 ~~~~~~~~~~~~~~
 
 .. class:: Rule(link_extractor, callback=None, cb_kwargs=None, follow=None, process_links=None, process_request=None)
 
-   ``link_extractor`` is a :ref:`Link Extractor <topics-link-extractors>` object which
-   defines how links will be extracted from each crawled page.
+   ``link_extractor``\ 는 크롤링된 페이지로부터 링크를 어떻게 추출할 것인지
+   정의하는 :ref:`Link Extractor <topics-link-extractors>` 객체다.
 
-   ``callback`` is a callable or a string (in which case a method from the spider
-   object with that name will be used) to be called for each link extracted with
-   the specified link_extractor. This callback receives a response as its first
-   argument and must return a list containing :class:`~scrapy.item.Item` and/or
-   :class:`~scrapy.http.Request` objects (or any subclass of them).
+   ``callback``\ 는 지정된 link_extractor로 추출된 각 링크를 위해 호출되는 callable 또는 문자열(이 경우
+   그 이름을 가진 스파이더 객체의 메서드가 사용된다)이다. 이 콜백은
+   첫 인자로 리스펀스를 받으며 반드시 :class:`~scrapy.item.Item` 또는
+   :class:`~scrapy.http.Request` 객체를 포함하는 리스트를 리턴해야 한다(또는
 
-   .. warning:: When writing crawl spider rules, avoid using ``parse`` as
-       callback, since the :class:`CrawlSpider` uses the ``parse`` method
-       itself to implement its logic. So if you override the ``parse`` method,
-       the crawl spider will no longer work.
 
-   ``cb_kwargs`` is a dict containing the keyword arguments to be passed to the
-   callback function.
+   .. warning:: crawl 스파이더의 rule을 작성할 때는, 콜백으로 ``parse``\ 를 사용하는 것을
+       피하라, 왜냐하면 :class:`CrawlSpider`\ 가 자신의 로직을 구현하기 위해
+       ``parse`` 메서드를 사용하기 때문이다.
+       따라서 ``parse`` 메서드를 오버라이드한다면, crawl 스파이더는 더이상 작동하지 않을
+       것이다.
 
-   ``follow`` is a boolean which specifies if links should be followed from each
-   response extracted with this rule. If ``callback`` is None ``follow`` defaults
-   to ``True``, otherwise it defaults to ``False``.
+   ``cb_kwargs`` \ 는 콜백 함수에 전달될 키워드 인자를 포함하고 있는 딕셔너리다.
 
-   ``process_links`` is a callable, or a string (in which case a method from the
-   spider object with that name will be used) which will be called for each list
-   of links extracted from each response using the specified ``link_extractor``.
-   This is mainly used for filtering purposes.
+   ``follow``\ 는 불리언으로 rule로 추출된 리스펀스로부터 링크를 따라가야 하는지를
+   지정한다. 만약 ``Callback``\ 이 None이면 ``follow``\ 는 ``True``\ 가 기본이고
+   그렇지 않은 경우 기본은 ``False``\다.
 
-   ``process_request`` is a callable, or a string (in which case a method from
-   the spider object with that name will be used) which will be called with
-   every request extracted by this rule, and must return a request or None (to
-   filter out the request).
+   ``process_links`` \ 는 callable이나 문자열(이 경우 해당 이름을 가진 스파이더 객체의
+   메서드가 사용된다)로 지정된 ``link_extractor``\ 을 사용해 리스펀스로부터 추출된 링크
+   리스트에 대해 호출된다. 주로 필터링을 목적으로 사용된다.
+
+   ``process_request``\ 는 callable이나 문자열(이 경우 해당 이름을 가진 스파이더 객체의
+   메서드가 사용된다)로 rule에 따라 추출된 모든 리퀘스트에 대해 호출되며, 반드시
+   리퀘스트나 (요청을 필터링하기 위해서) None을 반환해야 한다.
 
 CrawlSpider example
 ~~~~~~~~~~~~~~~~~~~
 
-Let's now take a look at an example CrawlSpider with rules::
+이제 rule이 있는 CrawlSpider를 보자::
 
     import scrapy
     from scrapy.spiders import CrawlSpider, Rule
@@ -427,60 +415,56 @@ Let's now take a look at an example CrawlSpider with rules::
             return item
 
 
-This spider would start crawling example.com's home page, collecting category
-links, and item links, parsing the latter with the ``parse_item`` method. For
-each item response, some data will be extracted from the HTML using XPath, and
-an :class:`~scrapy.item.Item` will be filled with it.
+이 스파이더는 example.com의 홈페이지를 크롤링하기 시작해서, 카테고리 링크와 아이템 링크를
+수집하고 ``parse_item`` 메서드로 아이템링크를 파싱한다. 모든 아이템
+리스펀스에서는 XPath를 사용해 HTML로부터 데이터를 추출하고, :class:`~scrapy.item.Item`\ 을
+데이터로 채운다.
 
 XMLFeedSpider
 -------------
 
 .. class:: XMLFeedSpider
 
-    XMLFeedSpider is designed for parsing XML feeds by iterating through them by a
-    certain node name.  The iterator can be chosen from: ``iternodes``, ``xml``,
-    and ``html``.  It's recommended to use the ``iternodes`` iterator for
-    performance reasons, since the ``xml`` and ``html`` iterators generate the
-    whole DOM at once in order to parse it.  However, using ``html`` as the
-    iterator may be useful when parsing XML with bad markup.
+    XMLFeedSpider는 특정 노드 이름에 따라 XML 피드를 반복해서 파싱하도록 설계 되었다.
+    이터레이터는 다음 중에서 선택될 수 있다: ``iternodes``, ``xml``,
+    ``html``. 성능을 위해서 ``iternodes`` 이터레이터를 사용하는 것을 추천한다.
+    ``xml``\ 과 ``html`` 이터레이터는 파싱하기 위해서 전체 DOM을 한꺼번에 생성한다.
+    그러나, ``html`` 이터레이터는 마크업이 좋지 못한 상태인 XML을 파싱할 때는 유용하다.
 
-    To set the iterator and the tag name, you must define the following class
-    attributes:
+    이터레이터와 태그명을 설텅하기 위해서 반드시 아래의 클래스 속성을
+    정의해야 한다:
 
     .. attribute:: iterator
 
-        A string which defines the iterator to use. It can be either:
+        사용할 이터레이터를 정의하는 문자열. 다음 중 하나일 수 있다:
 
-           - ``'iternodes'`` - a fast iterator based on regular expressions
+           - ``'iternodes'`` - 정규식에 기반한 빠른 이터레이터
 
-           - ``'html'`` - an iterator which uses :class:`~scrapy.selector.Selector`.
-             Keep in mind this uses DOM parsing and must load all DOM in memory
-             which could be a problem for big feeds
+           - ``'html'`` - :class:`~scrapy.selector.Selector`\ 를 사용하는 이터레이터.
+             DOM 파싱을 사용하며 무조건 모든 DOM을 메모리에 로드한다는 사실을 명심하라.
+             큰 피드의 경우 문제가 될 수 있다.
 
-           - ``'xml'`` - an iterator which uses :class:`~scrapy.selector.Selector`.
-             Keep in mind this uses DOM parsing and must load all DOM in memory
-             which could be a problem for big feeds
+           - ``'xml'`` - :class:`~scrapy.selector.Selector`\ 를 사용하는 이터레이터.
+             DOM 파싱을 사용하며 무조건 모든 DOM을 메모리에 로드한다는 사실을 명심하라.
+             큰 피드의 경우 문제가 될 수 있다.
 
-        It defaults to: ``'iternodes'``.
+        기본으로 ``'iternodes'``\ 가 설정되어 있다.
 
     .. attribute:: itertag
 
-        A string with the name of the node (or element) to iterate in. Example::
+        반복할 노드(또는 요소)의 이름 문자열. 예시::
 
             itertag = 'product'
 
     .. attribute:: namespaces
 
-        A list of ``(prefix, uri)`` tuples which define the namespaces
-        available in that document that will be processed with this spider. The
-        ``prefix`` and ``uri`` will be used to automatically register
-        namespaces using the
-        :meth:`~scrapy.selector.Selector.register_namespace` method.
+        스파이더가 처리할 문서에서 이용가능한 네임스페이스를 정의한 ``(prefix, uri)`` 튜플 리스트.
+        ``prefix``\ 와 ``uri``\ 는 :meth:`~scrapy.selector.Selector.register_namespace` 메서드를
+        이용해서 네임스페이스로 등록될 것이다.
 
-        You can then specify nodes with namespaces in the :attr:`itertag`
-        attribute.
+        그 다음 :attr:`itertag` 속성에 네임스페이스가 있는 노드를 지정할 수 있다.
 
-        Example::
+        예시::
 
             class YourSpider(XMLFeedSpider):
 
@@ -488,39 +472,36 @@ XMLFeedSpider
                 itertag = 'n:url'
                 # ...
 
-    Apart from these new attributes, this spider has the following overrideable
-    methods too:
+    이러한 새로운 속성 이외에도, 이 스파이더는 아래의 오버라이드가능한 메서드들을
+    가지고 있다:
 
     .. method:: adapt_response(response)
 
-        A method that receives the response as soon as it arrives from the spider
-        middleware, before the spider starts parsing it. It can be used to modify
-        the response body before parsing it. This method receives a response and
-        also returns a response (it could be the same or another one).
+        스파이더가 파싱을 시작하기 전에, 스파이더 미들웨어에서 도착하자마자 리스펀스를 받는 메서드.
+        파싱하기 전에 리스펀스 본문을 수정하기 위해 사용될 수 있다.
+        이 메서드는 리스펀스르 받고 리스펀스를 반환한다(똑같은 것일 수도 다른 것일 수도 있다).
 
     .. method:: parse_node(response, selector)
 
-        This method is called for the nodes matching the provided tag name
-        (``itertag``).  Receives the response and an
-        :class:`~scrapy.selector.Selector` for each node.  Overriding this
-        method is mandatory. Otherwise, you spider won't work.  This method
-        must return either a :class:`~scrapy.item.Item` object, a
-        :class:`~scrapy.http.Request` object, or an iterable containing any of
-        them.
+        제공된 태그명(``itertage``)과 매칭되는 노드에 대해 호출된다.
+        리스펀스와 각 노드에 대한 :class:`~scrapy.selector.Selector`\ 를 받는다
+        이 메서드는 반드시 오버라이딩 해야 한다.
+        그렇지 않으면 스파이더가 작동을 하지 않는다.
+        이 메서드는 :class:`~scrapy.item.Item` 객체, :class:`~scrapy.http.Request` 객체,
+        또는 이런 것들을 포함하고 있는 이터러블을 반환해야 한다.
 
     .. method:: process_results(response, results)
 
-        This method is called for each result (item or request) returned by the
-        spider, and it's intended to perform any last time processing required
-        before returning the results to the framework core, for example setting the
-        item IDs. It receives a list of results and the response which originated
-        those results. It must return a list of results (Items or Requests).
+        이 메서드는 스파이더를 통해 반환된 각 결과(아이템 또는 리퀘스트)에 대해
+        호출되며, 프레임워크 코어에 결과를 반환하기 전에 필요한 마지막 프로세싱을 수행하기 위한 것이다.
+        예를 들면 아이템 ID를 세팅 하는 것이 있다. 결과 리스트와 그 결과를 생성한
+        응답을 받는다. 반드시 결과 리스트를 반환해야 한다(아이템 또는 리퀘스트).
 
 
-XMLFeedSpider example
+XMLFeedSpider 예제
 ~~~~~~~~~~~~~~~~~~~~~
 
-These spiders are pretty easy to use, let's have a look at one example::
+이 스파이더들은 사용하기 매우 쉽다, 예제를 보도록 하자::
 
     from scrapy.spiders import XMLFeedSpider
     from myproject.items import TestItem
@@ -541,45 +522,43 @@ These spiders are pretty easy to use, let's have a look at one example::
             item['description'] = node.xpath('description').extract()
             return item
 
-Basically what we did up there was to create a spider that downloads a feed from
-the given ``start_urls``, and then iterates through each of its ``item`` tags,
-prints them out, and stores some random data in an :class:`~scrapy.item.Item`.
+기본적으로 위에서 한 일은 주어진 ``start_urls``\ 에서 피드를 다운로드하고 각각의
+``item`` 태그를 반복시켜 출력하고, 임의의 데이터를 :class:`~scrapy.item.Item`\ 에
+저장하는 스파이를 생성한 것이다.
 
 CSVFeedSpider
 -------------
 
 .. class:: CSVFeedSpider
 
-   This spider is very similar to the XMLFeedSpider, except that it iterates
-   over rows, instead of nodes. The method that gets called in each iteration
-   is :meth:`parse_row`.
+   이 스파이더는 노드 대신 행에 대해 반복된다는 점만 제외하면 XMLFeedSpider과 매우 유사하다.
+   반복할 때 호출되는 메서드는 :meth:`parse_row`\ 다.
 
    .. attribute:: delimiter
 
-       A string with the separator character for each field in the CSV file
-       Defaults to ``','`` (comma).
+       CSV 파일의 각 필드의 구분 문자인 문자열.
+       기본은 ```','`` (콤마)로 설정되어 있다.
 
    .. attribute:: quotechar
 
-       A string with the enclosure character for each field in the CSV file
-       Defaults to ``'"'`` (quotation mark).
+       CSV 파일의 각 필드의 둘러싸는 문자인 문자열.
+       기본은 ``'"'`` (쌍따옴표)로 설정되어 있다.
 
    .. attribute:: headers
 
-       A list of the column names in the CSV file.
+       CSV 파일의 컬럼명 리스트.
 
    .. method:: parse_row(response, row)
 
-       Receives a response and a dict (representing each row) with a key for each
-       provided (or detected) header of the CSV file.  This spider also gives the
-       opportunity to override ``adapt_response`` and ``process_results`` methods
-       for pre- and post-processing purposes.
+       리스펀스와 CSV 파일의 제공된 헤더에 대한 키를 포함하는 딕셔너리(각 행을 나타낸다)를 받는다.
+       이 스파이더 또한 전처리나 후처리를 위해 ``adapt_response``, ``process_results``
+       메서드를 오버라이드를 할 수 있는 기회를 제공한다.
 
-CSVFeedSpider example
+CSVFeedSpider 예제
 ~~~~~~~~~~~~~~~~~~~~~
 
-Let's see an example similar to the previous one, but using a
-:class:`CSVFeedSpider`::
+이전 것과 비슷하지만 :class:`CSVFeedSpider`\ 를 사용한 예제를
+보도록 하자::
 
     from scrapy.spiders import CSVFeedSpider
     from myproject.items import TestItem
@@ -607,73 +586,65 @@ SitemapSpider
 
 .. class:: SitemapSpider
 
-    SitemapSpider allows you to crawl a site by discovering the URLs using
-    `Sitemaps`_.
+    SitemapSpider는 `Sitemaps`_\ 을 사용해서 URL을 찾아 사이트를 크롤링 해준다.
 
-    It supports nested sitemaps and discovering sitemap urls from
-    `robots.txt`_.
+    내포된 사이트맵을 지원하고 `robots.txt`_\ 에서 사이트맵 url 검색을 지원한다.
 
     .. attribute:: sitemap_urls
 
-        A list of urls pointing to the sitemaps whose urls you want to crawl.
+        크롤링하고 싶은 url이 있는 사이트맵을 가리키는 url 리스트.
 
-        You can also point to a `robots.txt`_ and it will be parsed to extract
-        sitemap urls from it.
+        `robots.txt`_\ 를 가리킬 수도 있으며 사이트맵 url을 추출하기 위해 파싱될 것이다.
 
     .. attribute:: sitemap_rules
 
-        A list of tuples ``(regex, callback)`` where:
+        튜플 ``(regex, callback)``\ 의 리스트:
 
-        * ``regex`` is a regular expression to match urls extracted from sitemaps.
-          ``regex`` can be either a str or a compiled regex object.
+        * ``regex``\ 는 정규 표현식으로 사이트맵에서 추출된 url과 매치된다.
+          ``regex``\ 는 문자열이나 컴파일된 정규식 객체를 쓸 수 있다.
 
-        * callback is the callback to use for processing the urls that match
-          the regular expression. ``callback`` can be a string (indicating the
-          name of a spider method) or a callable.
+        * callback은 정규표현식에 일치하는 url 처리를 위해 사용하는 콜백이다.
+          ``callback``\ 은 (스파이더 메서드의 이름을 가리키는) 문자열이나 callable이
+          될 수 있다.
 
-        For example::
+        예시::
 
             sitemap_rules = [('/product/', 'parse_product')]
 
-        Rules are applied in order, and only the first one that matches will be
-        used.
+        Rule은 순서에 따라 적용되며, 매치되는 가장 첫 번째 것만 사용된다.
 
-        If you omit this attribute, all urls found in sitemaps will be
-        processed with the ``parse`` callback.
+        만약 이 속성을 생략하면, 사이트맵에서 찾아진 모든 url이 ``parse`` 콜백으로 처리될 것이다.
 
     .. attribute:: sitemap_follow
 
-        A list of regexes of sitemap that should be followed. This is is only
-        for sites that use `Sitemap index files`_ that point to other sitemap
-        files.
+        따라가야 될 사이트맵의 정규식 리스트. 다른 사이트맵을 가리키는 `Sitemap index files`_\ 를 사용하는
+        사이트에만 해당한다.
 
-        By default, all sitemaps are followed.
+        기본으로, 모든 사이트맵을 따라가도록 되어있다.
 
     .. attribute:: sitemap_alternate_links
 
-        Specifies if alternate links for one ``url`` should be followed. These
-        are links for the same website in another language passed within
-        the same ``url`` block.
+        한 ``url``\ 에 대한 대체 링크를 따라가야하는지를 지정한다.
+        대체 링크는 동일한 ``url`` 블럭에 전달된 다른 언어로된 웹사이트를 위한 링크다.
 
-        For example::
+        예시::
 
             <url>
                 <loc>http://example.com/</loc>
                 <xhtml:link rel="alternate" hreflang="de" href="http://example.com/de"/>
             </url>
 
-        With ``sitemap_alternate_links`` set, this would retrieve both URLs. With
-        ``sitemap_alternate_links`` disabled, only ``http://example.com/`` would be
-        retrieved.
+        ``sitemap_alternate_links``\ 이 설정되어 있으면, 두 URL은 모두 획득된다. With
+        ``sitemap_alternate_links``\ 이 작동하지 않도록 설덩되어 있으면, ``http://example.com/``\ 만이
+        획득된다.
 
-        Default is ``sitemap_alternate_links`` disabled.
+        기본은 ``sitemap_alternate_links``\ 가 작동하지 않도록 되어 있다.
 
 
-SitemapSpider examples
+SitemapSpider 예제
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Simplest example: process all urls discovered through sitemaps using the
-``parse`` callback::
+가장 간단한 예제: ``parse`` 콜백을 사용해 사이트맵에서 탐색된 모든 url을 처리한다::
 
     from scrapy.spiders import SitemapSpider
 
@@ -683,8 +654,7 @@ Simplest example: process all urls discovered through sitemaps using the
         def parse(self, response):
             pass # ... scrape item here ...
 
-Process some urls with certain callback and other urls with a different
-callback::
+몇몇 url은 특정콜백으로, 다른 url은 다른 콜백으로 처리한다::
 
     from scrapy.spiders import SitemapSpider
 
@@ -701,8 +671,8 @@ callback::
         def parse_category(self, response):
             pass # ... scrape category ...
 
-Follow sitemaps defined in the `robots.txt`_ file and only follow sitemaps
-whose url contains ``/sitemap_shop``::
+`robots.txt`_ 파일에 정의된 사이트맵을 따라가고 ``/sitemap_shop``\ 를 포함한 사이트맵만
+따라간다::
 
     from scrapy.spiders import SitemapSpider
 
@@ -716,7 +686,7 @@ whose url contains ``/sitemap_shop``::
         def parse_shop(self, response):
             pass # ... scrape shop here ...
 
-Combine SitemapSpider with other sources of urls::
+SitemapSpider를 다른 url 소스와 결합한다::
 
     from scrapy.spiders import SitemapSpider
 
