@@ -9,28 +9,28 @@
 도움 받기
 =================
 
-문제가 있는가? 우리가 도움을 줄 수 있다!
+문제가 있으면 다음처럼 도움을 얻을 수 있는 방법들이 있다.
 
-* :doc:`FAQ <faq>`\ 를 확인하라 -- 이곳에는 공통적인 질문에 대한 답변이 있다.
-* 특정한 내용을 찾고 있다면? :ref:`genindex` 또는 :ref:`modindex`\ 를 참고하라.
-* 질문을 하거나 질문을 찾으려면 `StackOverflow using the scrapy tag`_\ 를 이용하라.
-* 질문을 하거나 질문을 찾으려면 `Scrapy subreddit`_\ 를 이용하라.
-* `scrapy-users mailing list`_ 아카이브에서 질문을 검색하라.
-* `#scrapy IRC channel`_\ 에서 질문하라,
-* Scrapy 버그는 `issue tracker`_\ 에 리포트하라.
+* :doc:`FAQ <faq>`\ 를 확인한다. 이곳에는 공통적인 질문에 대한 답변이 있다.
+* 특정한 내용을 찾고 있다면 :ref:`genindex` 또는 :ref:`modindex`\ 를 참고하라.
+* 질문을 하거나 질문을 찾으려면 `스택오버플로우(Stack Overflow)에서 스크래피 태그 검색`_\ 을 이용한ㄷ.
+* 질문을 하거나 질문을 찾으려면 `스크래피 서브래딧(sub-raddit)`_\ 를 이용한다.
+* `스크래피 사용자 메일링 리스트`_ 아카이브에서 질문을 검색한다.
+* `#scrapy IRC 채널`_\ 에서 질문한다,
+* 스크래피 버그는 `이슈 트래커(issue tracker)`_\ 에 이슈를 작성한다.
 
-.. _scrapy-users mailing list: https://groups.google.com/forum/#!forum/scrapy-users
-.. _Scrapy subreddit: https://www.reddit.com/r/scrapy/
-.. _StackOverflow using the scrapy tag: https://stackoverflow.com/tags/scrapy
-.. _#scrapy IRC channel: irc://irc.freenode.net/scrapy
-.. _issue tracker: https://github.com/scrapy/scrapy/issues
+.. _스크래피 사용자 메일링 리스트: https://groups.google.com/forum/#!forum/scrapy-users
+.. _스크래피 서브래딧(sub-raddit): https://www.reddit.com/r/scrapy/
+.. _스택오버플로우(Stack Overflow)에서 스크래피 태그 검색: https://stackoverflow.com/tags/scrapy
+.. _#scrapy IRC 채널: irc://irc.freenode.net/scrapy
+.. _이슈 트래커(issue tracker): https://github.com/scrapy/scrapy/issues
 
 
-첫 번째 단계
+처음 시작하기
 ======================
 
 .. toctree::
-   :caption: 첫 번째 단계
+   :caption: 처음 시작하기
    :hidden:
 
    intro/overview_ko
