@@ -1,10 +1,10 @@
 .. _topics-index_ko:
 
-==============================
-Scrapy |version| 문서
-==============================
+========================================
+스크래피(Scrapy) |version| 문서
+========================================
 
-이 문서에는 Scrapy에 대해 알아야 할 모든 것이 있다.
+이 문서에는 스크래피(Scrapy)에 대해 알아야 할 모든 것이 있다.
 
 도움 받기
 =================
@@ -33,9 +33,9 @@ Scrapy |version| 문서
    :caption: 첫 번째 단계
    :hidden:
 
-   intro/overview
-   intro/install
-   intro/tutorial
+   intro/overview_ko
+   intro/install_ko
+   intro/tutorial_ko
    intro/examples
 
 :doc:`intro/overview_ko`
@@ -59,8 +59,8 @@ Scrapy |version| 문서
    :caption: 기본 개념
    :hidden:
 
-   topics/commands
-   topics/spiders
+   topics/commands_ko
+   topics/spiders_ko
    topics/selectors
    topics/items
    topics/loaders
@@ -73,10 +73,10 @@ Scrapy |version| 문서
    topics/exceptions
 
 
-:doc:`topics/commands`
+:doc:`topics/commands_ko`
     Scrapy 프로젝트를 관리하기 위해 사용되는 커맨드라인 툴에 대배 배우기.
 
-:doc:`topics/spiders`
+:doc:`topics/spiders_ko`
     당신의 웹사이트를 크롤링하기 위한 룰 만들기.
 
 :doc:`topics/selectors`
