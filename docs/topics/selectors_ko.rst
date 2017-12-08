@@ -117,7 +117,7 @@ XPath나 CSS를 사용해 리스펀스를 쿼리하는 것은 매우 일반적�
 
 보다시피, ``.xpath()``\ 와 ``.css()`` 메서드는
 :class:`~scrapy.selector.SelectorList` 인스턴스를 반환하며, 이는 새로운
-셀렉터 리스트다. 이 API 내포된 데이터를 빠르게 선택하는 데 사용할 수 있다::
+셀렉터 리스트다. 이 API는 중첩된 데이터를 빠르게 선택하는 데 사용할 수 있다::
 
     >>> response.css('img').xpath('@src').extract()
     [u'image1_thumb.jpg',
@@ -347,14 +347,13 @@ set     \http://exslt.org/sets                   `set manipulation`_
     그러므로 정규식 함수를 XPath 표현식에서 사용하는 것은 성능 측면에서 작은 패널티를
     주게 된다.
 
-Set operations
+세트 작업
 ~~~~~~~~~~~~~~
 
-These can be handy for excluding parts of a document tree before
-extracting text elements for example.
+텍스트 요소를 추출하기 전에 문서트리의 일부를 제외시키는 것이 편리할 수 있다.
 
-Example extracting microdata (sample content taken from http://schema.org/Product)
-with groups of itemscopes and corresponding itemprops::
+아이템스코프(itemscope)와 대응하는 아이템프롭(itemprop)이 그룹이 있는 마이크로데이터를 추출하는 예제
+(샘플 컨텐츠는 http://schema.org/Product\ 에서 가져왔다::
 
     >>> doc = """
     ... <div itemscope itemtype="http://schema.org/Product">
@@ -438,77 +437,77 @@ with groups of itemscopes and corresponding itemprops::
 
     >>>
 
-Here we first iterate over ``itemscope`` elements, and for each one,
-we look for all ``itemprops`` elements and exclude those that are themselves
-inside another ``itemscope``.
+위에서 우리는 일단 ``itemscope`` 요소에 대해 반복을 했고, 각각에 대해
+모든 ``itemprops`` 요소를 찾았다. 그 다음 또다른 ``itemscope`` 안에 있는 것들을
+제외시켰다.
 
 .. _EXSLT: http://exslt.org/
 .. _regular expressions: http://exslt.org/regexp/index.html
 .. _set manipulation: http://exslt.org/set/index.html
 
 
-Some XPath tips
+XPath 팁
 ---------------
 
-Here are some tips that you may find useful when using XPath
-with Scrapy selectors, based on `this post from ScrapingHub's blog`_.
-If you are not much familiar with XPath yet,
-you may want to take a look first at this `XPath tutorial`_.
+스크래피 셀렉터로 XPath를 사용할 때 유용한 팁들이
+`this post from ScrapingHub's blog`_\ 에 있다.
+XPath에 아직 익숙하지 않다면 먼저 `XPath tutorial`_\ 을
+보는 것도 좋다.
 
 
 .. _`XPath tutorial`: http://www.zvon.org/comp/r/tut-XPath_1.html
 .. _`this post from ScrapingHub's blog`: https://blog.scrapinghub.com/2014/07/17/xpath-tips-from-the-web-scraping-trenches/
 
 
-Using text nodes in a condition
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+조건이 있는 텍스트 노드 사용하기
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When you need to use the text content as argument to an `XPath string function`_,
-avoid using ``.//text()`` and use just ``.`` instead.
+`XPath string function`_\ 에 인자로 텍스트 건텐츠를 사용할 필요가 있을 때,
+``.//text()``\ 사용을 피하고 ``.``\ 만 사용하라.
 
-This is because the expression ``.//text()`` yields a collection of text elements -- a *node-set*.
-And when a node-set is converted to a string, which happens when it is passed as argument to
-a string function like ``contains()`` or ``starts-with()``, it results in the text for the first element only.
+왜냐하면 ``.//text()`` 표현은 텍스트 요소의 집합을 생산하기 때문이다 -- *노드-세트* .
+그리고 ``contains()`` 또는 ``starts-with()`` 같은 문자열 함수에 인자로 전달돼서 노드-세트가 문자열로 변환될 때,
+첫 번째 요소에 대한 텍스트만 불러온다.
 
-Example::
+예::
 
     >>> from scrapy import Selector
     >>> sel = Selector(text='<a href="#">Click here to go to the <strong>Next Page</strong></a>')
 
-Converting a *node-set* to string::
+*노드-세트*\ 를 문자열로 변환::
 
-    >>> sel.xpath('//a//text()').extract() # take a peek at the node-set
+    >>> sel.xpath('//a//text()').extract() # 노드-셋을 본다
     [u'Click here to go to the ', u'Next Page']
-    >>> sel.xpath("string(//a[1]//text())").extract() # convert it to string
+    >>> sel.xpath("string(//a[1]//text())").extract() # 문자열로 변환한다
     [u'Click here to go to the ']
 
-A *node* converted to a string, however, puts together the text of itself plus of all its descendants::
+그러나 문자열로 변환된 *노드*\ 는 텍스트와 모든 디센던트(descendant)를 합쳐버린다::
 
-    >>> sel.xpath("//a[1]").extract() # select the first node
+    >>> sel.xpath("//a[1]").extract() # 첫 번째 노드를 선택한다
     [u'<a href="#">Click here to go to the <strong>Next Page</strong></a>']
-    >>> sel.xpath("string(//a[1])").extract() # convert it to string
+    >>> sel.xpath("string(//a[1])").extract() # 문자열로 변환한다
     [u'Click here to go to the Next Page']
 
-So, using the ``.//text()`` node-set won't select anything in this case::
+따라서, ``.//text()`` 노드-세트를 사용하는 것은 이 경우에 아무것도 선택하지 않는다::
 
     >>> sel.xpath("//a[contains(.//text(), 'Next Page')]").extract()
     []
 
-But using the ``.`` to mean the node, works::
+하지만 노드를 의미하는 ``.``\ 를 사용하면 작동한다::
 
     >>> sel.xpath("//a[contains(., 'Next Page')]").extract()
     [u'<a href="#">Click here to go to the <strong>Next Page</strong></a>']
 
 .. _`XPath string function`: https://www.w3.org/TR/xpath/#section-String-Functions
 
-Beware of the difference between //node[1] and (//node)[1]
+//node[1]와 (//node)[1]의 차이를 주의하라
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-``//node[1]`` selects all the nodes occurring first under their respective parents.
+``//node[1]``\ 는 각각의 부모 아래서 처음으로 발생하는 모든 노드를 선택한다.
 
-``(//node)[1]`` selects all the nodes in the document, and then gets only the first of them.
+``(//node)[1]``\ 는 문서 내에서 모든 노드를 선택하고, 그중 첫 번째만 가져온다.
 
-Example::
+예::
 
     >>> from scrapy import Selector
     >>> sel = Selector(text="""
@@ -524,68 +523,66 @@ Example::
     ....:     </ul>""")
     >>> xp = lambda x: sel.xpath(x).extract()
 
-This gets all first ``<li>``  elements under whatever it is its parent::
+아래는 부모에 상관없이 모든 첫 번째 ``<li>`` 요소를 가져온다::
 
     >>> xp("//li[1]")
     [u'<li>1</li>', u'<li>4</li>']
 
-And this gets the first ``<li>``  element in the whole document::
+그리고 아래는 전체 문서의 첫 번째 ``<li>`` 요소만 가져온다::
 
     >>> xp("(//li)[1]")
     [u'<li>1</li>']
 
-This gets all first ``<li>``  elements under an ``<ul>``  parent::
+아래는 ``<ul>`` 부모 아래 있는 모든 첫 번째 ``<li>`` 요소만 가지고 온다::
 
     >>> xp("//ul/li[1]")
     [u'<li>1</li>', u'<li>4</li>']
 
-And this gets the first ``<li>``  element under an ``<ul>``  parent in the whole document::
+그리고 아래는 전체 문서의 ``<ul>`` 부모 아래 있는 첫 번째 ``<li>`` 요소만 가지고 온다::
 
     >>> xp("(//ul/li)[1]")
     [u'<li>1</li>']
 
-When querying by class, consider using CSS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+클래스로 쿼리 할 때, CSS 사용을 고려하라
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Because an element can contain multiple CSS classes, the XPath way to select elements
-by class is the rather verbose::
+요소가 여러 CSS 클래스를 포함할 수 있기 때문에, 클래스로 요소를 선택하는 XPath 방식은
+다소 장황하다::
 
     *[contains(concat(' ', normalize-space(@class), ' '), ' someclass ')]
 
-If you use ``@class='someclass'`` you may end up missing elements that have
-other classes, and if you just use ``contains(@class, 'someclass')`` to make up
-for that you may end up with more elements that you want, if they have a different
-class name that shares the string ``someclass``.
+만약 ``@class='someclass'``\ 로 쓴다면 다른 클래스를 가진 요소를 놓치게 될 것이다.
+그리고 ``contains(@class, 'someclass')``\ 로 쓰면 ``someclass`` 문자열을 공유하는 다른
+클래스 이름이 있으면 원하는 것 보다 많은 요소를 얻게 된다.
 
-As it turns out, Scrapy selectors allow you to chain selectors, so most of the time
-you can just select by class using CSS and then switch to XPath when needed::
+스크래피 셀렉터는 셀렉터를 연결시켜서 사용할 수 있기 때문에, 대부분의 경우 CSS를 사용해
+클래스로 선택을 한 다음 필요할 때 XPath로 전환하면 된다::
 
     >>> from scrapy import Selector
     >>> sel = Selector(text='<div class="hero shout"><time datetime="2014-07-23 19:00">Special date</time></div>')
     >>> sel.css('.shout').xpath('./time/@datetime').extract()
     [u'2014-07-23 19:00']
 
-This is cleaner than using the verbose XPath trick shown above. Just remember
-to use the ``.`` in the XPath expressions that will follow.
+이것은 위의 장황한 XPath 트릭을 사용하는 것 보다 훨씬 깔끔하다.
+단지 뒤따르는 XPath 표현식에서 ``.``\ 를 사용하는 것을 기억하라.
 
 
 .. _topics-selectors-ref:
 
-Built-in Selectors reference
-============================
+빌트인 셀렉터 레퍼런스
+====================================
 
 .. module:: scrapy.selector
    :synopsis: Selector class
 
-Selector objects
+Selector 객체
 ----------------
 
 .. class:: Selector(response=None, text=None, type=None)
 
-  An instance of :class:`Selector` is a wrapper over response to select
-  certain parts of its content.
+  :class:`Selector` 인스턴스는 리스펀스의 래퍼(wrapper)로 컨텐츠의 특정 부분을 선택하게 해준다.
 
-  ``response`` is an :class:`~scrapy.http.HtmlResponse` or an
+  ``response``\ 는:class:`~scrapy.http.HtmlResponse` or an
   :class:`~scrapy.http.XmlResponse` object that will be used for selecting and
   extracting data.
 
