@@ -13,22 +13,22 @@
 이 튜토리얼은 다음 단계를 따라 진행된다:
 
 1. 새로운 스크래피 프로젝트 생성
-2. :ref:`spider <topics-spiders>`\ 를 작성해 웹사이트를 크롤링하고 데이터를 추출한다.
+2. :ref:`스파이더(spider) <topics-spiders>`\ 를 작성해 웹사이트를 크롤링하고 데이터를 추출한다.
 3. 추출된 스크랩 데이터를 커맨드 라인을 사용해 내보낸다.
-4. spider를 수정해 재귀적으로 링크를 따라가게 한다.
-5. spider 인수를 사용한다.
+4. 스파이더를 수정해 재귀적으로 링크를 따라가게 한다.
+5. 스파이더 인수를 사용한다.
 
 
-스크래피는 Python_\ 으로 제작되었다. 파이썬이 처음이라면 이 언어에 대해 먼저 알고 싶을 것이다.
+스크래피는 `파이썬(Python)`_\ 으로 제작되었다. 파이썬이 처음이라면 이 언어에 대해 먼저 알고 싶을 것이다.
 
 다른 언어들에 이미 익숙하고 파이썬을 빠르게 배우고 싶다면 `Dive Into Python 3`_\ 를 권장한다.
 `Python Tutorial`_\ 을 따라 연습해도 좋다.
 
-프로그래밍이 처음이고 파이썬으로 시작하고 싶다면 `Learn Python The Hard Way`_ 이 좋은 교재가 될 것이다.
-`this list of Python resources for non-programmers`_ 도 참고하라.
+프로그래밍이 처음이고 파이썬으로 시작하고 싶다면 `Learn Python The Hard Way`_\ 가 좋은 교재가 될 것이다.
+`프로그래머가 아닌 사람들을 위한 파이썬 자료 리스트`_\ 도 참고하라.
 
-.. _Python: https://www.python.org/
-.. _this list of Python resources for non-programmers: https://wiki.python.org/moin/BeginnersGuide/NonProgrammers
+.. _파이썬(Python): https://www.python.org/
+.. _프로그래머가 아닌 사람들을 위한 파이썬 자료 리스트: https://wiki.python.org/moin/BeginnersGuide/NonProgrammers
 .. _Dive Into Python 3: http://www.diveintopython3.net
 .. _Python Tutorial: https://docs.python.org/3/tutorial
 .. _Learn Python The Hard Way: http://learnpythonthehardway.org/book/
@@ -60,14 +60,15 @@
                 __init__.py
 
 
-첫번째 스파이더
+첫 번째 스파이더
 =======================
 
-스파이더는 사용자가 정의하는 클래스이며 스크래피가 웹사이트(또는 웹사이트 그룹)로부터 정보를 스크랩하기 위해 사용한다.
-스파이더는 반드시 :class:`scrapy.Spider`\ 의 하위클래스로 여야 하며 최초 리퀘스트를 정의해야 한다.
-선택적으로 페이지의 링크를 따라가는 방법과 페이지 내용물을 다운 받아 데이터를 추출할 때 파싱하는 방법을 정의할 수 있다.
+스파이더는 사용자가 정의하는 클래스이며 스크래피가 웹사이트(또는 웹사이트 그룹)로부터 정보를 스크랩할 때 사용한다.
+스파이더는 반드시 :class:`scrapy.Spider`\ 의 상속클래스여야 하며 초기 리퀘스트(request)를 정의해야 한다.
+원하는 경우 페이지의 링크를 따라가는 방법과 페이지 내용물을 다운 받아 데이터를 추출할 때 파싱하는 방법을 정의할 수 있다.
 
-다음 코드로 첫번째 스파이더를 정의해보자. 이를 프로젝트 디렉토리의 ``tutorial/spiders``\ 에 있는 ``quotes_spider.py`` 파일에 저장한다.::
+다음 코드로 첫 번째 스파이더를 정의해보자. 이를 프로젝트 디렉토리의 ``tutorial/spiders``\ 에 있는 ``quotes_spider.py``
+파일에 저장한다.::
 
     import scrapy
 
@@ -102,13 +103,13 @@
   이터러블한 리퀘스트를 리턴해야 한다(리퀘스트 리스트를 리턴하거나 제네레이터 함수를 만들면 된다).
   후속 리퀘스트는 이 최초의 리퀘스트로부터 연속적으로 생성될 것이다.
 
-* :meth:`~scrapy.spiders.Spider.parse`: 생성된 각 리퀘스트로부터 다운로드된 리스펀스를 처리하기 위해
+* :meth:`~scrapy.spiders.Spider.parse`: 생성된 각 리퀘스트로부터 다운로드된 리스펀스(response)를 처리하기 위해
   호출될 메서드. 리스펀스 파라미터는 페이지 내용을 포함하고 있는 :class:`~scrapy.http.TextResponse` 인스턴스이며
   이 인스턴스는 내용을 처리할 수 있는 유용한 메서드를 가지고 있다.
 
   :meth:`~scrapy.spiders.Spider.parse` 메서드는 보통 리스펀스를 파싱하며
   스크랩된 데이터를 딕셔너리로 추출하고 새 url을 찾아낸다.
-  이 url로부터 새로운 request(:class:`~scrapy.http.Request`)를 생성한다.
+  이 url로부터 새로운 리퀘스트(:class:`~scrapy.http.Request`)를 생성한다.
 
 스파이더 실행
 -----------------------
@@ -117,7 +118,7 @@
 
    scrapy crawl quotes
 
-이 커맨드는 우리가 앞서 추가한 ``quotes`` 명칭으로 스파이더를 실행해 ``quotes.toscrape.com`` 도메인으로 request 를 보낸다.
+이 커맨드는 우리가 앞서 추가한 ``quotes`` 명칭으로 스파이더를 실행해 ``quotes.toscrape.com`` 도메인으로 리퀘스트를 보낸다.
 다음과 같은 출력을 얻을 수 있다.::
 
     ... (omitted for brevity)
@@ -176,7 +177,7 @@ URL로부터 :class:`scrapy.Request <scrapy.http.Request>` 객체를 생성하�
 데이터 추출
 ---------------
 
-스크래피로 데이터를 추출하는 방법을 배우는 데는 :ref:`Scrapy shell <topics-shell>` 쉘을 사용한 Selector를
+스크래피로 데이터를 추출하는 방법을 배우는 데는 :ref:`스크래피 셸 <topics-shell>`\ 을 사용한 셀렉터(Selector)를
 사용 해보는 것이 가장 좋다.
 다음을 실행한다.::
 
@@ -184,7 +185,7 @@ URL로부터 :class:`scrapy.Request <scrapy.http.Request>` 객체를 생성하�
 
 .. note::
 
-   커맨드 라인에서 스크래피 쉘을 실행할 때는 url에 항상 따옴표를 둘러야 한다.
+   커맨드 라인에서 스크래피 셸을 실행할 때는 url에 항상 따옴표를 둘러야 한다.
    그렇지 않으면 url은 인자를 포함한 (예시. ``&`` 문자) url은 작동하지 않을 것이다.
 
    윈도우에서는 쌍따옴표를 사용한다.::
@@ -209,7 +210,7 @@ URL로부터 :class:`scrapy.Request <scrapy.http.Request>` 객체를 생성하�
     [s]   view(response)    View response in a browser
     >>>
 
-셀을 사용하면 response 객체와 함께 `CSS`_ 를 사용해 요소를 선택할 수 있다.::
+셀을 사용하면 리스펀스 객체와 함께 `CSS`_ 를 사용해 요소를 선택할 수 있다.::
 
     >>> response.css('title')
     [<Selector xpath='descendant-or-self::title' data='<title>Quotes to Scrape</title>'>]
@@ -218,7 +219,7 @@ URL로부터 :class:`scrapy.Request <scrapy.http.Request>` 객체를 생성하�
 형태이다. 이 객체는 :class:`~scrapy.selector.Selector` 객체의 리스트를 나타내며
 XML/HTML 요소를 감싸서 정밀한 선택이나 데이터를 추출하는 추가적인 쿼리를 사용할 수 있도록 해준다.
 
-위의 title로부터 텍스트를 추출하기 위해 다음을 실행한다.::
+위의 ``title``로부터 텍스트를 추출하기 위해 다음을 실행한다.::
 
     >>> response.css('title::text').extract()
     ['Quotes to Scrape']
@@ -243,7 +244,7 @@ XML/HTML 요소를 감싸서 정밀한 선택이나 데이터를 추출하는 �
     'Quotes to Scrape'
 
 그러나 ``.extract_first()``\ 의 사용은 ``IndexError``\ 를 피할 수 있다.
-selection 에 매치하는 요소를 찾지 못하면 ``None``\ 을 출력하게 된다.
+선택에 매치하는 요소를 찾지 못하면 ``None``\ 을 출력하게 된다.
 
 여기서 알아야 할 것이 있다. 대부분의 스크랩 코드의 경우, 사람들은 일부분이 스크랩에 실패하더라도 최소한 **일정** 데이터를 얻을 수 있도록
 페이지에서 찾을 수 없는 것들로 인해 발생하는 에러에 코드가 탄력적이기를 바랄 것이다.
@@ -258,12 +259,12 @@ selection 에 매치하는 요소를 찾지 못하면 ``None``\ 을 출력하게
     >>> response.css('title::text').re(r'(\w+) to (\w+)')
     ['Quotes', 'Scrape']
 
-적절한 CSS selector를 찾기 위해서 ``view(response)``\ 를 사용해 웹 브라우저의 쉘에서 response 페이지를 여는
-것이 유용할 것이다. 브라우저 개발자 툴이나 Firebug 와 같은 확장을 사용해도 된다.
-(:ref:`topics-firebug`\ 와 :ref:`topics-firefox`\ 를 참고하.)
+적절한 CSS 셀렉터를 찾기 위해서 ``view(response)``\ 를 사용해 웹 브라우저의 셸에서 리스펀스 페이지를 여는
+것이 유용할 것이다. 브라우저 개발자 툴이나 Firebug와 같은 확장을 사용해도 된다.
+(:ref:`topics-firebug`\ 와 :ref:`topics-firefox`\ 를 참고하라.)
 
 `Selector Gadget`_ 은 시각적으로 선택된 요소들을 위한 많은 브라우저에서
-작동하는 CSS selector를 빠르게 찾기 위한 좋은 도구이다.
+작동하는 CSS 셀렉터를 빠르게 찾기 위한 좋은 도구이다.
 
 .. _regular expressions: https://docs.python.org/3/library/re.html
 .. _Selector Gadget: http://selectorgadget.com/
@@ -272,27 +273,27 @@ selection 에 매치하는 요소를 찾지 못하면 ``None``\ 을 출력하게
 XPath: 간략한 소개
 ^^^^^^^^^^^^^^^^^^^^
 
-`CSS`_ 에 추가로 스크래피 selector는 `XPath`_\ 표현식을 지원한다.::
+`CSS`_ 에 추가로 스크래피 셀렉터는 `XPath`_\ 표현식을 지원한다.::
 
     >>> response.xpath('//title')
     [<Selector xpath='//title' data='<title>Quotes to Scrape</title>'>]
     >>> response.xpath('//title/text()').extract_first()
     'Quotes to Scrape'
 
-XPath 표현식은 아주 강력하고 스크래피 selector의 기초가 된다.
-사실 CSS selector는 밑단에서 XPath로 변환된다.
-쉘 내부 selector 객체의 텍스트 표현을 자세히 보면 이를 알 수 있다.
+XPath 표현식은 아주 강력하고 스크래피 셀렉터의 기초가 된다.
+사실 CSS 셀렉터는 밑단에서 XPath로 변환된다.
+셸 내부 셀렉터 객체의 텍스트 표현을 자세히 보면 이를 알 수 있다.
 
-CSS selector만큼 인기가 있지는 않지만 XPath 표현식은 구조를 탐색할 뿐 아니라
+CSS 셀렉터만큼 인기가 있지는 않지만 XPath 표현식은 구조를 탐색할 뿐 아니라
 내용까지 보기 때문에 더 강력한 성능을 가지고 있다.
 XPath 를 사용하면 *"Next Page" 를 포함하는 링크* 같은 것들을 선택할 수 있다.
 이러한 기능들로 인해서 XPath는 스크랩 작업에 적합하며, 그래서
-이미 CSS selector에 대해 알고 있더라도 XPath에 대해 공부하는 것을 권장한다.
-rmfjaus 스크랩을 훨씬 쉽게 할 수 있을 것이다.
+이미 CSS 셀렉터에 대해 알고 있더라도 XPath에 대해 공부하는 것을 권장한다.
+그러면r 스크랩을 훨씬 쉽게 할 수 있을 것이다.
 
-이 문서에서 XPath 에 대해 자세히 다루진 않지만 :ref:`using XPath with Scrapy Selectors here <topics-selectors>`
-에서 더 많은 정보를 얻을 수 있다. XPath 에 더 대해 배우고 싶다면 `this tutorial to learn XPath through examples <http://zvon.org/comp/r/tut-XPath_1.html>`_\ 와
-`this tutorial to learn "how to think in XPath" <http://plasmasturm.org/log/xpath101/>`_ 를 추천한다.
+이 문서에서 XPath 에 대해 자세히 다루진 않지만 :ref:`스크래피 셀렉터로 XPath 사용하기 <topics-selectors>`\
+에서 더 많은 정보를 얻을 수 있다. XPath 에 더 대해 배우고 싶다면 `예시를 통해 배우는 XPath 튜토리얼 <http://zvon.org/comp/r/tut-XPath_1.html>`_\ 과
+`"how to think in XPath" <http://plasmasturm.org/log/xpath101/>`_ 를 추천한다.
 
 .. _XPath: https://www.w3.org/TR/xpath
 .. _CSS: https://www.w3.org/TR/selectors
@@ -300,10 +301,10 @@ rmfjaus 스크랩을 훨씬 쉽게 할 수 있을 것이다.
 인용구와 작가 추출
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-이제 selection과 추출에 대해 조금 알게 되었으므로, 웹페이지에서 인용구를 추출하는 코드를 작성해서
+이제 선택과 추출에 대해 조금 알게 되었으므로, 웹페이지에서 인용구를 추출하는 코드를 작성해서
 스파이더를 완성시키자.
 
-http://quotes.toscrape.com 의 인용구는 각각 다음과 같은 HTML 요소로 나타난다:
+http://quotes.toscrape.com\ 의 인용구는 각각 다음과 같은 HTML 요소로 나타난다:
 
 .. code-block:: html
 
@@ -323,16 +324,16 @@ http://quotes.toscrape.com 의 인용구는 각각 다음과 같은 HTML 요소�
         </div>
     </div>
 
-스크래피 쉘을 열고 원하는 데이터를 추출하는 방법을 알아보자::
+스크래피 셸을 열고 원하는 데이터를 추출하는 방법을 알아보자::
 
     $ scrapy shell 'http://quotes.toscrape.com'
 
-인용구 HTML 요소의 selector 리스트를 다음과 같이 얻는다::
+인용구 HTML 요소의 셀렉터 리스트를 다음과 같이 얻는다::
 
     >>> response.css("div.quote")
 
-위의 쿼리로부터 반환된 각각의 selector에서 하위 요소에 대한 쿼리를 더 실행할 수 있다.
-첫번째 selector를 변수에 할당해 특정 인용구에 CSS selector를 바로 실행할 수 있게 하자::
+위의 쿼리로부터 반환된 각각의 셀렉터에서 하위 요소에 대한 쿼리를 더 실행할 수 있다.
+첫번째 셀렉터를 변수에 할당해 특정 인용구에 CSS 셀렉터를 바로 실행할 수 있게 하자::
 
     >>> quote = response.css("div.quote")[0]
 
@@ -451,7 +452,7 @@ http://quotes.toscrape.com\ 의 처음 두 페이지로부터 스크랩하는 �
         </li>
     </ul>
 
-쉘에서 링크를 추출해보자.::
+셸에서 링크를 추출해보자.::
 
     >>> response.css('li.next a').extract_first()
     '<a href="/page/2/">Next <span aria-hidden="true">→</span></a>'
@@ -505,10 +506,10 @@ CSS 확장을 지원한다::
 
 .. _response-follow-example:
 
-request 생성 지름길
+리퀘스트 생성 지름길
 --------------------------------
 
-request 객체를 생성하는 쉬운 방법으로 :meth:`response.follow <scrapy.http.TextResponse.follow>`\ 를 사용할
+리퀘스트 객체를 생성하는 쉬운 방법으로 :meth:`response.follow <scrapy.http.TextResponse.follow>`\ 를 사용할
 수 있다::
 
     import scrapy
@@ -533,10 +534,10 @@ request 객체를 생성하는 쉬운 방법으로 :meth:`response.follow <scrap
                 yield response.follow(next_page, callback=self.parse)
 
 scrapy.Request\ 와 달리 ``response.follow``\ 는 상대 URL을 바로 지원한다 - urljoin을 호출하지 않아도 된다.
-``response.follow``\ 는 request 인스턴스만 반환한다; 따라서 이 리퀘스트를 yield 해야 한다.
+``response.follow``\ 는 request 인스턴스만 반환한다; 따라서 이 리퀘스트를 생산해야 한다.
 
-또한 문자열 대신 ``response.follow``\ 로 selector 를 보낼 수 있다.
-이 selector 는 중요한 속성을 추출해야 한다::
+또한 문자열 대신 ``response.follow``\ 로 셀렉터 를 보낼 수 있다.
+이 셀렉터 는 중요한 속성을 추출해야 한다::
 
     for href in response.css('li.next a::attr(href)'):
         yield response.follow(href, callback=self.parse)
@@ -550,7 +551,7 @@ scrapy.Request\ 와 달리 ``response.follow``\ 는 상대 URL을 바로 지원�
 .. note::
 
     ``response.follow(response.css('li.next a'))``\ 는 유효하지 않다.
-    ``response.css``\ 는 단일 selector가 아니라 모든 결과에 대한 셀렉터를 포함하는 리스트 형태의
+    ``response.css``\ 는 단일 셀렉터가 아니라 모든 결과에 대한 셀렉터를 포함하는 리스트 형태의
     객체를 반환하기 때문이다. 위 예시에 있는 ``for`` 루프나
     ``response.follow(response.css('li.next a')[0])``\ 는 문제가 없다.
 
@@ -595,7 +596,7 @@ scrapy.Request\ 와 달리 ``response.follow``\ 는 상대 URL을 바로 지원�
 이 방법은 ``scrapy.Request``\ 에서도 사용할 수 있다.
 
 ``parse_author`` 콜백은 CSS 쿼리로부터의 데이터를 정리하고 추출하는 헬퍼 함수를 정의하며
-저자 정보가 담긴 파이썬 dict를 생산한다.
+저자 정보가 담긴 파이썬 딕셔너리를 생산한다.
 
 이 스파이더의 흥미로운 점은 동일한 작가의 인용구가 여러개 있다고 해도 작가 페이지를 여러번 방문하지 않는다는 것이다.
 디폴트에 의해 스크래피는 이미 방문했던 url로의 리퀘스트를 걸러낸다. 이는 프로그램 실수로 인한 서버 과부하를 막기 위함이다.
@@ -607,7 +608,7 @@ scrapy.Request\ 와 달리 ``response.follow``\ 는 상대 URL을 바로 지원�
 그것을 바탕으로 당신의 크롤러를 작성하는데 사용할 수 있는 소형 규칙 엔진을 구현한 일반 스파이더인
 :class:`~scrapy.spiders.CrawlSpider` 클래스를 확인해 보아라.
 
-또한 공통 패턴은 :ref:`trick to pass additional data to the callbacks
+또한 공통 패턴은 :ref:`콜백에 추가적인 데이터를 전달하는 트릭
 <topics-request-response-ref-request-callback-arguments>`\ 을 사용해서
 한 페이지 이상으로부터 데이터가 있는 아이템을 생성할 수 있다.
 
@@ -653,7 +654,7 @@ scrapy.Request\ 와 달리 ``response.follow``\ 는 상대 URL을 바로 지원�
 스파이더에 ``tag=humor`` 인자를 보내면 ``http://quotes.toscrape.com/tag/humor`` 같은
 ``humor`` 태그의 URL만 방문함을 알 수 있다.
 
-:ref:`learn more about handling spider arguments here <spiderargs>`.
+:ref:`스파이더 인자를 다루는 법에 대해 더 배우기 <spiderargs>`.
 
 다음 단계
 ==========
@@ -661,7 +662,7 @@ scrapy.Request\ 와 달리 ``response.follow``\ 는 상대 URL을 바로 지원�
 이 튜토리얼은 스크래피의 기초만 다루었고 이 외에도 많은 기능들이 있다.
 :ref:`intro-overview` 챕터의 :ref:`topics-whatelse` 섹션에서 중요한 기능들에 대한 간략한 개요를 볼 수 있다.
 
-커맨드 라인 툴, 스파이더, selector나 스크랩 데이터 모델링과 같이 튜토리얼에서 다루지 않은 것들에 대해 알고 싶다면
+커맨드 라인 툴, 스파이더, 셀렉터나 스크랩 데이터 모델링과 같이 튜토리얼에서 다루지 않은 것들에 대해 알고 싶다면
 :ref:`section-basics` 를 확인하라.
 예시 프로젝트로 배우는 것을 선호한다면 :ref:`intro-examples` 섹션을 보자.
 
