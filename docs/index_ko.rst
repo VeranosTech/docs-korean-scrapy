@@ -12,15 +12,15 @@
 문제가 있으면 다음처럼 도움을 얻을 수 있는 방법들이 있다.
 
 * :doc:`FAQ <faq>`\ 를 확인한다. 이곳에는 공통적인 질문에 대한 답변이 있다.
-* 특정한 내용을 찾고 있다면 :ref:`genindex` 또는 :ref:`modindex`\ 를 참고하라.
-* 질문을 하거나 질문을 찾으려면 `스택오버플로우(Stack Overflow)에서 스크래피 태그 검색`_\ 을 이용한다.
-* 질문을 하거나 질문을 찾으려면 `스크래피 서브래딧(sub-reddit)`_\ 를 이용한다.
-* `스크래피 사용자 메일링 리스트`_ 아카이브에서 질문을 검색한다.
-* `#scrapy IRC 채널`_\ 에서 질문한다,
-* 스크래피 버그는 `이슈 트래커(issue tracker)`_\ 에 이슈를 작성한다.
+* 특정한 내용을 찾고 있다면 :ref:`genindex` 또는 :ref:`modindex`\ 를 참고할 수 있다..
+* `스택오버플로우(Stack Overflow)에서 스크래피 태그 검색`_\ 을 이용하여 질문을 하거나 질문을 검색할 수 있다.
+* `스크래피 서브래딧(sub-raddit)`_\ 을 이용하여 질문을 하거나 질문을 검색할 수 있다.
+* `스크래피 사용자 메일링 리스트`_ 아카이브에서 질문을 검색할 수 있다.
+* `#scrapy IRC 채널`_\ 에서 질문할 수 있다.
+* 스크래피 버그는 `이슈 트래커(issue tracker)`_\ 에 이슈를 작성할 수 있다.
 
 .. _스크래피 사용자 메일링 리스트: https://groups.google.com/forum/#!forum/scrapy-users
-.. _스크래피 서브래딧(sub-reddit): https://www.reddit.com/r/scrapy/
+.. _스크래피 서브래딧(sub-raddit): https://www.reddit.com/r/scrapy/
 .. _스택오버플로우(Stack Overflow)에서 스크래피 태그 검색: https://stackoverflow.com/tags/scrapy
 .. _#scrapy IRC 채널: irc://irc.freenode.net/scrapy
 .. _이슈 트래커(issue tracker): https://github.com/scrapy/scrapy/issues
