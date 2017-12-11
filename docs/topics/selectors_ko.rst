@@ -95,7 +95,7 @@
     scrapy shell https://doc.scrapy.org/en/latest/_static/selectors-sample1.html
 
 셸이 로드되면 사용자는 ``response`` 셸 변수를 써서 사용 가능한 리스펀스와
-``response.selector` 속성으로 붙은 셀렉터를 갖게 된다.
+``response.selector`` 속성으로 붙은 셀렉터를 갖게 된다.
 
 HTML을 처리하고 있기 대문에, 셀렉터는 자동적으로 HTML 파서를 사용한다.
 
@@ -588,7 +588,7 @@ Selector 객체
   ``text``\ 는 유니코드 문자열이고 ``response``\ 가 사용 불가능할 때는 utf-8로 인코딩 텍스트가 된다.
   ``text``\ 와 ``response`` 같이 사용하는 것은 정의되지 않은 동작이다.
 
-  ``type``\ 는 셀렉터 타입을 정의한다. ``"html"``, ``"xml"`` 또는 ``None``(기본)이 될 수 있다.
+  ``type``\ 는 셀렉터 타입을 정의한다. ``"html"``, ``"xml"`` 또는 ``None`` (기본)이 될 수 있다.
 
     만약 ``type``\ 이 ``None``\ 이면, 셀렉터는 자동으로 최선의 타입(type)을 ``response`` 타입에
     기반해 고르며(아래를 참고하라), ``text``\ 와 같이 쓰이는 경우는 ``"html"``\ 이 기본으로
