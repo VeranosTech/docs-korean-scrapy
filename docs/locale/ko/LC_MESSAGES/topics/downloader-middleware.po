@@ -1,0 +1,1341 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2008-2016, Scrapy developers
+# This file is distributed under the same license as the Scrapy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Scrapy 1.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-13 13:17+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.4.0\n"
+
+#: ../docs/topics/downloader-middleware.rst:5
+msgid "Downloader Middleware"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:7
+msgid ""
+"The downloader middleware is a framework of hooks into Scrapy's "
+"request/response processing.  It's a light, low-level system for globally"
+" altering Scrapy's requests and responses."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:14
+msgid "Activating a downloader middleware"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:16
+msgid ""
+"To activate a downloader middleware component, add it to the "
+":setting:`DOWNLOADER_MIDDLEWARES` setting, which is a dict whose keys are"
+" the middleware class paths and their values are the middleware orders."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:20
+msgid "Here's an example::"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:26
+msgid ""
+"The :setting:`DOWNLOADER_MIDDLEWARES` setting is merged with the "
+":setting:`DOWNLOADER_MIDDLEWARES_BASE` setting defined in Scrapy (and not"
+" meant to be overridden) and then sorted by order to get the final sorted"
+" list of enabled middlewares: the first middleware is the one closer to "
+"the engine and the last is the one closer to the downloader. In other "
+"words, the "
+":meth:`~scrapy.downloadermiddlewares.DownloaderMiddleware.process_request`"
+" method of each middleware will be invoked in increasing middleware order"
+" (100, 200, 300, ...) and the "
+":meth:`~scrapy.downloadermiddlewares.DownloaderMiddleware.process_response`"
+" method of each middleware will be invoked in decreasing order."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:36
+msgid ""
+"To decide which order to assign to your middleware see the "
+":setting:`DOWNLOADER_MIDDLEWARES_BASE` setting and pick a value according"
+" to where you want to insert the middleware. The order does matter "
+"because each middleware performs a different action and your middleware "
+"could depend on some previous (or subsequent) middleware being applied."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:42
+msgid ""
+"If you want to disable a built-in middleware (the ones defined in "
+":setting:`DOWNLOADER_MIDDLEWARES_BASE` and enabled by default) you must "
+"define it in your project's :setting:`DOWNLOADER_MIDDLEWARES` setting and"
+" assign `None` as its value.  For example, if you want to disable the "
+"user-agent middleware::"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:52
+msgid ""
+"Finally, keep in mind that some middlewares may need to be enabled "
+"through a particular setting. See each middleware documentation for more "
+"info."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:56
+msgid "Writing your own downloader middleware"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:58
+msgid ""
+"Each middleware component is a Python class that defines one or more of "
+"the following methods:"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:65
+msgid "Any of the downloader middleware methods may also return a deferred."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:69
+msgid ""
+"This method is called for each request that goes through the download "
+"middleware."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:72
+msgid ""
+":meth:`process_request` should either: return ``None``, return a "
+":class:`~scrapy.http.Response` object, return a "
+":class:`~scrapy.http.Request` object, or raise "
+":exc:`~scrapy.exceptions.IgnoreRequest`."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:76
+msgid ""
+"If it returns ``None``, Scrapy will continue processing this request, "
+"executing all other middlewares until, finally, the appropriate "
+"downloader handler is called the request performed (and its response "
+"downloaded)."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:80
+msgid ""
+"If it returns a :class:`~scrapy.http.Response` object, Scrapy won't "
+"bother calling *any* other :meth:`process_request` or "
+":meth:`process_exception` methods, or the appropriate download function; "
+"it'll return that response. The :meth:`process_response` methods of "
+"installed middleware is always called on every response."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:85
+msgid ""
+"If it returns a :class:`~scrapy.http.Request` object, Scrapy will stop "
+"calling process_request methods and reschedule the returned request. Once"
+" the newly returned request is performed, the appropriate middleware "
+"chain will be called on the downloaded response."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:90
+msgid ""
+"If it raises an :exc:`~scrapy.exceptions.IgnoreRequest` exception, the "
+":meth:`process_exception` methods of installed downloader middleware will"
+" be called. If none of them handle the exception, the errback function of"
+" the request (``Request.errback``) is called. If no code handles the "
+"raised exception, it is ignored and not logged (unlike other exceptions)."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst
+msgid "Parameters"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:96
+msgid "the request being processed"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:99
+#: ../docs/topics/downloader-middleware.rst:157
+msgid "the spider for which this request is intended"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:104
+msgid ""
+":meth:`process_response` should either: return a "
+":class:`~scrapy.http.Response` object, return a "
+":class:`~scrapy.http.Request` object or raise a "
+":exc:`~scrapy.exceptions.IgnoreRequest` exception."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:108
+msgid ""
+"If it returns a :class:`~scrapy.http.Response` (it could be the same "
+"given response, or a brand-new one), that response will continue to be "
+"processed with the :meth:`process_response` of the next middleware in the"
+" chain."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:112
+msgid ""
+"If it returns a :class:`~scrapy.http.Request` object, the middleware "
+"chain is halted and the returned request is rescheduled to be downloaded "
+"in the future. This is the same behavior as if a request is returned from"
+" :meth:`process_request`."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:116
+msgid ""
+"If it raises an :exc:`~scrapy.exceptions.IgnoreRequest` exception, the "
+"errback function of the request (``Request.errback``) is called. If no "
+"code handles the raised exception, it is ignored and not logged (unlike "
+"other exceptions)."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:120
+msgid "the request that originated the response"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:123
+msgid "the response being processed"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:126
+msgid "the spider for which this response is intended"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:131
+msgid ""
+"Scrapy calls :meth:`process_exception` when a download handler or a "
+":meth:`process_request` (from a downloader middleware) raises an "
+"exception (including an :exc:`~scrapy.exceptions.IgnoreRequest` "
+"exception)"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:135
+msgid ""
+":meth:`process_exception` should return: either ``None``, a "
+":class:`~scrapy.http.Response` object, or a :class:`~scrapy.http.Request`"
+" object."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:138
+msgid ""
+"If it returns ``None``, Scrapy will continue processing this exception, "
+"executing any other :meth:`process_exception` methods of installed "
+"middleware, until no middleware is left and the default exception "
+"handling kicks in."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:142
+msgid ""
+"If it returns a :class:`~scrapy.http.Response` object, the "
+":meth:`process_response` method chain of installed middleware is started,"
+" and Scrapy won't bother calling any other :meth:`process_exception` "
+"methods of middleware."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:146
+msgid ""
+"If it returns a :class:`~scrapy.http.Request` object, the returned "
+"request is rescheduled to be downloaded in the future. This stops the "
+"execution of :meth:`process_exception` methods of the middleware the same"
+" as returning a response would."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:151
+msgid "the request that generated the exception"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:154
+msgid "the raised exception"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:162
+msgid ""
+"If present, this classmethod is called to create a middleware instance "
+"from a :class:`~scrapy.crawler.Crawler`. It must return a new instance of"
+" the middleware. Crawler object provides access to all Scrapy core "
+"components like settings and signals; it is a way for middleware to "
+"access them and hook its functionality into Scrapy."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:168
+msgid "crawler that uses this middleware"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:174
+msgid "Built-in downloader middleware reference"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:176
+msgid ""
+"This page describes all downloader middleware components that come with "
+"Scrapy. For information on how to use them and how to write your own "
+"downloader middleware, see the :ref:`downloader middleware usage guide "
+"<topics-downloader-middleware>`."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:181
+msgid ""
+"For a list of the components enabled by default (and their orders) see "
+"the :setting:`DOWNLOADER_MIDDLEWARES_BASE` setting."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:187
+msgid "CookiesMiddleware"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:194
+msgid ""
+"This middleware enables working with sites that require cookies, such as "
+"those that use sessions. It keeps track of cookies sent by web servers, "
+"and send them back on subsequent requests (from that spider), just like "
+"web browsers do."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:199
+msgid "The following settings can be used to configure the cookie middleware:"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:201
+msgid ":setting:`COOKIES_ENABLED`"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:202
+msgid ":setting:`COOKIES_DEBUG`"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:207
+msgid "Multiple cookie sessions per spider"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:211
+msgid ""
+"There is support for keeping multiple cookie sessions per spider by using"
+" the :reqmeta:`cookiejar` Request meta key. By default it uses a single "
+"cookie jar (session), but you can pass an identifier to use different "
+"ones."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:215
+msgid "For example::"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:221
+msgid ""
+"Keep in mind that the :reqmeta:`cookiejar` meta key is not \"sticky\". "
+"You need to keep passing it along on subsequent requests. For example::"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:233
+msgid "COOKIES_ENABLED"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:235
+#: ../docs/topics/downloader-middleware.rst:673
+#: ../docs/topics/downloader-middleware.rst:760
+#: ../docs/topics/downloader-middleware.rst:800
+#: ../docs/topics/downloader-middleware.rst:853
+#: ../docs/topics/downloader-middleware.rst:982
+msgid "Default: ``True``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:237
+msgid ""
+"Whether to enable the cookies middleware. If disabled, no cookies will be"
+" sent to web servers."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:243
+msgid "COOKIES_DEBUG"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:245
+#: ../docs/topics/downloader-middleware.rst:500
+#: ../docs/topics/downloader-middleware.rst:549
+#: ../docs/topics/downloader-middleware.rst:603
+#: ../docs/topics/downloader-middleware.rst:615
+#: ../docs/topics/downloader-middleware.rst:968
+msgid "Default: ``False``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:247
+msgid ""
+"If enabled, Scrapy will log all cookies sent in requests (ie. ``Cookie`` "
+"header) and all cookies received in responses (ie. ``Set-Cookie`` "
+"header)."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:250
+msgid "Here's an example of a log with :setting:`COOKIES_DEBUG` enabled::"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:264
+msgid "DefaultHeadersMiddleware"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:271
+msgid ""
+"This middleware sets all default requests headers specified in the "
+":setting:`DEFAULT_REQUEST_HEADERS` setting."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:275
+msgid "DownloadTimeoutMiddleware"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:282
+msgid ""
+"This middleware sets the download timeout for requests specified in the "
+":setting:`DOWNLOAD_TIMEOUT` setting or :attr:`download_timeout` spider "
+"attribute."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:288
+msgid ""
+"You can also set download timeout per-request using "
+":reqmeta:`download_timeout` Request.meta key; this is supported even when"
+" DownloadTimeoutMiddleware is disabled."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:293
+msgid "HttpAuthMiddleware"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:300
+msgid ""
+"This middleware authenticates all requests generated from certain spiders"
+" using `Basic access authentication`_ (aka. HTTP auth)."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:303
+msgid ""
+"To enable HTTP authentication from certain spiders, set the ``http_user``"
+" and ``http_pass`` attributes of those spiders."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:306
+msgid "Example::"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:322
+msgid "HttpCacheMiddleware"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:329
+msgid ""
+"This middleware provides low-level cache to all HTTP requests and "
+"responses. It has to be combined with a cache storage backend as well as "
+"a cache policy."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:332
+msgid "Scrapy ships with three HTTP cache storage backends:"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:334
+msgid ":ref:`httpcache-storage-fs`"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:335
+msgid ":ref:`httpcache-storage-dbm`"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:336
+msgid ":ref:`httpcache-storage-leveldb`"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:338
+msgid ""
+"You can change the HTTP cache storage backend with the "
+":setting:`HTTPCACHE_STORAGE` setting. Or you can also implement your own "
+"storage backend."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:341
+msgid "Scrapy ships with two HTTP cache policies:"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:343
+msgid ":ref:`httpcache-policy-rfc2616`"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:344
+msgid ":ref:`httpcache-policy-dummy`"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:346
+msgid ""
+"You can change the HTTP cache policy with the :setting:`HTTPCACHE_POLICY`"
+" setting. Or you can also implement your own policy."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:351
+msgid ""
+"You can also avoid caching a response on every policy using "
+":reqmeta:`dont_cache` meta key equals `True`."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:356
+msgid "Dummy policy (default)"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:358
+msgid ""
+"This policy has no awareness of any HTTP Cache-Control directives. Every "
+"request and its corresponding response are cached.  When the same request"
+" is seen again, the response is returned without transferring anything "
+"from the Internet."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:363
+msgid ""
+"The Dummy policy is useful for testing spiders faster (without having to "
+"wait for downloads every time) and for trying your spider offline, when "
+"an Internet connection is not available. The goal is to be able to "
+"\"replay\" a spider run *exactly as it ran before*."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:368
+#: ../docs/topics/downloader-middleware.rst:414
+msgid "In order to use this policy, set:"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:370
+msgid ":setting:`HTTPCACHE_POLICY` to ``scrapy.extensions.httpcache.DummyPolicy``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:376
+msgid "RFC2616 policy"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:378
+msgid ""
+"This policy provides a RFC2616 compliant HTTP cache, i.e. with HTTP "
+"Cache-Control awareness, aimed at production and used in continuous runs "
+"to avoid downloading unmodified data (to save bandwidth and speed up "
+"crawls)."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:382
+msgid "what is implemented:"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:384
+msgid ""
+"Do not attempt to store responses/requests with `no-store` cache-control "
+"directive set"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:385
+msgid ""
+"Do not serve responses from cache if `no-cache` cache-control directive "
+"is set even for fresh responses"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:386
+msgid "Compute freshness lifetime from `max-age` cache-control directive"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:387
+msgid "Compute freshness lifetime from `Expires` response header"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:388
+msgid ""
+"Compute freshness lifetime from `Last-Modified` response header "
+"(heuristic used by Firefox)"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:389
+msgid "Compute current age from `Age` response header"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:390
+msgid "Compute current age from `Date` header"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:391
+msgid "Revalidate stale responses based on `Last-Modified` response header"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:392
+msgid "Revalidate stale responses based on `ETag` response header"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:393
+msgid "Set `Date` header for any received response missing it"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:394
+msgid "Support `max-stale` cache-control directive in requests"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:396
+msgid ""
+"This allows spiders to be configured with the full RFC2616 cache policy, "
+"but avoid revalidation on a request-by-request basis, while remaining "
+"conformant with the HTTP spec."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:400
+msgid "Example:"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:402
+msgid ""
+"Add `Cache-Control: max-stale=600` to Request headers to accept responses"
+" that have exceeded their expiration time by no more than 600 seconds."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:405
+msgid "See also: RFC2616, 14.9.3"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:407
+msgid "what is missing:"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:409
+msgid ""
+"`Pragma: no-cache` support "
+"https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9.1"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:410
+msgid ""
+"`Vary` header support "
+"https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.6"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:411
+msgid ""
+"Invalidation after updates or deletes "
+"https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.10"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:412
+msgid "... probably others .."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:416
+msgid ""
+":setting:`HTTPCACHE_POLICY` to "
+"``scrapy.extensions.httpcache.RFC2616Policy``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:422
+msgid "Filesystem storage backend (default)"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:424
+msgid "File system storage backend is available for the HTTP cache middleware."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:426
+#: ../docs/topics/downloader-middleware.rst:461
+msgid "In order to use this storage backend, set:"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:428
+msgid ""
+":setting:`HTTPCACHE_STORAGE` to "
+"``scrapy.extensions.httpcache.FilesystemCacheStorage``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:430
+msgid ""
+"Each request/response pair is stored in a different directory containing "
+"the following files:"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:433
+msgid "``request_body`` - the plain request body"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:434
+msgid "``request_headers`` - the request headers (in raw HTTP format)"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:435
+msgid "``response_body`` - the plain response body"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:436
+msgid "``response_headers`` - the request headers (in raw HTTP format)"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:437
+msgid ""
+"``meta`` - some metadata of this cache resource in Python ``repr()`` "
+"format (grep-friendly format)"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:439
+msgid ""
+"``pickled_meta`` - the same metadata in ``meta`` but pickled for more "
+"efficient deserialization"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:442
+msgid ""
+"The directory name is made from the request fingerprint (see "
+"``scrapy.utils.request.fingerprint``), and one level of subdirectories is"
+" used to avoid creating too many files into the same directory (which is "
+"inefficient in many file systems). An example directory could be::"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:452
+msgid "DBM storage backend"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:456
+msgid "A DBM_ storage backend is also available for the HTTP cache middleware."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:458
+msgid ""
+"By default, it uses the anydbm_ module, but you can change it with the "
+":setting:`HTTPCACHE_DBM_MODULE` setting."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:463
+msgid ""
+":setting:`HTTPCACHE_STORAGE` to "
+"``scrapy.extensions.httpcache.DbmCacheStorage``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:468
+msgid "LevelDB storage backend"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:472
+msgid ""
+"A LevelDB_ storage backend is also available for the HTTP cache "
+"middleware."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:474
+msgid ""
+"This backend is not recommended for development because only one process "
+"can access LevelDB databases at the same time, so you can't run a crawl "
+"and open the scrapy shell in parallel for the same spider."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:478
+msgid "In order to use this storage backend:"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:480
+msgid ""
+"set :setting:`HTTPCACHE_STORAGE` to "
+"``scrapy.extensions.httpcache.LeveldbCacheStorage``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:481
+msgid "install `LevelDB python bindings`_ like ``pip install leveldb``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:488
+msgid "HTTPCache middleware settings"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:490
+msgid ""
+"The :class:`HttpCacheMiddleware` can be configured through the following "
+"settings:"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:496
+msgid "HTTPCACHE_ENABLED"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:502
+msgid "Whether the HTTP cache will be enabled."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:504
+msgid "Before 0.11, :setting:`HTTPCACHE_DIR` was used to enable cache."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:510
+msgid "HTTPCACHE_EXPIRATION_SECS"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:512
+msgid "Default: ``0``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:514
+msgid "Expiration time for cached requests, in seconds."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:516
+msgid ""
+"Cached requests older than this time will be re-downloaded. If zero, "
+"cached requests will never expire."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:519
+msgid "Before 0.11, zero meant cached requests always expire."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:525
+msgid "HTTPCACHE_DIR"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:527
+msgid "Default: ``'httpcache'``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:529
+msgid ""
+"The directory to use for storing the (low-level) HTTP cache. If empty, "
+"the HTTP cache will be disabled. If a relative path is given, is taken "
+"relative to the project data dir. For more info see: :ref:`topics-"
+"project-structure`."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:536
+msgid "HTTPCACHE_IGNORE_HTTP_CODES"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:540
+#: ../docs/topics/downloader-middleware.rst:635
+msgid "Default: ``[]``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:542
+msgid "Don't cache response with these HTTP codes."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:547
+msgid "HTTPCACHE_IGNORE_MISSING"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:551
+msgid ""
+"If enabled, requests not found in the cache will be ignored instead of "
+"downloaded."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:556
+msgid "HTTPCACHE_IGNORE_SCHEMES"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:560
+msgid "Default: ``['file']``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:562
+msgid "Don't cache responses with these URI schemes."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:567
+msgid "HTTPCACHE_STORAGE"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:569
+msgid "Default: ``'scrapy.extensions.httpcache.FilesystemCacheStorage'``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:571
+msgid "The class which implements the cache storage backend."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:576
+msgid "HTTPCACHE_DBM_MODULE"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:580
+msgid "Default: ``'anydbm'``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:582
+msgid ""
+"The database module to use in the :ref:`DBM storage backend <httpcache-"
+"storage-dbm>`. This setting is specific to the DBM backend."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:588
+msgid "HTTPCACHE_POLICY"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:592
+msgid "Default: ``'scrapy.extensions.httpcache.DummyPolicy'``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:594
+msgid "The class which implements the cache policy."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:599
+msgid "HTTPCACHE_GZIP"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:605
+msgid ""
+"If enabled, will compress all cached data with gzip. This setting is "
+"specific to the Filesystem backend."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:611
+msgid "HTTPCACHE_ALWAYS_STORE"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:617
+msgid "If enabled, will cache pages unconditionally."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:619
+msgid ""
+"A spider may wish to have all responses available in the cache, for "
+"future use with `Cache-Control: max-stale`, for instance. The DummyPolicy"
+" caches all responses but never revalidates them, and sometimes a more "
+"nuanced policy is desirable."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:624
+msgid ""
+"This setting still respects `Cache-Control: no-store` directives in "
+"responses. If you don't want that, filter `no-store` out of the Cache-"
+"Control headers in responses you feedto the cache middleware."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:631
+msgid "HTTPCACHE_IGNORE_RESPONSE_CACHE_CONTROLS"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:637
+msgid "List of Cache-Control directives in responses to be ignored."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:639
+msgid ""
+"Sites often set \"no-store\", \"no-cache\", \"must-revalidate\", etc., "
+"but get upset at the traffic a spider can generate if it respects those "
+"directives. This allows to selectively ignore Cache-Control directives "
+"that are known to be unimportant for the sites being crawled."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:644
+msgid ""
+"We assume that the spider will not issue Cache-Control directives in "
+"requests unless it actually needs them, so directives in requests are not"
+" filtered."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:649
+msgid "HttpCompressionMiddleware"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:656
+msgid ""
+"This middleware allows compressed (gzip, deflate) traffic to be "
+"sent/received from web sites."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:659
+msgid ""
+"This middleware also supports decoding `brotli-compressed`_ responses, "
+"provided `brotlipy`_ is installed."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:666
+msgid "HttpCompressionMiddleware Settings"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:671
+msgid "COMPRESSION_ENABLED"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:675
+msgid "Whether the Compression middleware will be enabled."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:679
+msgid "HttpProxyMiddleware"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:690
+msgid ""
+"This middleware sets the HTTP proxy to use for requests, by setting the "
+"``proxy`` meta value for :class:`~scrapy.http.Request` objects."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:693
+msgid ""
+"Like the Python standard library modules `urllib`_ and `urllib2`_, it "
+"obeys the following environment variables:"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:696
+msgid "``http_proxy``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:697
+msgid "``https_proxy``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:698
+msgid "``no_proxy``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:700
+msgid ""
+"You can also set the meta key ``proxy`` per-request, to a value like "
+"``http://some_proxy_server:port`` or "
+"``http://username:password@some_proxy_server:port``. Keep in mind this "
+"value will take precedence over ``http_proxy``/``https_proxy`` "
+"environment variables, and it will also ignore ``no_proxy`` environment "
+"variable."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:709
+msgid "RedirectMiddleware"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:716
+msgid "This middleware handles redirection of requests based on response status."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:720
+msgid ""
+"The urls which the request goes through (while being redirected) can be "
+"found in the ``redirect_urls`` :attr:`Request.meta "
+"<scrapy.http.Request.meta>` key."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:723
+msgid ""
+"The :class:`RedirectMiddleware` can be configured through the following "
+"settings (see the settings documentation for more info):"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:726
+msgid ":setting:`REDIRECT_ENABLED`"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:727
+msgid ":setting:`REDIRECT_MAX_TIMES`"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:731
+msgid ""
+"If :attr:`Request.meta <scrapy.http.Request.meta>` has ``dont_redirect`` "
+"key set to True, the request will be ignored by this middleware."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:734
+msgid ""
+"If you want to handle some redirect status codes in your spider, you can "
+"specify these in the ``handle_httpstatus_list`` spider attribute."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:737
+msgid ""
+"For example, if you want the redirect middleware to ignore 301 and 302 "
+"responses (and pass them through to your spider) you can do this::"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:743
+msgid ""
+"The ``handle_httpstatus_list`` key of :attr:`Request.meta "
+"<scrapy.http.Request.meta>` can also be used to specify which response "
+"codes to allow on a per-request basis. You can also set the meta key "
+"``handle_httpstatus_all`` to ``True`` if you want to allow any response "
+"code for a request."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:751
+msgid "RedirectMiddleware settings"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:756
+msgid "REDIRECT_ENABLED"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:762
+msgid "Whether the Redirect middleware will be enabled."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:767
+msgid "REDIRECT_MAX_TIMES"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:769
+msgid "Default: ``20``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:771
+msgid ""
+"The maximum number of redirections that will be followed for a single "
+"request."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:774
+msgid "MetaRefreshMiddleware"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:778
+msgid ""
+"This middleware handles redirection of requests based on meta-refresh "
+"html tag."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:780
+msgid ""
+"The :class:`MetaRefreshMiddleware` can be configured through the "
+"following settings (see the settings documentation for more info):"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:783
+msgid ":setting:`METAREFRESH_ENABLED`"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:784
+msgid ":setting:`METAREFRESH_MAXDELAY`"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:786
+msgid ""
+"This middleware obey :setting:`REDIRECT_MAX_TIMES` setting, "
+":reqmeta:`dont_redirect` and :reqmeta:`redirect_urls` request meta keys "
+"as described for :class:`RedirectMiddleware`"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:791
+msgid "MetaRefreshMiddleware settings"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:796
+msgid "METAREFRESH_ENABLED"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:802
+msgid "Whether the Meta Refresh middleware will be enabled."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:807
+msgid "METAREFRESH_MAXDELAY"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:809
+msgid "Default: ``100``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:811
+msgid ""
+"The maximum meta-refresh delay (in seconds) to follow the redirection. "
+"Some sites use meta-refresh for redirecting to a session expired page, so"
+" we restrict automatic redirection to the maximum delay."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:816
+msgid "RetryMiddleware"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:823
+msgid ""
+"A middleware to retry failed requests that are potentially caused by "
+"temporary problems such as a connection timeout or HTTP 500 error."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:826
+msgid ""
+"Failed pages are collected on the scraping process and rescheduled at the"
+" end, once the spider has finished crawling all regular (non failed) "
+"pages. Once there are no more failed pages to retry, this middleware "
+"sends a signal (retry_complete), so other extensions could connect to "
+"that signal."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:831
+msgid ""
+"The :class:`RetryMiddleware` can be configured through the following "
+"settings (see the settings documentation for more info):"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:834
+msgid ":setting:`RETRY_ENABLED`"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:835
+msgid ":setting:`RETRY_TIMES`"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:836
+msgid ":setting:`RETRY_HTTP_CODES`"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:840
+msgid ""
+"If :attr:`Request.meta <scrapy.http.Request.meta>` has ``dont_retry`` key"
+" set to True, the request will be ignored by this middleware."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:844
+msgid "RetryMiddleware Settings"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:849
+msgid "RETRY_ENABLED"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:855
+msgid "Whether the Retry middleware will be enabled."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:860
+msgid "RETRY_TIMES"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:862
+msgid "Default: ``2``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:864
+msgid "Maximum number of times to retry, in addition to the first download."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:866
+msgid ""
+"Maximum number of retries can also be specified per-request using "
+":reqmeta:`max_retry_times` attribute of :attr:`Request.meta "
+"<scrapy.http.Request.meta>`. When initialized, the "
+":reqmeta:`max_retry_times` meta key takes higher precedence over the "
+":setting:`RETRY_TIMES` setting."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:874
+msgid "RETRY_HTTP_CODES"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:876
+msgid "Default: ``[500, 502, 503, 504, 408]``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:878
+msgid ""
+"Which HTTP response codes to retry. Other errors (DNS lookup issues, "
+"connections lost, etc) are always retried."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:881
+msgid ""
+"In some cases you may want to add 400 to :setting:`RETRY_HTTP_CODES` "
+"because it is a common code used to indicate server overload. It is not "
+"included by default because HTTP specs say so."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:889
+msgid "RobotsTxtMiddleware"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:896
+msgid ""
+"This middleware filters out requests forbidden by the robots.txt "
+"exclusion standard."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:899
+msgid ""
+"To make sure Scrapy respects robots.txt make sure the middleware is "
+"enabled and the :setting:`ROBOTSTXT_OBEY` setting is enabled."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:904
+msgid ""
+"If :attr:`Request.meta <scrapy.http.Request.meta>` has "
+"``dont_obey_robotstxt`` key set to True the request will be ignored by "
+"this middleware even if :setting:`ROBOTSTXT_OBEY` is enabled."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:911
+msgid "DownloaderStats"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:918
+msgid ""
+"Middleware that stores stats of all requests, responses and exceptions "
+"that pass through it."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:921
+msgid ""
+"To use this middleware you must enable the :setting:`DOWNLOADER_STATS` "
+"setting."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:925
+msgid "UserAgentMiddleware"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:932
+msgid "Middleware that allows spiders to override the default user agent."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:934
+msgid ""
+"In order for a spider to override the default user agent, its "
+"`user_agent` attribute must be set."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:940
+msgid "AjaxCrawlMiddleware"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:946
+msgid ""
+"Middleware that finds 'AJAX crawlable' page variants based on meta-"
+"fragment html tag. See https://developers.google.com/webmasters/ajax-"
+"crawling/docs/getting-started for more info."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:953
+msgid ""
+"Scrapy finds 'AJAX crawlable' pages for URLs like "
+"``'http://example.com/!#foo=bar'`` even without this middleware. "
+"AjaxCrawlMiddleware is necessary when URL doesn't contain ``'!#'``. This "
+"is often a case for 'index' or 'main' website pages."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:959
+msgid "AjaxCrawlMiddleware Settings"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:964
+msgid "AJAXCRAWL_ENABLED"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:970
+msgid ""
+"Whether the AjaxCrawlMiddleware will be enabled. You may want to enable "
+"it for :ref:`broad crawls <topics-broad-crawls>`."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:974
+msgid "HttpProxyMiddleware settings"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:980
+msgid "HTTPPROXY_ENABLED"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:984
+msgid "Whether or not to enable the :class:`HttpProxyMiddleware`."
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:987
+msgid "HTTPPROXY_AUTH_ENCODING"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:989
+msgid "Default: ``\"latin-1\"``"
+msgstr ""
+
+#: ../docs/topics/downloader-middleware.rst:991
+msgid ""
+"The default encoding for proxy authentication on "
+":class:`HttpProxyMiddleware`."
+msgstr ""
+

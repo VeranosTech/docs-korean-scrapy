@@ -1,0 +1,91 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2008-2016, Scrapy developers
+# This file is distributed under the same license as the Scrapy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Scrapy 1.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-13 13:17+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.4.0\n"
+
+#: ../docs/README.rst:5
+msgid "Scrapy documentation quick start guide"
+msgstr ""
+
+#: ../docs/README.rst:7
+msgid ""
+"This file provides a quick guide on how to compile the Scrapy "
+"documentation."
+msgstr ""
+
+#: ../docs/README.rst:11
+msgid "Setup the environment"
+msgstr ""
+
+#: ../docs/README.rst:13
+msgid ""
+"To compile the documentation you need Sphinx Python library. To install "
+"it and all its dependencies run the following command from this dir"
+msgstr ""
+
+#: ../docs/README.rst:22
+msgid "Compile the documentation"
+msgstr ""
+
+#: ../docs/README.rst:24
+msgid ""
+"To compile the documentation (to classic HTML output) run the following "
+"command from this dir::"
+msgstr ""
+
+#: ../docs/README.rst:29
+msgid ""
+"Documentation will be generated (in HTML format) inside the "
+"``build/html`` dir."
+msgstr ""
+
+#: ../docs/README.rst:33
+msgid "View the documentation"
+msgstr ""
+
+#: ../docs/README.rst:35
+msgid "To view the documentation run the following command::"
+msgstr ""
+
+#: ../docs/README.rst:39
+msgid ""
+"This command will fire up your default browser and open the main page of "
+"your (previously generated) HTML documentation."
+msgstr ""
+
+#: ../docs/README.rst:44
+msgid "Start over"
+msgstr ""
+
+#: ../docs/README.rst:46
+msgid "To cleanup all generated documentation files and start from scratch run::"
+msgstr ""
+
+#: ../docs/README.rst:50
+msgid "Keep in mind that this command won't touch any documentation source files."
+msgstr ""
+
+#: ../docs/README.rst:54
+msgid "Recreating documentation on the fly"
+msgstr ""
+
+#: ../docs/README.rst:56
+msgid ""
+"There is a way to recreate the doc automatically when you make changes, "
+"you need to install watchdog (``pip install watchdog``) and then use::"
+msgstr ""
+

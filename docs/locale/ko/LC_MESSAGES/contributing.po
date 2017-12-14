@@ -1,0 +1,324 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2008-2016, Scrapy developers
+# This file is distributed under the same license as the Scrapy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Scrapy 1.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-13 13:17+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.4.0\n"
+
+#: ../docs/contributing.rst:5
+msgid "Contributing to Scrapy"
+msgstr ""
+
+#: ../docs/contributing.rst:9
+msgid ""
+"Double check you are reading the most recent version of this document at "
+"https://doc.scrapy.org/en/master/contributing.html"
+msgstr ""
+
+#: ../docs/contributing.rst:12
+msgid "There are many ways to contribute to Scrapy. Here are some of them:"
+msgstr ""
+
+#: ../docs/contributing.rst:14
+msgid ""
+"Blog about Scrapy. Tell the world how you're using Scrapy. This will help"
+" newcomers with more examples and the Scrapy project to increase its "
+"visibility."
+msgstr ""
+
+#: ../docs/contributing.rst:18
+msgid ""
+"Report bugs and request features in the `issue tracker`_, trying to "
+"follow the guidelines detailed in `Reporting bugs`_ below."
+msgstr ""
+
+#: ../docs/contributing.rst:21
+msgid ""
+"Submit patches for new functionality and/or bug fixes. Please read "
+"`Writing patches`_ and `Submitting patches`_ below for details on how to "
+"write and submit a patch."
+msgstr ""
+
+#: ../docs/contributing.rst:25
+msgid ""
+"Join the `Scrapy subreddit`_ and share your ideas on how to improve "
+"Scrapy. We're always open to suggestions."
+msgstr ""
+
+#: ../docs/contributing.rst:29
+msgid "Reporting bugs"
+msgstr ""
+
+#: ../docs/contributing.rst:33
+msgid ""
+"Please report security issues **only** to scrapy-"
+"security@googlegroups.com. This is a private list only open to trusted "
+"Scrapy developers, and its archives are not public."
+msgstr ""
+
+#: ../docs/contributing.rst:37
+msgid ""
+"Well-written bug reports are very helpful, so keep in mind the following "
+"guidelines when reporting a new bug."
+msgstr ""
+
+#: ../docs/contributing.rst:40
+msgid ""
+"check the :ref:`FAQ <faq>` first to see if your issue is addressed in a "
+"well-known question"
+msgstr ""
+
+#: ../docs/contributing.rst:43
+msgid ""
+"check the `open issues`_ to see if it has already been reported. If it "
+"has, don't dismiss the report but check the ticket history and comments, "
+"you may find additional useful information to contribute."
+msgstr ""
+
+#: ../docs/contributing.rst:47
+msgid ""
+"search the `scrapy-users`_ list and `Scrapy subreddit`_ to see if it has "
+"been discussed there, or if you're not sure if what you're seeing is a "
+"bug. You can also ask in the `#scrapy` IRC channel."
+msgstr ""
+
+#: ../docs/contributing.rst:51
+msgid ""
+"write **complete, reproducible, specific bug reports**. The smaller the "
+"test case, the better. Remember that other developers won't have your "
+"project to reproduce the bug, so please include all relevant files "
+"required to reproduce it. See for example StackOverflow's guide on "
+"creating a `Minimal, Complete, and Verifiable example`_ exhibiting the "
+"issue."
+msgstr ""
+
+#: ../docs/contributing.rst:57
+msgid ""
+"include the output of ``scrapy version -v`` so developers working on your"
+" bug know exactly which version and platform it occurred on, which is "
+"often very helpful for reproducing it, or knowing if it was already "
+"fixed."
+msgstr ""
+
+#: ../docs/contributing.rst:64
+msgid "Writing patches"
+msgstr ""
+
+#: ../docs/contributing.rst:66
+msgid ""
+"The better written a patch is, the higher chance that it'll get accepted "
+"and the sooner that will be merged."
+msgstr ""
+
+#: ../docs/contributing.rst:69
+msgid "Well-written patches should:"
+msgstr ""
+
+#: ../docs/contributing.rst:71
+msgid ""
+"contain the minimum amount of code required for the specific change. "
+"Small patches are easier to review and merge. So, if you're doing more "
+"than one change (or bug fix), please consider submitting one patch per "
+"change. Do not collapse multiple changes into a single patch. For big "
+"changes consider using a patch queue."
+msgstr ""
+
+#: ../docs/contributing.rst:77
+msgid "pass all unit-tests. See `Running tests`_ below."
+msgstr ""
+
+#: ../docs/contributing.rst:79
+msgid ""
+"include one (or more) test cases that check the bug fixed or the new "
+"functionality added. See `Writing tests`_ below."
+msgstr ""
+
+#: ../docs/contributing.rst:82
+msgid ""
+"if you're adding or changing a public (documented) API, please include "
+"the documentation changes in the same patch.  See `Documentation "
+"policies`_ below."
+msgstr ""
+
+#: ../docs/contributing.rst:87
+msgid "Submitting patches"
+msgstr ""
+
+#: ../docs/contributing.rst:89
+msgid ""
+"The best way to submit a patch is to issue a `pull request`_ on GitHub, "
+"optionally creating a new issue first."
+msgstr ""
+
+#: ../docs/contributing.rst:92
+msgid ""
+"Remember to explain what was fixed or the new functionality (what it is, "
+"why it's needed, etc). The more info you include, the easier will be for "
+"core developers to understand and accept your patch."
+msgstr ""
+
+#: ../docs/contributing.rst:96
+msgid ""
+"You can also discuss the new functionality (or bug fix) before creating "
+"the patch, but it's always good to have a patch ready to illustrate your "
+"arguments and show that you have put some additional thought into the "
+"subject. A good starting point is to send a pull request on GitHub. It "
+"can be simple enough to illustrate your idea, and leave "
+"documentation/tests for later, after the idea has been validated and "
+"proven useful. Alternatively, you can start a conversation in the `Scrapy"
+" subreddit`_ to discuss your idea first. When writing GitHub pull "
+"requests, try to keep titles short but descriptive. E.g. For bug #411: "
+"\"Scrapy hangs if an exception raises in start_requests\" prefer \"Fix "
+"hanging when exception occurs in start_requests (#411)\" instead of \"Fix"
+" for #411\". Complete titles make it easy to skim through the issue "
+"tracker."
+msgstr ""
+
+#: ../docs/contributing.rst:109
+msgid ""
+"Finally, try to keep aesthetic changes (:pep:`8` compliance, unused "
+"imports removal, etc) in separate commits than functional changes. This "
+"will make pull requests easier to review and more likely to get merged."
+msgstr ""
+
+#: ../docs/contributing.rst:114
+msgid "Coding style"
+msgstr ""
+
+#: ../docs/contributing.rst:116
+msgid ""
+"Please follow these coding conventions when writing code for inclusion in"
+" Scrapy:"
+msgstr ""
+
+#: ../docs/contributing.rst:119
+msgid "Unless otherwise specified, follow :pep:`8`."
+msgstr ""
+
+#: ../docs/contributing.rst:121
+msgid ""
+"It's OK to use lines longer than 80 chars if it improves the code "
+"readability."
+msgstr ""
+
+#: ../docs/contributing.rst:124
+msgid ""
+"Don't put your name in the code you contribute. Our policy is to keep the"
+" contributor's name in the `AUTHORS`_ file distributed with Scrapy."
+msgstr ""
+
+#: ../docs/contributing.rst:128
+msgid "Documentation policies"
+msgstr ""
+
+#: ../docs/contributing.rst:130
+msgid ""
+"**Don't** use docstrings for documenting classes, or methods which are "
+"already documented in the official (sphinx) documentation. For example, "
+"the :meth:`ItemLoader.add_value` method should be documented in the "
+"sphinx documentation, not its docstring."
+msgstr ""
+
+#: ../docs/contributing.rst:135
+msgid ""
+"**Do** use docstrings for documenting functions not present in the "
+"official (sphinx) documentation, such as functions from ``scrapy.utils`` "
+"package and its sub-modules."
+msgstr ""
+
+#: ../docs/contributing.rst:140
+msgid "Tests"
+msgstr ""
+
+#: ../docs/contributing.rst:142
+msgid ""
+"Tests are implemented using the `Twisted unit-testing framework`_, "
+"running tests requires `tox`_."
+msgstr ""
+
+#: ../docs/contributing.rst:146
+msgid "Running tests"
+msgstr ""
+
+#: ../docs/contributing.rst:148
+msgid "Make sure you have a recent enough `tox`_ installation:"
+msgstr ""
+
+#: ../docs/contributing.rst:150
+msgid "``tox --version``"
+msgstr ""
+
+#: ../docs/contributing.rst:152
+msgid "If your version is older than 1.7.0, please update it first:"
+msgstr ""
+
+#: ../docs/contributing.rst:154
+msgid "``pip install -U tox``"
+msgstr ""
+
+#: ../docs/contributing.rst:156
+msgid "To run all tests go to the root directory of Scrapy source code and run:"
+msgstr ""
+
+#: ../docs/contributing.rst:158
+msgid "``tox``"
+msgstr ""
+
+#: ../docs/contributing.rst:160
+msgid "To run a specific test (say ``tests/test_loader.py``) use:"
+msgstr ""
+
+#: ../docs/contributing.rst:162
+msgid "``tox -- tests/test_loader.py``"
+msgstr ""
+
+#: ../docs/contributing.rst:164
+msgid ""
+"To see coverage report install `coverage`_ (``pip install coverage``) and"
+" run:"
+msgstr ""
+
+#: ../docs/contributing.rst:166
+msgid "``coverage report``"
+msgstr ""
+
+#: ../docs/contributing.rst:168
+msgid ""
+"see output of ``coverage --help`` for more options like html or xml "
+"report."
+msgstr ""
+
+#: ../docs/contributing.rst:173
+msgid "Writing tests"
+msgstr ""
+
+#: ../docs/contributing.rst:175
+msgid ""
+"All functionality (including new features and bug fixes) must include a "
+"test case to check that it works as expected, so please include tests for"
+" your patches if you want them to get accepted sooner."
+msgstr ""
+
+#: ../docs/contributing.rst:179
+msgid ""
+"Scrapy uses unit-tests, which are located in the `tests/`_ directory. "
+"Their module name typically resembles the full path of the module they're"
+" testing. For example, the item loaders code is in::"
+msgstr ""
+
+#: ../docs/contributing.rst:185
+msgid "And their unit-tests are in::"
+msgstr ""
+

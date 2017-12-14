@@ -1,0 +1,843 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2008-2016, Scrapy developers
+# This file is distributed under the same license as the Scrapy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Scrapy 1.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-13 13:17+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.4.0\n"
+
+#: ../docs/intro/tutorial.rst:5
+msgid "Scrapy Tutorial"
+msgstr "스크래피(Scrapy) 튜토리얼"
+
+#: ../docs/intro/tutorial.rst:7
+msgid ""
+"In this tutorial, we'll assume that Scrapy is already installed on your "
+"system. If that's not the case, see :ref:`intro-install`."
+msgstr ""
+"이 튜토리얼은 독자의 시스템에 스크래피가 이미 설치된 것으로 간주한다. 스크래피가 없다면 :ref:`intro-install` 를 "
+"먼저 진행한다."
+
+#: ../docs/intro/tutorial.rst:10
+msgid ""
+"We are going to scrape `quotes.toscrape.com "
+"<http://quotes.toscrape.com/>`_, a website that lists quotes from famous "
+"authors."
+msgstr ""
+"우리는 `quotes.toscrape.com <http://quotes.toscrape.com/>`_ 웹사이트를 스크랩 할 것이다."
+" 웹사이트는 유명한 작가들의 구절로 구성되어 있다."
+
+#: ../docs/intro/tutorial.rst:13
+msgid "This tutorial will walk you through these tasks:"
+msgstr "이 튜토리얼은 다음 단계를 따라 진행된다:"
+
+#: ../docs/intro/tutorial.rst:15
+msgid "Creating a new Scrapy project"
+msgstr "새로운 스크래피 프로젝트 생성"
+
+#: ../docs/intro/tutorial.rst:16
+msgid "Writing a :ref:`spider <topics-spiders>` to crawl a site and extract data"
+msgstr ":ref:`스파이더(spider) <topics-spiders>`\\ 를 작성해 웹사이트를 크롤링하고 데이터를 추출한다."
+
+#: ../docs/intro/tutorial.rst:17
+msgid "Exporting the scraped data using the command line"
+msgstr "추출된 스크랩 데이터를 커맨드 라인을 사용해 내보낸다."
+
+#: ../docs/intro/tutorial.rst:18
+msgid "Changing spider to recursively follow links"
+msgstr "스파이더를 수정해 재귀적으로 링크를 따라가게 한다."
+
+#: ../docs/intro/tutorial.rst:19 ../docs/intro/tutorial.rst:673
+msgid "Using spider arguments"
+msgstr "스파이더 인수를 사용한다."
+
+#: ../docs/intro/tutorial.rst:21
+msgid ""
+"Scrapy is written in Python_. If you're new to the language you might "
+"want to start by getting an idea of what the language is like, to get the"
+" most out of Scrapy."
+msgstr "스크래피는 `파이썬(Python)`_\\ 으로 제작되었다. 파이썬이 처음이라면 이 언어에 대해 먼저 알고 싶을 것이다."
+
+
+#: ../docs/intro/tutorial.rst:25
+msgid ""
+"If you're already familiar with other languages, and want to learn Python"
+" quickly, we recommend reading through `Dive Into Python 3`_.  "
+"Alternatively, you can follow the `Python Tutorial`_."
+msgstr ""
+"다른 언어들에 이미 익숙하고 파이썬을 빠르게 배우고 싶다면 `Dive Into Python 3`_\\ 를 권장한다. `Python "
+"Tutorial`_\\ 을 따라 연습해도 좋다."
+
+#: ../docs/intro/tutorial.rst:29
+msgid ""
+"If you're new to programming and want to start with Python, you may find "
+"useful the online book `Learn Python The Hard Way`_. You can also take a "
+"look at `this list of Python resources for non-programmers`_."
+msgstr ""
+"프로그래밍이 처음이고 파이썬으로 시작하고 싶다면 `Learn Python The Hard Way`_\\ 가 좋은 교재가 될 것이다."
+" `프로그래머가 아닌 사람들을 위한 파이썬 자료 리스트`_\\ 도 참고하라."
+
+#: ../docs/intro/tutorial.rst:41
+msgid "Creating a project"
+msgstr "프로젝트 생성"
+
+#: ../docs/intro/tutorial.rst:43
+msgid ""
+"Before you start scraping, you will have to set up a new Scrapy project. "
+"Enter a directory where you'd like to store your code and run::"
+msgstr "스크랩을 시작하기 전에 새로운 스크래피 프로젝트를 생성해야 한다. 코드를 저장하고 싶은 경로에 들어가 다음을 실행한다.::"
+
+#: ../docs/intro/tutorial.rst:48
+msgid "This will create a ``tutorial`` directory with the following contents::"
+msgstr "위 코드는 ``tutorial`` 디렉토리와 다음 컨텐츠를 생성한다.::"
+
+#: ../docs/intro/tutorial.rst:69
+msgid "Our first Spider"
+msgstr "첫 번째 스파이더"
+
+#: ../docs/intro/tutorial.rst:71
+msgid ""
+"Spiders are classes that you define and that Scrapy uses to scrape "
+"information from a website (or a group of websites). They must subclass "
+":class:`scrapy.Spider` and define the initial requests to make, "
+"optionally how to follow links in the pages, and how to parse the "
+"downloaded page content to extract data."
+msgstr ""
+"스파이더는 사용자가 정의하는 클래스이며 스크래피가 웹사이트(또는 웹사이트 그룹)로부터 정보를 스크랩할 때 사용한다. 스파이더는 "
+"반드시 :class:`scrapy.Spider`\\ 의 상속클래스여야 하며 초기 리퀘스트(request)를 정의해야 한다. 원하는 "
+"경우 페이지의 링크를 따라가는 방법과 페이지 내용물을 다운 받아 데이터를 추출할 때 파싱하는 방법을 정의할 수 있다."
+
+#: ../docs/intro/tutorial.rst:77
+msgid ""
+"This is the code for our first Spider. Save it in a file named "
+"``quotes_spider.py`` under the ``tutorial/spiders`` directory in your "
+"project::"
+msgstr ""
+"다음 코드로 첫 번째 스파이더를 정의해보자. 이를 프로젝트 디렉토리의 ``tutorial/spiders``\\ 에 있는 "
+"``quotes_spider.py`` 파일에 저장한다.::"
+
+#: ../docs/intro/tutorial.rst:102
+msgid ""
+"As you can see, our Spider subclasses :class:`scrapy.Spider "
+"<scrapy.spiders.Spider>` and defines some attributes and methods:"
+msgstr ""
+"다음에서 알 수 있듯이 우리의 스파이더는 :class:`scrapy.Spider <scrapy.spiders.Spider>`\\ 의"
+" 상속 클래스이며 몇몇 특성과 메서드를 정의했다."
+
+#: ../docs/intro/tutorial.rst:105
+msgid ""
+":attr:`~scrapy.spiders.Spider.name`: identifies the Spider. It must be "
+"unique within a project, that is, you can't set the same name for "
+"different Spiders."
+msgstr ""
+":attr:`~scrapy.spiders.Spider.name`: 스파이더를 식별한다. 프로젝트 내에서 유일해야 하며, 다시 말해,"
+" 다른 스파이더에 같은 이름을 설정할 수 없다는 것을 의미한다."
+
+#: ../docs/intro/tutorial.rst:109
+msgid ""
+":meth:`~scrapy.spiders.Spider.start_requests`: must return an iterable of"
+" Requests (you can return a list of requests or write a generator "
+"function) which the Spider will begin to crawl from. Subsequent requests "
+"will be generated successively from these initial requests."
+msgstr ""
+":meth:`~scrapy.spiders.Spider.start_requests`: 반드시 스파이더가 크롤링을 시작할 수 있는 "
+"이터러블한 리퀘스트를 리턴해야 한다(리퀘스트 리스트를 리턴하거나 제네레이터 함수를 만들면 된다). 후속 리퀘스트는 이 최초의 "
+"리퀘스트로부터 연속적으로 생성될 것이다."
+
+#: ../docs/intro/tutorial.rst:114
+msgid ""
+":meth:`~scrapy.spiders.Spider.parse`: a method that will be called to "
+"handle the response downloaded for each of the requests made. The "
+"response parameter is an instance of :class:`~scrapy.http.TextResponse` "
+"that holds the page content and has further helpful methods to handle it."
+msgstr ""
+":meth:`~scrapy.spiders.Spider.parse`: 생성된 각 리퀘스트로부터 다운로드된 리스펀스(response)를"
+" 처리하기 위해 호출될 메서드. 리스펀스 파라미터는 페이지 내용을 포함하고 있는 "
+":class:`~scrapy.http.TextResponse` 인스턴스이며 이 인스턴스는 내용을 처리할 수 있는 유용한 메서드를 "
+"가지고 있다."
+
+#: ../docs/intro/tutorial.rst:119
+msgid ""
+"The :meth:`~scrapy.spiders.Spider.parse` method usually parses the "
+"response, extracting the scraped data as dicts and also finding new URLs "
+"to follow and creating new requests (:class:`~scrapy.http.Request`) from "
+"them."
+msgstr ""
+":meth:`~scrapy.spiders.Spider.parse` 메서드는 보통 리스펀스를 파싱하며 스크랩된 데이터를 딕셔너리로 "
+"추출하고 새 url을 찾아낸다. 이 url로부터 새로운 리퀘스트(:class:`~scrapy.http.Request`)를 생성한다."
+
+#: ../docs/intro/tutorial.rst:124
+msgid "How to run our spider"
+msgstr "스파이더 실행"
+
+#: ../docs/intro/tutorial.rst:126
+msgid ""
+"To put our spider to work, go to the project's top level directory and "
+"run::"
+msgstr "스파이더를 사용하기 위해 프로젝트의 최상위 디렉토리로 이동해 다음을 실행한다::"
+
+#: ../docs/intro/tutorial.rst:130
+msgid ""
+"This command runs the spider with name ``quotes`` that we've just added, "
+"that will send some requests for the ``quotes.toscrape.com`` domain. You "
+"will get an output similar to this::"
+msgstr ""
+"이 커맨드는 우리가 앞서 추가한 ``quotes`` 명칭으로 스파이더를 실행해 ``quotes.toscrape.com`` 도메인으로"
+" 리퀘스트를 보낸다. 다음과 같은 출력을 얻을 수 있다::"
+
+#: ../docs/intro/tutorial.rst:146
+msgid ""
+"Now, check the files in the current directory. You should notice that two"
+" new files have been created: *quotes-1.html* and *quotes-2.html*, with "
+"the content for the respective URLs, as our ``parse`` method instructs."
+msgstr ""
+"이제 현재 디렉토리에서 파일을 확인하자. *quotes-1.html* 와 *quotes-2.html* 두 파일이 생성되어 있어야 "
+"한다. 파일에는 각각의 url이 ``parse`` 매서드 명령에 따라 담겨 있다."
+
+#: ../docs/intro/tutorial.rst:150
+msgid ""
+"If you are wondering why we haven't parsed the HTML yet, hold on, we will"
+" cover that soon."
+msgstr "이 단계에서 HTML 파싱하지 않는 이유에 대해선 곧 다룰 것이다."
+
+#: ../docs/intro/tutorial.rst:155
+msgid "What just happened under the hood?"
+msgstr "밑단에서 일어나는 일에 대해"
+
+#: ../docs/intro/tutorial.rst:157
+msgid ""
+"Scrapy schedules the :class:`scrapy.Request <scrapy.http.Request>` "
+"objects returned by the ``start_requests`` method of the Spider. Upon "
+"receiving a response for each one, it instantiates "
+":class:`~scrapy.http.Response` objects and calls the callback method "
+"associated with the request (in this case, the ``parse`` method) passing "
+"the response as argument."
+msgstr ""
+"스크래피는 스파이더의 매서드 ``start_requests`` 에 의해 반환된 객체 :class:`scrapy.Request "
+"<scrapy.http.Request>` 를 예약한다. 각각에 대한 리스펀스를 받으면 스파이더는 "
+":class:`~scrapy.http.Response` 객체를 인스턴스화 하고 리퀘스트와 연결된 콜백 메서드를 호출하는데 리스펀스를"
+" 인자로서 전달한다(이번 경우는 ``parse`` 메서드다)."
+
+#: ../docs/intro/tutorial.rst:165
+msgid "A shortcut to the start_requests method"
+msgstr "start_requests 매서드 지름길"
+
+#: ../docs/intro/tutorial.rst:166
+msgid ""
+"Instead of implementing a :meth:`~scrapy.spiders.Spider.start_requests` "
+"method that generates :class:`scrapy.Request <scrapy.http.Request>` "
+"objects from URLs, you can just define a "
+":attr:`~scrapy.spiders.Spider.start_urls` class attribute with a list of "
+"URLs. This list will then be used by the default implementation of "
+":meth:`~scrapy.spiders.Spider.start_requests` to create the initial "
+"requests for your spider::"
+msgstr ""
+"URL로부터 :class:`scrapy.Request <scrapy.http.Request>` 객체를 생성하는 "
+":meth:`~scrapy.spiders.Spider.start_requests` 매서드를 구현하는 대신 URL 리스트를 포함하는 "
+":attr:`~scrapy.spiders.Spider.start_urls` 클래스 속성을 정의해도 된다. 이 리스트는 "
+":meth:`~scrapy.spiders.Spider.start_requests`\\ 의 디폴트 구현에서 사용되며 스파이더를 위한 "
+"첫 리퀘스트를 생성한다::"
+
+#: ../docs/intro/tutorial.rst:189
+msgid ""
+"The :meth:`~scrapy.spiders.Spider.parse` method will be called to handle "
+"each of the requests for those URLs, even though we haven't explicitly "
+"told Scrapy to do so. This happens because "
+":meth:`~scrapy.spiders.Spider.parse` is Scrapy's default callback method,"
+" which is called for requests without an explicitly assigned callback."
+msgstr ""
+":meth:`~scrapy.spiders.Spider.parse` 매서드는 우리가 명시적으로 스크래피에 명령하지 않아도 각 URL의"
+" 리퀘스트를 처리하기 위해 호출 된다. 왜냐하면 :meth:`~scrapy.spiders.Spider.parse`\\ 는 스크래피의"
+" 디폴트 콜백 메서드이기 때문이며 명시적인 콜백 할당 없이 리퀘스트를 위해 호출 된다."
+
+#: ../docs/intro/tutorial.rst:197
+msgid "Extracting data"
+msgstr "데이터 추출"
+
+#: ../docs/intro/tutorial.rst:199
+msgid ""
+"The best way to learn how to extract data with Scrapy is trying selectors"
+" using the shell :ref:`Scrapy shell <topics-shell>`. Run::"
+msgstr ""
+"스크래피로 데이터를 추출하는 방법을 배우는 데는 :ref:`스크래피 셸 <topics-shell>`\\ 을 사용한 "
+"셀렉터(Selector)를 사용 해보는 것이 가장 좋다. 다음을 실행한다.::"
+
+#: ../docs/intro/tutorial.rst:206
+msgid ""
+"Remember to always enclose urls in quotes when running Scrapy shell from "
+"command-line, otherwise urls containing arguments (ie. ``&`` character) "
+"will not work."
+msgstr ""
+"커맨드 라인에서 스크래피 셸을 실행할 때는 url에 항상 따옴표를 둘러야 한다. 그렇지 않으면 url은 인자를 포함한 (예시. "
+"``&`` 문자) url은 작동하지 않을 것이다."
+
+#: ../docs/intro/tutorial.rst:210
+msgid "On Windows, use double quotes instead::"
+msgstr "윈도우에서는 쌍따옴표를 사용한다::"
+
+#: ../docs/intro/tutorial.rst:214
+msgid "You will see something like::"
+msgstr "다음과 같이 나타날 것이다::"
+
+#: ../docs/intro/tutorial.rst:232
+msgid ""
+"Using the shell, you can try selecting elements using `CSS`_ with the "
+"response object::"
+msgstr "셀을 사용하면 리스펀스 객체와 함께 `CSS`_ 를 사용해 요소를 선택할 수 있다.::"
+
+#: ../docs/intro/tutorial.rst:238
+msgid ""
+"The result of running ``response.css('title')`` is a list-like object "
+"called :class:`~scrapy.selector.SelectorList`, which represents a list of"
+" :class:`~scrapy.selector.Selector` objects that wrap around XML/HTML "
+"elements and allow you to run further queries to fine-grain the selection"
+" or extract the data."
+msgstr ""
+"``response.css('title')`` 실행의 결과물은 :class:`~scrapy.selector.SelectorList`"
+" 로 불리는 객체로 리스트 같은 형태이다. 이 객체는 :class:`~scrapy.selector.Selector` 객체의 리스트를"
+" 나타내며 XML/HTML 요소를 감싸서 정밀한 선택이나 데이터를 추출하는 추가적인 쿼리를 사용할 수 있도록 해준다."
+
+#: ../docs/intro/tutorial.rst:244
+msgid "To extract the text from the title above, you can do::"
+msgstr "위의 ``title``\\ 로부터 텍스트를 추출하기 위해 다음을 실행한다.::"
+
+#: ../docs/intro/tutorial.rst:249
+msgid ""
+"There are two things to note here: one is that we've added ``::text`` to "
+"the CSS query, to mean we want to select only the text elements directly "
+"inside ``<title>`` element.  If we don't specify ``::text``, we'd get the"
+" full title element, including its tags::"
+msgstr ""
+"여기서 알아야 할 것은 두가지이다. 먼저 CSS 쿼리에 ``::text`` 를 추가했으며 이는 ``<title>`` 요소로부터 "
+"텍스트 요소만 선택함을 의미한다. ``::text`` 를 명시하지 않으면 title 요소 전체를 가져와 태그까지 포함하게 된다::"
+
+#: ../docs/intro/tutorial.rst:257
+msgid ""
+"The other thing is that the result of calling ``.extract()`` is a list, "
+"because we're dealing with an instance of "
+":class:`~scrapy.selector.SelectorList`.  When you know you just want the "
+"first result, as in this case, you can do::"
+msgstr ""
+"다음은 ``.extract()`` 를 호출한 결과물이 리스트라는 것이다. 이는 우리가 "
+":class:`~scrapy.selector.SelectorList` 의 인스턴스를 처리하고 있기 때문이다. 이번 예시처럼 첫번째 "
+"결과만을 원하면 다음을 실행한다.::"
+
+#: ../docs/intro/tutorial.rst:264
+msgid "As an alternative, you could've written::"
+msgstr "다음 코드로 대체할 수 있다.::"
+
+#: ../docs/intro/tutorial.rst:269
+msgid ""
+"However, using ``.extract_first()`` avoids an ``IndexError`` and returns "
+"``None`` when it doesn't find any element matching the selection."
+msgstr ""
+"그러나 ``.extract_first()``\\ 의 사용은 ``IndexError``\\ 를 피할 수 있다. 선택에 매치하는 요소를"
+" 찾지 못하면 ``None``\\ 을 출력하게 된다."
+
+#: ../docs/intro/tutorial.rst:272
+msgid ""
+"There's a lesson here: for most scraping code, you want it to be "
+"resilient to errors due to things not being found on a page, so that even"
+" if some parts fail to be scraped, you can at least get **some** data."
+msgstr ""
+"여기서 알아야 할 것이 있다. 대부분의 스크랩 코드의 경우, 사람들은 일부분이 스크랩에 실패하더라도 최소한 **일정** 데이터를 "
+"얻을 수 있도록 페이지에서 찾을 수 없는 것들로 인해 발생하는 에러에 코드가 탄력적이기를 바랄 것이다."
+
+#: ../docs/intro/tutorial.rst:276
+msgid ""
+"Besides the :meth:`~scrapy.selector.Selector.extract` and "
+":meth:`~scrapy.selector.SelectorList.extract_first` methods, you can also"
+" use the :meth:`~scrapy.selector.Selector.re` method to extract using "
+"`regular expressions`::"
+msgstr ""
+":meth:`~scrapy.selector.Selector.extract`, "
+":meth:`~scrapy.selector.SelectorList.extract_first` 매서드에 더해 "
+":meth:`~scrapy.selector.Selector.re` 매서드로 정규 표현식을 사용한 추출을 할 수 있다::"
+
+#: ../docs/intro/tutorial.rst:288
+msgid ""
+"In order to find the proper CSS selectors to use, you might find useful "
+"opening the response page from the shell in your web browser using "
+"``view(response)``. You can use your browser developer tools or "
+"extensions like Firebug (see sections about :ref:`topics-firebug` and "
+":ref:`topics-firefox`)."
+msgstr ""
+"적절한 CSS 셀렉터를 찾기 위해서 ``view(response)``\\ 를 사용해 웹 브라우저의 셸에서 리스펀스 페이지를 여는 "
+"것이 유용할 것이다. 브라우저 개발자 툴이나 Firebug와 같은 확장을 사용해도 된다. (:ref:`topics-"
+"firebug`\\ 와 :ref:`topics-firefox`\\ 를 참고하라.)"
+
+#: ../docs/intro/tutorial.rst:293
+msgid ""
+"`Selector Gadget`_ is also a nice tool to quickly find CSS selector for "
+"visually selected elements, which works in many browsers."
+msgstr ""
+"`Selector Gadget`_ 은 시각적으로 선택된 요소들을 위한 많은 브라우저에서 작동하는 CSS 셀렉터를 빠르게 찾기 위한 "
+"좋은 도구이다."
+
+#: ../docs/intro/tutorial.rst:301
+msgid "XPath: a brief intro"
+msgstr "XPath: 간략한 소개"
+
+#: ../docs/intro/tutorial.rst:303
+msgid "Besides `CSS`_, Scrapy selectors also support using `XPath`_ expressions::"
+msgstr "`CSS`_ 에 추가로 스크래피 셀렉터는 `XPath`_\\ 표현식을 지원한다.::"
+
+#: ../docs/intro/tutorial.rst:310
+msgid ""
+"XPath expressions are very powerful, and are the foundation of Scrapy "
+"Selectors. In fact, CSS selectors are converted to XPath under-the-hood. "
+"You can see that if you read closely the text representation of the "
+"selector objects in the shell."
+msgstr ""
+"XPath 표현식은 아주 강력하고 스크래피 셀렉터의 기초가 된다. 사실 CSS 셀렉터는 밑단에서 XPath로 변환된다. 셸 내부 "
+"셀렉터 객체의 텍스트 표현을 자세히 보면 이를 알 수 있다."
+
+#: ../docs/intro/tutorial.rst:315
+msgid ""
+"While perhaps not as popular as CSS selectors, XPath expressions offer "
+"more power because besides navigating the structure, it can also look at "
+"the content. Using XPath, you're able to select things like: *select the "
+"link that contains the text \"Next Page\"*. This makes XPath very fitting"
+" to the task of scraping, and we encourage you to learn XPath even if you"
+" already know how to construct CSS selectors, it will make scraping much "
+"easier."
+msgstr ""
+"CSS 셀렉터만큼 인기가 있지는 않지만 XPath 표현식은 구조를 탐색할 뿐 아니라 내용까지 보기 때문에 더 강력한 성능을 가지고 "
+"있다. XPath 를 사용하면 *\"Next Page\" 를 포함하는 링크* 같은 것들을 선택할 수 있다. 이러한 기능들로 인해서 "
+"XPath는 스크랩 작업에 적합하며, 그래서 이미 CSS 셀렉터에 대해 알고 있더라도 XPath에 대해 공부하는 것을 권장한다. "
+"그러면 스크랩을 훨씬 쉽게 할 수 있을 것이다."
+
+#: ../docs/intro/tutorial.rst:322
+msgid ""
+"We won't cover much of XPath here, but you can read more about "
+":ref:`using XPath with Scrapy Selectors here <topics-selectors>`. To "
+"learn more about XPath, we recommend `this tutorial to learn XPath "
+"through examples <http://zvon.org/comp/r/tut-XPath_1.html>`_, and `this "
+"tutorial to learn \"how to think in XPath\" "
+"<http://plasmasturm.org/log/xpath101/>`_."
+msgstr ""
+"이 문서에서 XPath 에 대해 자세히 다루진 않지만 :ref:`스크래피 셀렉터로 XPath 사용하기 <topics-"
+"selectors>`\\ 에서 더 많은 정보를 얻을 수 있다. XPath 에 더 대해 배우고 싶다면 `예시를 통해 배우는 XPath"
+" 튜토리얼 <http://zvon.org/comp/r/tut-XPath_1.html>`_\\ 과 `\"how to think in "
+"XPath\" <http://plasmasturm.org/log/xpath101/>`_ 를 추천한다."
+
+#: ../docs/intro/tutorial.rst:332
+msgid "Extracting quotes and authors"
+msgstr "인용구와 작가 추출"
+
+#: ../docs/intro/tutorial.rst:334
+msgid ""
+"Now that you know a bit about selection and extraction, let's complete "
+"our spider by writing the code to extract the quotes from the web page."
+msgstr "이제 선택과 추출에 대해 조금 알게 되었으므로, 웹페이지에서 인용구를 추출하는 코드를 작성해서 스파이더를 완성시키자."
+
+#: ../docs/intro/tutorial.rst:337
+msgid ""
+"Each quote in http://quotes.toscrape.com is represented by HTML elements "
+"that look like this:"
+msgstr "http://quotes.toscrape.com\\ 의 인용구는 각각 다음과 같은 HTML 요소로 나타난다:"
+
+#: ../docs/intro/tutorial.rst:358
+msgid ""
+"Let's open up scrapy shell and play a bit to find out how to extract the "
+"data we want::"
+msgstr "스크래피 셸을 열고 원하는 데이터를 추출하는 방법을 알아보자::"
+
+#: ../docs/intro/tutorial.rst:363
+msgid "We get a list of selectors for the quote HTML elements with::"
+msgstr "인용구 HTML 요소의 셀렉터 리스트를 다음과 같이 얻는다::"
+
+#: ../docs/intro/tutorial.rst:367
+msgid ""
+"Each of the selectors returned by the query above allows us to run "
+"further queries over their sub-elements. Let's assign the first selector "
+"to a variable, so that we can run our CSS selectors directly on a "
+"particular quote::"
+msgstr ""
+"위의 쿼리로부터 반환된 각각의 셀렉터에서 하위 요소에 대한 쿼리를 더 실행할 수 있다. 첫번째 셀렉터를 변수에 할당해 특정 인용구에"
+" CSS 셀렉터를 바로 실행할 수 있게 하자::"
+
+#: ../docs/intro/tutorial.rst:373
+msgid ""
+"Now, let's extract ``title``, ``author`` and the ``tags`` from that quote"
+" using the ``quote`` object we just created::"
+msgstr ""
+"방금 생성된 ``quote``\\ 객체를 사용해 인용구로부터 ``title``, ``author``, ``tags``\\ 를 추출해"
+" 보자::"
+
+#: ../docs/intro/tutorial.rst:383
+msgid ""
+"Given that the tags are a list of strings, we can use the ``.extract()`` "
+"method to get all of them::"
+msgstr "태그가 문자열 리스트이기 때문에 ``.extract()`` 매서드를 사용해 모두 얻을 수 있다::"
+
+#: ../docs/intro/tutorial.rst:390
+msgid ""
+"Having figured out how to extract each bit, we can now iterate over all "
+"the quotes elements and put them together into a Python dictionary::"
+msgstr "각각의 인용구를 추출하는 법을 알았으므로 이제 모든 인용구 요소에 대해 반복해서 파이썬 딕셔너리로 넣을 수 있다::"
+
+#: ../docs/intro/tutorial.rst:404
+msgid "Extracting data in our spider"
+msgstr "스파이더에서 데이터 추출"
+
+#: ../docs/intro/tutorial.rst:406
+msgid ""
+"Let's get back to our spider. Until now, it doesn't extract any data in "
+"particular, just saves the whole HTML page to a local file. Let's "
+"integrate the extraction logic above into our spider."
+msgstr ""
+"다시 스파이더로 돌아가 보자. 지금까지는 특정 데이터를 추출하진 않고 전체 HTML 페이지를 로컬 파일로 저장했다. 위의 추출 "
+"로직을 통합해 스파이더에 통합시켜보자."
+
+#: ../docs/intro/tutorial.rst:410
+msgid ""
+"A Scrapy spider typically generates many dictionaries containing the data"
+" extracted from the page. To do that, we use the ``yield`` Python keyword"
+" in the callback, as you can see below::"
+msgstr ""
+"스크래피 스파이더는 보통 페이지로부터 추출된 데이터를 담고 있는 다수의 딕셔너리를 생성한다. 이를 위해 콜백에서 ``yield`` "
+"파이썬 키워드를 사용한다. 다음과 코드와 같다::"
+
+#: ../docs/intro/tutorial.rst:432
+msgid "If you run this spider, it will output the extracted data with the log::"
+msgstr "이 스파이더를 실행하면 추출된 데이터와 로그를 출력한다.::"
+
+#: ../docs/intro/tutorial.rst:443
+msgid "Storing the scraped data"
+msgstr "스크랩 된 데이터 저장"
+
+#: ../docs/intro/tutorial.rst:445
+msgid ""
+"The simplest way to store the scraped data is by using :ref:`Feed exports"
+" <topics-feed-exports>`, with the following command::"
+msgstr ""
+"스크랩 된 데이터를 저장하는 가장 간단한 방법은 아래의 커맨드로 :ref:`Feed exports <topics-feed-"
+"exports>`\\ 를 이용하는 것이다::"
+
+#: ../docs/intro/tutorial.rst:450
+msgid ""
+"That will generate an ``quotes.json`` file containing all scraped items, "
+"serialized in `JSON`_."
+msgstr "위 커맨드는 모든 스크랩된 항목을 `JSON`_\\ 형식으로 나열한 ``quotes.json`` 파일을 생성한다."
+
+#: ../docs/intro/tutorial.rst:453
+msgid ""
+"For historic reasons, Scrapy appends to a given file instead of "
+"overwriting its contents. If you run this command twice without removing "
+"the file before the second time, you'll end up with a broken JSON file."
+msgstr ""
+"역사적인 이유에서 스크래피는 내용을 덮어쓰지 않고 주어진 파일에 내용을 추가한다. 이로 인해 파일을 제거하지 않고 위 커맨드를 두 "
+"번 실행하면 손상된 JSON 파일이 된다."
+
+#: ../docs/intro/tutorial.rst:457
+msgid "You can also use other formats, like `JSON Lines`_::"
+msgstr "`JSON Lines`_\\ 과 같은 다른 형식을 사용할 수도 있다::"
+
+#: ../docs/intro/tutorial.rst:461
+msgid ""
+"The `JSON Lines`_ format is useful because it's stream-like, you can "
+"easily append new records to it. It doesn't have the same problem of JSON"
+" when you run twice. Also, as each record is a separate line, you can "
+"process big files without having to fit everything in memory, there are "
+"tools like `JQ`_ to help doing that at the command-line."
+msgstr ""
+"`JSON Lines`_ 형식은 stream_like하기 때문에 새로운 기록을 쉽게 추가할 수 있어서 유용하다. 두 번 실행했을 때"
+" JSON과 같은 문제가 발생하지 않는다. 각각의 기록은 다른 라인에 기록되기 때문에 모든 것을 메모리에 맞추지 않아도 큰 파일을 "
+"처리할 수 있고, 머캔드라인에서 그런 작업을 할수 있게 돕는 `JQ`_\\ 라는 툴도 있다."
+
+#: ../docs/intro/tutorial.rst:467
+msgid ""
+"In small projects (like the one in this tutorial), that should be enough."
+" However, if you want to perform more complex things with the scraped "
+"items, you can write an :ref:`Item Pipeline <topics-item-pipeline>`. A "
+"placeholder file for Item Pipelines has been set up for you when the "
+"project is created, in ``tutorial/pipelines.py``. Though you don't need "
+"to implement any item pipelines if you just want to store the scraped "
+"items."
+msgstr ""
+"이번 튜토리얼과 같이 작은 프로젝트에서는 필요하지 않지만 스크랩된 항목으로 보다 복잡한 일을 수행하고 싶으면 :ref:`Item "
+"Pipeline <topics-item-pipeline>`\\ 를 작성하라. 아이템 파이프라인을 위한 placeholder 파일은 "
+"프로젝트가 생성될 때 ``tutorial/pipelines.py``\\ 에 세팅되어 있다. 스크랩된 항목들을 저장만 하고 싶다면 "
+"아이템 파이프라인을 사용하지 않아도 된다."
+
+#: ../docs/intro/tutorial.rst:479
+msgid "Following links"
+msgstr "링크 따라가기"
+
+#: ../docs/intro/tutorial.rst:481
+msgid ""
+"Let's say, instead of just scraping the stuff from the first two pages "
+"from http://quotes.toscrape.com, you want quotes from all the pages in "
+"the website."
+msgstr ""
+"http://quotes.toscrape.com\\ 의 처음 두 페이지로부터 스크랩하는 대신 모든 페이지로부터 인용구를 얻고 싶다고"
+" 헤보자."
+
+#: ../docs/intro/tutorial.rst:484
+msgid ""
+"Now that you know how to extract data from pages, let's see how to follow"
+" links from them."
+msgstr "페이지로부터 데이터를 추출하는 방법은 알고 있으므로 페이지에서 링크를 따라가는 방법을 알아보자."
+
+#: ../docs/intro/tutorial.rst:487
+msgid ""
+"First thing is to extract the link to the page we want to follow.  "
+"Examining our page, we can see there is a link to the next page with the "
+"following markup:"
+msgstr ""
+"첫 번째는 따라가려고 하는 페이지로 향하는 링크를 추출하는 것이다. 페이지를 조사해보면 아래의 마크업으로 표시된 다음 페이지로 가는"
+" 링크가 있는 것을 볼 수 있다:"
+
+#: ../docs/intro/tutorial.rst:499
+msgid "We can try extracting it in the shell::"
+msgstr "셸에서 링크를 추출해보자.::"
+
+#: ../docs/intro/tutorial.rst:504
+msgid ""
+"This gets the anchor element, but we want the attribute ``href``. For "
+"that, Scrapy supports a CSS extension that let's you select the attribute"
+" contents, like this::"
+msgstr ""
+"앵커 요소를 얻었지만 ``href`` 속성이 필요하다. 이를 위해 스크래피는 다음과 같이 속성 컨텐츠를 선택할 수 있는 CSS "
+"확장을 지원한다::"
+
+#: ../docs/intro/tutorial.rst:511
+msgid ""
+"Let's see now our spider modified to recursively follow the link to the "
+"next page, extracting data from it::"
+msgstr "재귀적으로 다음페이지 링크를 따라가고 데이터를 추출하는 수정된 스파이더를 보자::"
+
+#: ../docs/intro/tutorial.rst:537
+msgid ""
+"Now, after extracting the data, the ``parse()`` method looks for the link"
+" to the next page, builds a full absolute URL using the "
+":meth:`~scrapy.http.Response.urljoin` method (since the links can be "
+"relative) and yields a new request to the next page, registering itself "
+"as callback to handle the data extraction for the next page and to keep "
+"the crawling going through all the pages."
+msgstr ""
+"데이터를 추출한 후에 ``parse()`` 매서드는 다음 페이지 링크를 찾고 "
+":meth:`~scrapy.http.Response.urljoin` 메서드를 사용해 (링크가 상대적일 수 있기 때문에) 절대 "
+"URL을 생성하고 다음 페이지를 위한 새로운 리퀘스트를 생산하고, 자기 자신을 콜백으로 등록해 다음 페이지의 데이터를 추출하고 그런"
+" 식으로 모든 페이지를 크롤링한다."
+
+#: ../docs/intro/tutorial.rst:544
+msgid ""
+"What you see here is Scrapy's mechanism of following links: when you "
+"yield a Request in a callback method, Scrapy will schedule that request "
+"to be sent and register a callback method to be executed when that "
+"request finishes."
+msgstr ""
+"여기서 본 것이 스크래피가 링크를 따라가는 메카니즘이다: 콜백 매서드에서 리퀘스트를 생성할 때 스크래피는 리퀘스트가 보내지도록 "
+"예약하고 리퀘스트가 끝났을 때 실행되도록 콜백 메서드를 들옥한다."
+
+#: ../docs/intro/tutorial.rst:548
+msgid ""
+"Using this, you can build complex crawlers that follow links according to"
+" rules you define, and extract different kinds of data depending on the "
+"page it's visiting."
+msgstr "이 방법으로 지정한 규칙대로 링크를 따라가는 복잡한 크롤러를 만들어 방문한 페이지에 따라 다양한 종류의 데이터를 추출할 수 있다."
+
+#: ../docs/intro/tutorial.rst:552
+msgid ""
+"In our example, it creates a sort of loop, following all the links to the"
+" next page until it doesn't find one -- handy for crawling blogs, forums "
+"and other sites with pagination."
+msgstr ""
+"이번 예시에서 다음 페이지를 찾을 수 없을 때까지 다음 페이지를 따라가는 루프를 만들었다 -- 이는 번호 표시줄이 있는 블로그, "
+"포럼 등의 사이트를 크롤링하는데 유용하다."
+
+#: ../docs/intro/tutorial.rst:560
+msgid "A shortcut for creating Requests"
+msgstr "리퀘스트 생성 지름길"
+
+#: ../docs/intro/tutorial.rst:562
+msgid ""
+"As a shortcut for creating Request objects you can use "
+":meth:`response.follow <scrapy.http.TextResponse.follow>`::"
+msgstr ""
+"리퀘스트 객체를 생성하는 쉬운 방법으로 :meth:`response.follow "
+"<scrapy.http.TextResponse.follow>`\\ 를 사용할 수 있다::"
+
+#: ../docs/intro/tutorial.rst:586
+msgid ""
+"Unlike scrapy.Request, ``response.follow`` supports relative URLs "
+"directly - no need to call urljoin. Note that ``response.follow`` just "
+"returns a Request instance; you still have to yield this Request."
+msgstr ""
+"scrapy.Request\\ 와 달리 ``response.follow``\\ 는 상대 URL을 바로 지원한다 - urljoin을 "
+"호출하지 않아도 된다. ``response.follow``\\ 는 request 인스턴스만 반환한다; 따라서 이 리퀘스트를 생산해야"
+" 한다."
+
+#: ../docs/intro/tutorial.rst:590
+msgid ""
+"You can also pass a selector to ``response.follow`` instead of a string; "
+"this selector should extract necessary attributes::"
+msgstr "또한 문자열 대신 ``response.follow``\\ 로 셀렉터 를 보낼 수 있다. 이 셀렉터 는 중요한 속성을 추출해야 한다::"
+
+#: ../docs/intro/tutorial.rst:596
+msgid ""
+"For ``<a>`` elements there is a shortcut: ``response.follow`` uses their "
+"href attribute automatically. So the code can be shortened further::"
+msgstr ""
+"``<a>`` 요소의 경우 간단한 방법이 있다: ``response.follow`` 는 요소의 href 인자를 자동으로 사용한다. "
+"따라서 코드는 다음과 같이 간결해진다::"
+
+#: ../docs/intro/tutorial.rst:604
+msgid ""
+"``response.follow(response.css('li.next a'))`` is not valid because "
+"``response.css`` returns a list-like object with selectors for all "
+"results, not a single selector. A ``for`` loop like in the example above,"
+" or ``response.follow(response.css('li.next a')[0])`` is fine."
+msgstr ""
+"``response.follow(response.css('li.next a'))``\\ 는 유효하지 않다. "
+"``response.css``\\ 는 단일 셀렉터가 아니라 모든 결과에 대한 셀렉터를 포함하는 리스트 형태의 객체를 반환하기 "
+"때문이다. 위 예시에 있는 ``for`` 루프나 ``response.follow(response.css('li.next "
+"a')[0])``\\ 는 문제가 없다."
+
+#: ../docs/intro/tutorial.rst:610
+msgid "More examples and patterns"
+msgstr "추가 예시와 패턴"
+
+#: ../docs/intro/tutorial.rst:612
+msgid ""
+"Here is another spider that illustrates callbacks and following links, "
+"this time for scraping author information::"
+msgstr "다음 스파이더는 콜백과 링크 따라라기를 보여주는 또 다른 스파이더다. 이번에는 저자 정보를 스크랩한다::"
+
+#: ../docs/intro/tutorial.rst:642
+msgid ""
+"This spider will start from the main page, it will follow all the links "
+"to the authors pages calling the ``parse_author`` callback for each of "
+"them, and also the pagination links with the ``parse`` callback as we saw"
+" before."
+msgstr ""
+"이 스파이더는 메인 페이지에서 시작해 작가 페이지로의 모든 링크를 따라간다. 이 과정에서 매번 ``parse_author`` 콜백을"
+" 호출하고 앞서 본 것과 같이 ``parse`` 콜백으로 번호줄 링크까지 따라간다."
+
+#: ../docs/intro/tutorial.rst:646
+msgid ""
+"Here we're passing callbacks to ``response.follow`` as positional "
+"arguments to make the code shorter; it also works for ``scrapy.Request``."
+msgstr ""
+"여기서 우리는 콜백을 위치 인자로서 ``response.follow``\\ 로 보내 코드를 간결하게 했다. 이 방법은 "
+"``scrapy.Request``\\ 에서도 사용할 수 있다."
+#: ../docs/intro/tutorial.rst:649
+msgid ""
+"The ``parse_author`` callback defines a helper function to extract and "
+"cleanup the data from a CSS query and yields the Python dict with the "
+"author data."
+msgstr ""
+"``parse_author`` 콜백은 CSS 쿼리로부터의 데이터를 정리하고 추출하는 헬퍼 함수를 정의하며 저자 정보가 담긴 파이썬 "
+"딕셔너리를 생산한다."
+
+#: ../docs/intro/tutorial.rst:652
+msgid ""
+"Another interesting thing this spider demonstrates is that, even if there"
+" are many quotes from the same author, we don't need to worry about "
+"visiting the same author page multiple times. By default, Scrapy filters "
+"out duplicated requests to URLs already visited, avoiding the problem of "
+"hitting servers too much because of a programming mistake. This can be "
+"configured by the setting :setting:`DUPEFILTER_CLASS`."
+msgstr ""
+"이 스파이더의 흥미로운 점은 동일한 작가의 인용구가 여러개 있다고 해도 작가 페이지를 여러번 방문하지 않는다는 것이다. 디폴트에 "
+"의해 스크래피는 이미 방문했던 url로의 리퀘스트를 걸러낸다. 이는 프로그램 실수로 인한 서버 과부하를 막기 위함이다. 이 기능은 "
+":setting:`DUPEFILTER_CLASS`\\ 를 세팅해서 설정을 바꿀 수 있다.."
+
+#: ../docs/intro/tutorial.rst:659
+msgid ""
+"Hopefully by now you have a good understanding of how to use the "
+"mechanism of following links and callbacks with Scrapy."
+msgstr "이제 스크래피로 링크를 따라가고 콜백을 사용하는 매카니즘을 이해했을 것이다."
+
+#: ../docs/intro/tutorial.rst:662
+msgid ""
+"As yet another example spider that leverages the mechanism of following "
+"links, check out the :class:`~scrapy.spiders.CrawlSpider` class for a "
+"generic spider that implements a small rules engine that you can use to "
+"write your crawlers on top of it."
+msgstr ""
+"링크 따라가기 메카니즘을 활용하는 예시 스파이더로 그것을 바탕으로 당신의 크롤러를 작성하는데 사용할 수 있는 소형 규칙 엔진을 "
+"구현한 일반 스파이더인 :class:`~scrapy.spiders.CrawlSpider` 클래스를 확인해 보아라."
+
+#: ../docs/intro/tutorial.rst:667
+msgid ""
+"Also, a common pattern is to build an item with data from more than one "
+"page, using a :ref:`trick to pass additional data to the callbacks "
+"<topics-request-response-ref-request-callback-arguments>`."
+msgstr ""
+"또한 공통 패턴은 :ref:`콜백에 추가적인 데이터를 전달하는 트릭 <topics-request-response-ref-"
+"request-callback-arguments>`\\ 을 사용해서 한 페이지 이상으로부터 데이터가 있는 아이템을 생성할 수 있다."
+
+#: ../docs/intro/tutorial.rst:675
+msgid ""
+"You can provide command line arguments to your spiders by using the "
+"``-a`` option when running them::"
+msgstr "스파이더를 실행할 때 ``-a`` 옵션을 사용해 커맨드 라인 인자를 제공할 수 있다::"
+
+#: ../docs/intro/tutorial.rst:680
+msgid ""
+"These arguments are passed to the Spider's ``__init__`` method and become"
+" spider attributes by default."
+msgstr "이 인자들은 스파이더의 ``__init__`` 메서드로 보내져 기본적으로 스파이더 속성이 된다."
+
+#: ../docs/intro/tutorial.rst:683
+msgid ""
+"In this example, the value provided for the ``tag`` argument will be "
+"available via ``self.tag``. You can use this to make your spider fetch "
+"only quotes with a specific tag, building the URL based on the argument::"
+msgstr ""
+"이번 예시에서 ``tag`` 인자로 제공된 값들은 ``self.tag``\\ 를 통해 사용 가능해 진다. 이 기능을 사용해 인자에 "
+"기반해 URL을 생성하고 스파이더가 특정 태그를 가진 인용구만 가져오도록 만들 수 있다::"
+
+#: ../docs/intro/tutorial.rst:712
+msgid ""
+"If you pass the ``tag=humor`` argument to this spider, you'll notice that"
+" it will only visit URLs from the ``humor`` tag, such as "
+"``http://quotes.toscrape.com/tag/humor``."
+msgstr ""
+"스파이더에 ``tag=humor`` 인자를 보내면 ``http://quotes.toscrape.com/tag/humor`` 같은 "
+"``humor`` 태그의 URL만 방문함을 알 수 있다."
+
+#: ../docs/intro/tutorial.rst:716
+msgid ""
+"You can :ref:`learn more about handling spider arguments here "
+"<spiderargs>`."
+msgstr ":ref:`스파이더 인자를 다루는 법에 대해 더 배우기 <spiderargs>`."
+
+#: ../docs/intro/tutorial.rst:719
+msgid "Next steps"
+msgstr "다음 단계"
+
+#: ../docs/intro/tutorial.rst:721
+msgid ""
+"This tutorial covered only the basics of Scrapy, but there's a lot of "
+"other features not mentioned here. Check the :ref:`topics-whatelse` "
+"section in :ref:`intro-overview` chapter for a quick overview of the most"
+" important ones."
+msgstr ""
+"이 튜토리얼은 스크래피의 기초만 다루었고 이 외에도 많은 기능들이 있다. :ref:`intro-overview` 챕터의 :ref"
+":`topics-whatelse` 섹션에서 중요한 기능들에 대한 간략한 개요를 볼 수 있다."
+
+#: ../docs/intro/tutorial.rst:725
+msgid ""
+"You can continue from the section :ref:`section-basics` to know more "
+"about the command-line tool, spiders, selectors and other things the "
+"tutorial hasn't covered like modeling the scraped data. If you prefer to "
+"play with an example project, check the :ref:`intro-examples` section."
+msgstr ""
+"커맨드 라인 툴, 스파이더, 셀렉터나 스크랩 데이터 모델링과 같이 튜토리얼에서 다루지 않은 것들에 대해 알고 싶다면 :ref"
+":`section-basics` 를 확인하라. 예시 프로젝트로 배우는 것을 선호한다면 :ref:`intro-examples` 섹션을"
+" 보자."

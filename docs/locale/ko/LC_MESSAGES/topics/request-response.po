@@ -1,0 +1,1152 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2008-2016, Scrapy developers
+# This file is distributed under the same license as the Scrapy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Scrapy 1.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-13 13:17+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.4.0\n"
+
+#: ../docs/topics/request-response.rst:5
+msgid "Requests and Responses"
+msgstr "리퀘스트(Requests)와 리스펀스(Responses)"
+
+#: ../docs/topics/request-response.rst:10
+msgid ""
+"Scrapy uses :class:`Request` and :class:`Response` objects for crawling "
+"web sites."
+msgstr "스크래피(Scrapy)는 웹사이트 크롤링에 :class:`Request`\\ 와 :class:`Response` 객체를 사용한다."
+
+#: ../docs/topics/request-response.rst:13
+msgid ""
+"Typically, :class:`Request` objects are generated in the spiders and pass"
+" across the system until they reach the Downloader, which executes the "
+"request and returns a :class:`Response` object which travels back to the "
+"spider that issued the request."
+msgstr ""
+"일반적으로, :class:`Request` 객체는 스파이더 내에서 생성되고 시스템을 지나서 다운로더(Downloader)에 "
+"도달한다. 다운로더는 리퀘스트를 실행하고 :class:`Response` 객체를 반환하는데 이 객체는 리퀘스트를 생성했던 스파이더로"
+" 돌아간다."
+
+#: ../docs/topics/request-response.rst:18
+msgid ""
+"Both :class:`Request` and :class:`Response` classes have subclasses which"
+" add functionality not required in the base classes. These are described "
+"below in :ref:`topics-request-response-ref-request-subclasses` and :ref"
+":`topics-request-response-ref-response-subclasses`."
+msgstr ""
+":class:`Request`\\ 와 :class:`Response` 클래스는 모두 베이스 클래스에서 필요하지 않은 기능을 추가하는"
+" 상속클래스를 가지고 있다. 이 기능은 아래에 :ref:`topics-request-response-ref-request-"
+"subclasses`\\ 와 :ref:`topics-request-response-ref-response-subclasses`\\ "
+"에서 설명하고 있다."
+
+#: ../docs/topics/request-response.rst:25
+msgid "Request objects"
+msgstr "리퀘스트 객체"
+
+#: ../docs/topics/request-response.rst:29
+msgid ""
+"A :class:`Request` object represents an HTTP request, which is usually "
+"generated in the Spider and executed by the Downloader, and thus "
+"generating a :class:`Response`."
+msgstr ""
+":class:`Request` 객체는 HTTP 리퀘스트를 나타내며, 스파이더에서 생성되고 다운로드에서 실행된다. 그 결과로 "
+":class:`Response`\\ 를 생성한다."
+
+#: ../docs/topics/request-response.rst
+msgid "Parameters"
+msgstr "Parameters"
+
+#: ../docs/topics/request-response.rst:33
+msgid "the URL of this request"
+msgstr "이 리퀘스트의 URL"
+
+#: ../docs/topics/request-response.rst:36
+msgid ""
+"the function that will be called with the response of this request (once "
+"its downloaded) as its first parameter. For more information see :ref"
+":`topics-request-response-ref-request-callback-arguments` below. If a "
+"Request doesn't specify a callback, the spider's "
+":meth:`~scrapy.spiders.Spider.parse` method will be used. Note that if "
+"exceptions are raised during processing, errback is called instead."
+msgstr ""
+"첫 번째 파라미터로서 이 리퀘스트의 (다운로드된) 리스펀스를 받아서 호출되는 함수. 상세한 정보는 아래의 :ref:`topics-"
+"request-response-ref-request-callback-arguments`\\ 를 참고하라. 리퀘스트가 "
+"콜백(callback)을 지정하지 않으면 스파이더의 :meth:`~scrapy.spiders.Spider.parse` 메서드가 "
+"사용될 것이다. 처리중에 예외가 발셍하면, 에러백(errback)이 대신 호출된다."
+
+#: ../docs/topics/request-response.rst:45
+msgid "the HTTP method of this request. Defaults to ``'GET'``."
+msgstr "이 리퀘스트의 HTTP 메서드, 디폴트는 ``'GET'``\\ 이다."
+
+#: ../docs/topics/request-response.rst:48
+msgid ""
+"the initial values for the :attr:`Request.meta` attribute. If given, the "
+"dict passed in this parameter will be shallow copied."
+msgstr ""
+":attr:`Request.meta` 속성의 초기 값은. 주어졌다면 이 파라미터에 전달된 딕셔너리가 쉘로우(shallow) 복사될 "
+"것이다."
+
+#: ../docs/topics/request-response.rst:52
+msgid ""
+"the request body. If a ``unicode`` is passed, then it's encoded to "
+"``str`` using the `encoding` passed (which defaults to ``utf-8``). If "
+"``body`` is not given, an empty string is stored. Regardless of the type "
+"of this argument, the final value stored will be a ``str`` (never "
+"``unicode`` or ``None``)."
+msgstr ""
+"리퀘스트 바디(body). ``unicode``\\ 가 전달되면, 전달된 (``utf-8``\\ 로 기본설정되어 있는) "
+"`encoding`\\ 을 사용해 ``str``\\ 로 인코딩된다. ``body``\\ 가 주어지지 않으면, 빈 문자열이 저장된다."
+" 이 인자의 타입과 상관없이 저장되는 최종적인 값은, ``str``\\ 이 된다 (절대 ``unicode`` 또는 "
+"``None``\\ 이 아니다)."
+
+#: ../docs/topics/request-response.rst:59
+msgid ""
+"the headers of this request. The dict values can be strings (for single "
+"valued headers) or lists (for multi-valued headers). If ``None`` is "
+"passed as value, the HTTP header will not be sent at all."
+msgstr ""
+"이 리퀘스트의 헤더(header). (단일 헤더인 경우) 딕셔너리 값은 문자열이나 (다수의 헤더인 경우) 리스트가 될 수 있다. "
+"``None``\\ 이 값으로 주어지면, HTTP 헤더는 아예 보내지지 않을 것이다."
+
+#: ../docs/topics/request-response.rst:64
+msgid ""
+"the request cookies. These can be sent in two forms.  1. Using a dict::"
+"      request_with_cookies = Request(url=\"http://www.example.com\","
+"                                    cookies={'currency': 'USD', "
+"'country': 'UY'})  2. Using a list of dicts::      request_with_cookies ="
+" Request(url=\"http://www.example.com\","
+"                                    cookies=[{'name': 'currency',"
+"                                             'value': 'USD',"
+"                                             'domain': 'example.com',"
+"                                             'path': '/currency'}])  The "
+"latter form allows for customizing the ``domain`` and ``path`` attributes"
+" of the cookie. This is only useful if the cookies are saved for later "
+"requests.  When some site returns cookies (in a response) those are "
+"stored in the cookies for that domain and will be sent again in future "
+"requests. That's the typical behaviour of any regular web browser. "
+"However, if, for some reason, you want to avoid merging with existing "
+"cookies you can instruct Scrapy to do so by setting the "
+"``dont_merge_cookies`` key to True in the :attr:`Request.meta`.  Example "
+"of request without merging cookies::      request_with_cookies = "
+"Request(url=\"http://www.example.com\","
+"                                    cookies={'currency': 'USD', "
+"'country': 'UY'},                                    "
+"meta={'dont_merge_cookies': True})  For more info see :ref:`cookies-mw`."
+msgstr ""
+"리퀘스트 쿠키(cookie), 두 가지 형태로 보내질 수 있다.  1. 딕셔너리 사용::      "
+"request_with_cookies = Request(url=\"http://www.example.com\","
+"                                    cookies={'currency': 'USD', "
+"'country': 'UY'})  2. 딕셔너리 리스트 사용::      request_with_cookies = "
+"Request(url=\"http://www.example.com\","
+"                                    cookies=[{'name': 'currency',"
+"                                             'value': 'USD',"
+"                                             'domain': 'example.com',"
+"                                             'path': '/currency'}])  후자의 "
+"형태는 쿠키의 ``domain``\\ 과 ``path`` 속성을 커스터마이징할 수 있게 해준다. 이는 쿠키가 추후의 리퀘스트를 위해"
+" 저장된 때만 유용하다.  어떤 사이트가 (리스펀스에서) 쿠키를 반환할 때, 쿠키는 그 도메인을 위한 쿠키에 저장되고 미래의 "
+"리퀘스트에서 다시 보내진다. 이것이 일반적인 웹 브라우저의 전형적인 동작이다. 그러나 만약에, 어떤 이유로 인해 기존의 쿠키와 "
+"병합하는 것을 피하고 싶다면 :attr:`Request.meta`\\ 의 ``dont_merge_cookies`` 키를 True로 "
+"설정하면 된다.  쿠기 병합을 하지 않는 리퀘스트 예시::      request_with_cookies = "
+"Request(url=\"http://www.example.com\","
+"                                    cookies={'currency': 'USD', "
+"'country': 'UY'},                                    "
+"meta={'dont_merge_cookies': True})  더 자세한 내용은 :ref:`cookies-mw`\\ 를 참고하라."
+
+#: ../docs/topics/request-response.rst:64
+msgid "the request cookies. These can be sent in two forms."
+msgstr "리퀘스트 쿠키(cookie), 두 가지 형태로 보내질 수 있다."
+
+#: ../docs/topics/request-response.rst:66
+msgid "Using a dict::"
+msgstr "딕셔너리 사용::"
+
+#: ../docs/topics/request-response.rst:71
+msgid "Using a list of dicts::"
+msgstr "딕셔너리 리스트 사용::"
+
+#: ../docs/topics/request-response.rst:79
+msgid ""
+"The latter form allows for customizing the ``domain`` and ``path`` "
+"attributes of the cookie. This is only useful if the cookies are saved "
+"for later requests."
+msgstr ""
+"후자의 형태는 쿠키의 ``domain``\\ 과 ``path`` 속성을 커스터마이징할 수 있게 해준다. 이는 쿠키가 추후의 "
+"리퀘스트를 위해 저장된 때만 유용하다."
+
+#: ../docs/topics/request-response.rst:83
+msgid ""
+"When some site returns cookies (in a response) those are stored in the "
+"cookies for that domain and will be sent again in future requests. That's"
+" the typical behaviour of any regular web browser. However, if, for some "
+"reason, you want to avoid merging with existing cookies you can instruct "
+"Scrapy to do so by setting the ``dont_merge_cookies`` key to True in the "
+":attr:`Request.meta`."
+msgstr ""
+"어떤 사이트가 (리스펀스에서) 쿠키를 반환할 때, 쿠키는 그 도메인을 위한 쿠키에 저장되고 미래의 리퀘스트에서 다시 보내진다. "
+"이것이 일반적인 웹 브라우저의 전형적인 동작이다. 그러나 만약에, 어떤 이유로 인해 기존의 쿠키와 병합하는 것을 피하고 싶다면 "
+":attr:`Request.meta`\\ 의 ``dont_merge_cookies`` 키를 True로 설정하면 된다."
+
+#: ../docs/topics/request-response.rst:90
+msgid "Example of request without merging cookies::"
+msgstr "쿠기 병합을 하지 않는 리퀘스트 예시::"
+
+#: ../docs/topics/request-response.rst:96
+msgid "For more info see :ref:`cookies-mw`."
+msgstr "더 자세한 내용은 :ref:`cookies-mw`\\ 를 참고하라."
+
+#: ../docs/topics/request-response.rst:99
+msgid ""
+"the encoding of this request (defaults to ``'utf-8'``). This encoding "
+"will be used to percent-encode the URL and to convert the body to ``str``"
+" (if given as ``unicode``)."
+msgstr ""
+"이 리퀘스트의 인코딩. (디폴트는 ``'utf-8'``\\ 이다.) 이 인코딩은 URL를 퍼센트인코드(percent-"
+"encode)하고 바디를 (``unicode``\\ 로 주어젔다면) ``str``\\ 으로 변환하기 위해 사용된다."
+
+#: ../docs/topics/request-response.rst:104
+msgid ""
+"the priority of this request (defaults to ``0``). The priority is used by"
+" the scheduler to define the order used to process requests.  Requests "
+"with a higher priority value will execute earlier. Negative values are "
+"allowed in order to indicate relatively low-priority."
+msgstr ""
+"이 리퀘스트의 우선순위. (디폴트는 ``0``\\ 이다.) 우선순위는 스케쥴러에서 리퀘스트를 처리할 때 사용하는 순서를 정의하기 "
+"위해 사용된다. 높은 우선순위를 가진 리퀘스트는 먼저 실행된다. 상대적으로 낮은 우선순위를 나타내기위해 음수 값이 허용된다."
+
+#: ../docs/topics/request-response.rst:110
+msgid ""
+"indicates that this request should not be filtered by the scheduler. This"
+" is used when you want to perform an identical request multiple times, to"
+" ignore the duplicates filter. Use it with care, or you will get into "
+"crawling loops. Default to ``False``."
+msgstr ""
+"이 리퀘스트는 스케쥴러에 의해 필터링되지 않음을 나타낸다. 이는 동일한 리퀘스트에 대해 여러번 작업을 수행하고 중복 필터를 무시하고"
+" 싶을 때 사용한다. 주의해서 사용하지 않으면 크롤링 루프에 빠질 수 있다. 디폴트는 ``False``\\ 다."
+
+#: ../docs/topics/request-response.rst:116
+msgid ""
+"a function that will be called if any exception was raised while "
+"processing the request. This includes pages that failed with 404 HTTP "
+"errors and such. It receives a `Twisted Failure`_ instance as first "
+"parameter. For more information, see :ref:`topics-request-response-ref-"
+"errbacks` below."
+msgstr ""
+"리퀘스트 처리중에 예외가 발생하면 호출되는 함수. 이것은 404 HTTP 등의 에러가 발생하는 페이지를 포함한다. 이 함수는 "
+"`Twisted Failure`_ 인스턴스를 첫 번째 파라미터로 받는다. 더 자세한 내용은 :ref:`topics-request-"
+"response-ref-errbacks`\\ 를 참고하라."
+
+#: ../docs/topics/request-response.rst:124
+msgid "Flags sent to the request, can be used for logging or similar purposes."
+msgstr "리퀘스트에 보내지는 플래그(Flag), 로깅(logging)이나 유사한 목적으로 사용될 수 있다."
+
+#: ../docs/topics/request-response.rst:129
+msgid ""
+"A string containing the URL of this request. Keep in mind that this "
+"attribute contains the escaped URL, so it can differ from the URL passed "
+"in the constructor."
+msgstr ""
+"이 리퀘스트의 URL을 포함하고 있는 문자열. 이 속성은 이스케이프(escape)된 URL을 포함하고 있으므로 "
+"컨스트럭터(constructo)에 전달된 URL과 다를 수 있다는 점을 명심하라."
+
+#: ../docs/topics/request-response.rst:133
+msgid ""
+"This attribute is read-only. To change the URL of a Request use "
+":meth:`replace`."
+msgstr "이 속성은 읽기 전용이다. 리퀘스트의 URL을 변경하려면 :meth:`replace`\\ 를 사용하라라."
+
+#: ../docs/topics/request-response.rst:138
+msgid ""
+"A string representing the HTTP method in the request. This is guaranteed "
+"to be uppercase. Example: ``\"GET\"``, ``\"POST\"``, ``\"PUT\"``, etc"
+msgstr "리퀘스트의 HTTP 메서드를 나타내는 문자열. 대문자로만 표현된다. 에: ``\"GET\"``, ``\"POST\"``, "
+
+#: ../docs/topics/request-response.rst:143
+msgid "A dictionary-like object which contains the request headers."
+msgstr "리퀘스트 헤더를 포함하는 딕셔터리 형태의 객체."
+
+#: ../docs/topics/request-response.rst:147
+msgid "A str that contains the request body."
+msgstr "리퀘스트 바디를 포함하는 문자열."
+
+#: ../docs/topics/request-response.rst:149
+msgid ""
+"This attribute is read-only. To change the body of a Request use "
+":meth:`replace`."
+msgstr "이 속성은 읽기 전용이다. 리퀘스트의 바디를 변경하고 싶으면 :meth:`replace`\\ 를 사용하라."
+
+#: ../docs/topics/request-response.rst:154
+msgid ""
+"A dict that contains arbitrary metadata for this request. This dict is "
+"empty for new Requests, and is usually  populated by different Scrapy "
+"components (extensions, middlewares, etc). So the data contained in this "
+"dict depends on the extensions you have enabled."
+msgstr ""
+"이 리퀘스트의 임의의 메타데이터를 포함하는 딕셔너리. 이 딕셔너리는 새로운 리퀘스트를 위해 비어있고, 일반적으로 다른 스크래피 "
+"구성요소(확장, 미들웨어)에 의해 추가된다. 따라서 이 사전에 포함된 데이터는 활성화시킨 확장에 의존한다."
+
+#: ../docs/topics/request-response.rst:159
+msgid ""
+"See :ref:`topics-request-meta` for a list of special meta keys recognized"
+" by Scrapy."
+msgstr "스크래피가 인식하는 특수 메타 키 리스트에 관해서는 :ref:`topics-request-meta`\\ 를 참고하라."
+
+#: ../docs/topics/request-response.rst:162
+msgid ""
+"This dict is `shallow copied`_ when the request is cloned using the "
+"``copy()`` or ``replace()`` methods, and can also be accessed, in your "
+"spider, from the ``response.meta`` attribute."
+msgstr ""
+"이 딕셔너리는 리퀘스트가 ``copy()`` 또는 ``replace()`` 메소드를 사용해 복제될 때 `쉘로우 복사`_\\ 되며 "
+"``response.meta`` 속성으로 스파이더에서 접근 할 수 있다."
+
+#: ../docs/topics/request-response.rst:170
+msgid ""
+"Return a new Request which is a copy of this Request. See also: :ref"
+":`topics-request-response-ref-request-callback-arguments`."
+msgstr ""
+"이 리퀘스트의 복사본인 새로운 리퀘스트를 반환한다. :ref:`topics-request-response-ref-request-"
+"callback-arguments`\\ 를 참고하라."
+
+#: ../docs/topics/request-response.rst:175
+msgid ""
+"Return a Request object with the same members, except for those members "
+"given new values by whichever keyword arguments are specified. The "
+"attribute :attr:`Request.meta` is copied by default (unless a new value "
+"is given in the ``meta`` argument). See also :ref:`topics-request-"
+"response-ref-request-callback-arguments`."
+msgstr ""
+"키워드 인자로 지정해서 새로운 값이 주어진 멤버를 제외하고 같은 멤버를 포함한 리퀘스트 객체를 반환한다. (새로운 값이 "
+"``meta`` 인자로 주어지지 않으면) :attr:`Request.meta` 속성은 기본적으로 복사된다. :ref:`topics-"
+"request-response-ref-request-callback-arguments`\\ 를 참고하라."
+
+#: ../docs/topics/request-response.rst:184
+msgid "Passing additional data to callback functions"
+msgstr "추가 데이터를 콜백 함수로 전달"
+
+#: ../docs/topics/request-response.rst:186
+msgid ""
+"The callback of a request is a function that will be called when the "
+"response of that request is downloaded. The callback function will be "
+"called with the downloaded :class:`Response` object as its first "
+"argument."
+msgstr ""
+"리퀘스트의 콜백은 리퀘스트의 리스펀스가 다운로드 되었을 때 호출되는 함수다. 콜백 함수는 첫 번째 인자로 다운로드된 "
+":class:`Response` 객체를 받으면서 호출된다."
+
+#: ../docs/topics/request-response.rst:190
+msgid "Example::"
+msgstr "예::"
+
+#: ../docs/topics/request-response.rst:200
+msgid ""
+"In some cases you may be interested in passing arguments to those "
+"callback functions so you can receive the arguments later, in the second "
+"callback. You can use the :attr:`Request.meta` attribute for that."
+msgstr ""
+"종종 콜백 함수에 인자를 전달해서 나중에 두 번째 콜백에서 인자를 받게 하고 싶을 때가 있을 것이다. 이를 위해서는 "
+":attr:`Request.meta` 속성을 사용하면 된다."
+
+#: ../docs/topics/request-response.rst:204
+msgid ""
+"Here's an example of how to pass an item using this mechanism, to "
+"populate different fields from different pages::"
+msgstr "아래는 다른 페이지로부터 다른 필드를 추가하기 위해 이 메커니즘을 사용해서 아이템을 전달한 예시이다::"
+
+#: ../docs/topics/request-response.rst:224
+msgid "Using errbacks to catch exceptions in request processing"
+msgstr "리퀘스트 처리중 예외를 잡기 위한 에러백 사용"
+
+#: ../docs/topics/request-response.rst:226
+msgid ""
+"The errback of a request is a function that will be called when an "
+"exception is raise while processing it."
+msgstr "리퀘스트의 에러백은 처리중에 예외가 발생했을 때 호출되는 함수다."
+
+#: ../docs/topics/request-response.rst:229
+msgid ""
+"It receives a `Twisted Failure`_ instance as first parameter and can be "
+"used to track connection establishment timeouts, DNS errors etc."
+msgstr ""
+"이 함수는 `Twisted Failure`_ 인스턴스를 첫 번째 파라미터로 받으며 연결 설정 시간 초과, DNS 에러 등을 추적하기"
+" 위해 사용된다."
+
+#: ../docs/topics/request-response.rst:232
+msgid ""
+"Here's an example spider logging all errors and catching some specific "
+"errors if needed::"
+msgstr "아래는 모든 에러를 로깅하고 필요한 경우 특정한 에러를 잡아내는 스파이더 예시다::"
+
+#: ../docs/topics/request-response.rst:286
+msgid "Request.meta special keys"
+msgstr "Request.meta 특수 키"
+
+#: ../docs/topics/request-response.rst:288
+msgid ""
+"The :attr:`Request.meta` attribute can contain any arbitrary data, but "
+"there are some special keys recognized by Scrapy and its built-in "
+"extensions."
+msgstr ""
+":attr:`Request.meta` 속성은 임의의 데이터를 포함할 수 있다, 하지만 스크래피와 빌트인 확장에서 인식되는 몇 가지 "
+"특수 키가 존재한다."
+
+#: ../docs/topics/request-response.rst:291
+msgid "Those are:"
+msgstr "특수 키:"
+
+#: ../docs/topics/request-response.rst:293
+msgid ":reqmeta:`dont_redirect`"
+msgstr ":reqmeta:`dont_redirect`"
+
+#: ../docs/topics/request-response.rst:294
+msgid ":reqmeta:`dont_retry`"
+msgstr ":reqmeta:`dont_retry`"
+
+#: ../docs/topics/request-response.rst:295
+msgid ":reqmeta:`handle_httpstatus_list`"
+msgstr ":reqmeta:`handle_httpstatus_list`"
+
+#: ../docs/topics/request-response.rst:296
+msgid ":reqmeta:`handle_httpstatus_all`"
+msgstr ":reqmeta:`handle_httpstatus_all`"
+
+#: ../docs/topics/request-response.rst:297
+msgid ""
+"``dont_merge_cookies`` (see ``cookies`` parameter of :class:`Request` "
+"constructor)"
+msgstr "``dont_merge_cookies`` (:class:`Request` 컨스트럭트의 ``cookies`` 파라미터를 참고하라)"
+
+
+#: ../docs/topics/request-response.rst:298
+msgid ":reqmeta:`cookiejar`"
+msgstr ":reqmeta:`cookiejar`"
+
+#: ../docs/topics/request-response.rst:299
+msgid ":reqmeta:`dont_cache`"
+msgstr ":reqmeta:`dont_cache`"
+
+#: ../docs/topics/request-response.rst:300
+msgid ":reqmeta:`redirect_urls`"
+msgstr ":reqmeta:`redirect_urls`"
+
+#: ../docs/topics/request-response.rst:301
+msgid ":reqmeta:`bindaddress`"
+msgstr ":reqmeta:`bindaddress`"
+
+#: ../docs/topics/request-response.rst:302
+msgid ":reqmeta:`dont_obey_robotstxt`"
+msgstr ":reqmeta:`dont_obey_robotstxt`"
+
+#: ../docs/topics/request-response.rst:303
+msgid ":reqmeta:`download_timeout`"
+msgstr ":reqmeta:`download_timeout`"
+
+#: ../docs/topics/request-response.rst:304
+msgid ":reqmeta:`download_maxsize`"
+msgstr ":reqmeta:`download_maxsize`"
+
+#: ../docs/topics/request-response.rst:305
+msgid ":reqmeta:`download_latency`"
+msgstr ":reqmeta:`download_latency`"
+
+#: ../docs/topics/request-response.rst:306
+msgid ":reqmeta:`download_fail_on_dataloss`"
+msgstr ":reqmeta:`download_fail_on_dataloss`"
+
+#: ../docs/topics/request-response.rst:307
+msgid ":reqmeta:`proxy`"
+msgstr ":reqmeta:`proxy`"
+
+#: ../docs/topics/request-response.rst:308
+msgid "``ftp_user`` (See :setting:`FTP_USER` for more info)"
+msgstr "``ftp_user`` (더 자세한 정보는 :setting:`FTP_USER`\\ 를 참고하라)"
+
+#: ../docs/topics/request-response.rst:309
+msgid "``ftp_password`` (See :setting:`FTP_PASSWORD` for more info)"
+msgstr "``ftp_password`` (더 자세한 정보는 :setting:`FTP_PASSWORD`\\ 를 참고하라)"
+
+#: ../docs/topics/request-response.rst:310
+msgid ":reqmeta:`referrer_policy`"
+msgstr ":reqmeta:`referrer_policy`"
+
+#: ../docs/topics/request-response.rst:311
+msgid ":reqmeta:`max_retry_times`"
+msgstr ":reqmeta:`max_retry_times`"
+
+#: ../docs/topics/request-response.rst:316
+msgid "bindaddress"
+msgstr "bindaddress"
+
+#: ../docs/topics/request-response.rst:318
+msgid "The IP of the outgoing IP address to use for the performing the request."
+msgstr "리퀘스트를 수행할 대 사용되는 발신 IP 주소의 IP."
+
+#: ../docs/topics/request-response.rst:323
+msgid "download_timeout"
+msgstr "download_timeout"
+
+#: ../docs/topics/request-response.rst:325
+msgid ""
+"The amount of time (in secs) that the downloader will wait before timing "
+"out. See also: :setting:`DOWNLOAD_TIMEOUT`."
+msgstr "타임 아웃하기 전에 다운로더가 대기하는 (초 단위) 시간. :setting:`DOWNLOAD_TIMEOUT`\\ 를 참고하라."
+
+#: ../docs/topics/request-response.rst:331
+msgid "download_latency"
+msgstr "download_latency"
+
+#: ../docs/topics/request-response.rst:333
+msgid ""
+"The amount of time spent to fetch the response, since the request has "
+"been started, i.e. HTTP message sent over the network. This meta key only"
+" becomes available when the response has been downloaded. While most "
+"other meta keys are used to control Scrapy behavior, this one is supposed"
+" to be read-only."
+msgstr ""
+"요청이 시작된 이후, 리스펀스를 불러오기 위해 소모되는 시간. 예, 네트워크를 통해 전송되는 메시지. 이 메타기는 리스펀스가 "
+"다운로드 되었을 때만 사용할 수 있다. 대부분의 다른 메타키는 스크래피의 동작을 제어하기 위해 사용되지만 이 키는 읽기 전용이다."
+
+#: ../docs/topics/request-response.rst:341
+msgid "download_fail_on_dataloss"
+msgstr "download_fail_on_dataloss"
+
+#: ../docs/topics/request-response.rst:343
+msgid ""
+"Whether or not to fail on broken responses. See: "
+":setting:`DOWNLOAD_FAIL_ON_DATALOSS`."
+msgstr "깨진 응답에 대해 실패할지 여부. :setting:`DOWNLOAD_FAIL_ON_DATALOSS`\\ 를 참고하라."
+
+#: ../docs/topics/request-response.rst:349
+msgid "max_retry_times"
+msgstr "max_retry_times"
+
+#: ../docs/topics/request-response.rst:351
+msgid ""
+"The meta key is used set retry times per request. When initialized, the "
+":reqmeta:`max_retry_times` meta key takes higher precedence over the "
+":setting:`RETRY_TIMES` setting."
+msgstr ""
+"이 메타 키는 리퀘스트 당 재시도 횟수를 설정한다. 초기화 됐을 때, :reqmeta:`max_retry_times` 메타키는 "
+":setting:`RETRY_TIMES` 설정보다 우선한다."
+
+#: ../docs/topics/request-response.rst:358
+msgid "Request subclasses"
+msgstr "Request subclasses"
+
+#: ../docs/topics/request-response.rst:360
+msgid ""
+"Here is the list of built-in :class:`Request` subclasses. You can also "
+"subclass it to implement your own custom functionality."
+msgstr ""
+"이 섹션에는 :class:`Request`\\ 의 빌트인 상속 클래스 리스트가 있다. 사용자는 커스텀 기능을 구현하기위해서 아래의 "
+"클래스를 상속받을 수도 있다."
+
+#: ../docs/topics/request-response.rst:364
+msgid "FormRequest objects"
+msgstr "FormRequest 객체"
+
+#: ../docs/topics/request-response.rst:366
+msgid ""
+"The FormRequest class extends the base :class:`Request` with "
+"functionality for dealing with HTML forms. It uses `lxml.html forms`_  to"
+" pre-populate form fields with form data from :class:`Response` objects."
+msgstr ""
+"FormRequest 클래스는 기본 :class:`Request`\\ 에 HTML 형식을 처리하는 기능을 추가한다. 이 클래스는 "
+":class:`Response` 객체의 형식 데이터가 있는 형식 필드를 사전에 추가하기 위해 `lxml.html forms`_\\ "
+"를 사용한다."
+
+#: ../docs/topics/request-response.rst:374
+msgid ""
+"The :class:`FormRequest` class adds a new argument to the constructor. "
+"The remaining arguments are the same as for the :class:`Request` class "
+"and are not documented here."
+msgstr ""
+":class:`FormRequest` 클래스는 컨스트럭터에 새로운 인자를 추가한다. 나머지 인자는 :class:`Request` "
+"클래스와 같으며 이곳에 문서화하지 않았다."
+
+#: ../docs/topics/request-response.rst:378
+msgid ""
+"is a dictionary (or iterable of (key, value) tuples) containing HTML Form"
+" data which will be url-encoded and assigned to the body of the request."
+msgstr ""
+"파라미터는 url 인코딩된 후 리퀘스트의 바디에 할당되는 HTML 형식 데이터를 포함하는 딕셔너리(또는 (키, 값) 튜플의 "
+"이터러블)다."
+
+#: ../docs/topics/request-response.rst:383
+msgid ""
+"The :class:`FormRequest` objects support the following class method in "
+"addition to the standard :class:`Request` methods:"
+msgstr ":class:`FormRequest` 객체는 기존 :class:`Request` 메서드를 포함해 아래의 클래스 메서드를 지원한다:"
+
+#: ../docs/topics/request-response.rst:388
+msgid ""
+"Returns a new :class:`FormRequest` object with its form field values pre-"
+"populated with those found in the HTML ``<form>`` element contained in "
+"the given response. For an example see :ref:`topics-request-response-ref-"
+"request-userlogin`."
+msgstr ""
+"주어진 리스펀스에 포함된 HTML ``<form>`` 요소에서 찾아진 형식 필드 값으로 사전에 채워진 새로운 "
+":class:`FormRequest` 객체를 반환한다. 예시는 :ref:`topics-request-response-ref-"
+"request-userlogin`\\ 를 참고하라."
+
+#: ../docs/topics/request-response.rst:393
+msgid ""
+"The policy is to automatically simulate a click, by default, on any form "
+"control that looks clickable, like a ``<input type=\"submit\">``.  Even "
+"though this is quite convenient, and often the desired behaviour, "
+"sometimes it can cause problems which could be hard to debug. For "
+"example, when working with forms that are filled and/or submitted using "
+"javascript, the default :meth:`from_response` behaviour may not be the "
+"most appropriate. To disable this behaviour you can set the "
+"``dont_click`` argument to ``True``. Also, if you want to change the "
+"control clicked (instead of disabling it) you can also use the "
+"``clickdata`` argument."
+msgstr ""
+"기본적으로 정책은 ``<input type=\"submit\">`` 같이 클릭할 수 있는 모든 형식 컨트롤에 대한 클릭을 자동적으로"
+" 시뮬레이션하는 것이다. 이것은 꽤 편리하고 때로는 원하는 동작이기는 하지만 때로는 디버그를 하기 힘든 문제를 일으킬 수 있다. "
+"예를 들어, 자바스크립트(javascript)를 사용해서 제출되거나 채워진 형식으로 작업을 할 때 기본 "
+":meth:`from_response` 동작은 가장 적합한 것이 아닐 수 있다. ``dont_click``\\ 을 "
+"``True``\\ 로 설정해서 이 동작을 비활성화할 수 있다. 또한, 클릭되는 컨트롤을 (비활성화하는 대신) 변경하고 싶다면 "
+"``clickdata`` 인자를 사용하면 된다."
+
+#: ../docs/topics/request-response.rst:404
+msgid ""
+"Using this method with select elements which have leading or trailing "
+"whitespace in the option values will not work due to a `bug in lxml`_, "
+"which should be fixed in lxml 3.8 and above."
+msgstr ""
+"옵션 값에 앞이나 뒤에 공백이 있는 셀렉트 요소에 이 메서드를 사용하면 `bug in lxml`_ 때문에 작동하지 않는다. 이 "
+"버그는 lxml 3.8 이상 버전에서 고쳐져야 한다."
+
+#: ../docs/topics/request-response.rst:408
+msgid ""
+"the response containing a HTML form which will be used to pre-populate "
+"the form fields"
+msgstr "형식 필드를 사전에 채우기위해 사용되는 HTML 형식을 포함하는 리스펀스."
+
+#: ../docs/topics/request-response.rst:412
+msgid "if given, the form with name attribute set to this value will be used."
+msgstr "주어지는 경우, 이름 속성이 이 값으로 지정된 형식이 사용된다."
+
+#: ../docs/topics/request-response.rst:415
+msgid "if given, the form with id attribute set to this value will be used."
+msgstr "주어진 경우, id 속성이 이 값으로 지정된 형식이 사용된다."
+
+#: ../docs/topics/request-response.rst:418
+msgid "if given, the first form that matches the xpath will be used."
+msgstr "주어진 경우, xpath에 첫 번쨰로 매치된 형식이 사용된다."
+
+#: ../docs/topics/request-response.rst:421
+msgid "if given, the first form that matches the css selector will be used."
+msgstr "주어진 경우, ccs 셀렉터(selector)에 첫 번째로 매치된 형식이 사용된다."
+
+#: ../docs/topics/request-response.rst:424
+msgid ""
+"the number of form to use, when the response contains multiple forms. The"
+" first one (and also the default) is ``0``."
+msgstr "리스펀스가 다수의 형식을 포함하고 있을 때 사용할 형식의 수. 첫 번째는 (또한 기본값은) ``0``\\ 이다."
+
+#: ../docs/topics/request-response.rst:428
+msgid ""
+"fields to override in the form data. If a field was already present in "
+"the response ``<form>`` element, its value is overridden by the one "
+"passed in this parameter. If a value passed in this parameter is "
+"``None``, the field will not be included in the request, even if it was "
+"present in the response ``<form>`` element."
+msgstr ""
+"형식 데이터 내에서 오버라이드(override)할 필드. 만약 필드가 이미 리스펀스의 ``<form>`` 요소에 존재한다면, 이 "
+"파라미터에 전달된 값으로 오버라이드 된다. 이 파라미터에 전달된 값이 ``None``\\ 이면, 리스펀스의 ``<form>`` "
+"요소에 값이 존재하더라도 필드는 리퀘스트에 포함되지 않을 것이다."
+
+#: ../docs/topics/request-response.rst:435
+msgid ""
+"attributes to lookup the control clicked. If it's not given, the form "
+"data will be submitted simulating a click on the first clickable element."
+" In addition to html attributes, the control can be identified by its "
+"zero-based index relative to other submittable inputs inside the form, "
+"via the ``nr`` attribute."
+msgstr ""
+"클릭된 컨트롤을 찾는 속성. 주어지지 않은 경우 형식 데이터는 클릭가능한 첫 번째 요소를 클릭하는 것을 시뮬레이션하면서 제출된다. "
+"html 속성에 외에도, 컨트롤은 형식 내에 다른 제출가능한 입력에 관련된 제로 베이스(zero-based) 인덱스에 의해 "
+"``nr`` 속성을 통해서 식별될 수 있다."
+
+#: ../docs/topics/request-response.rst:442
+msgid "If True, the form data will be submitted without clicking in any element."
+msgstr "참인 경우, 형식 데이터는 요소 클릭 없이 제출될 것이다."
+
+
+#: ../docs/topics/request-response.rst:446
+msgid ""
+"The other parameters of this class method are passed directly to the "
+":class:`FormRequest` constructor."
+msgstr "이 클래스 메서드의 다른 파라미터는 :class:`FormRequest` 컨스트럭터로 바로 전달된다."
+
+#: ../docs/topics/request-response.rst:449
+msgid "The ``formname`` parameter."
+msgstr "The ``formname`` parameter."
+
+
+#: ../docs/topics/request-response.rst:452
+msgid "The ``formxpath`` parameter."
+msgstr "The ``formxpath`` parameter."
+
+#: ../docs/topics/request-response.rst:455
+msgid "The ``formcss`` parameter."
+msgstr "The ``formcss`` parameter."
+
+#: ../docs/topics/request-response.rst:458
+msgid "The ``formid`` parameter."
+msgstr "The ``formid`` parameter."
+
+#: ../docs/topics/request-response.rst:462
+msgid "Request usage examples"
+msgstr "리퀘스트 사용 예시"
+
+#: ../docs/topics/request-response.rst:465
+msgid "Using FormRequest to send data via HTTP POST"
+msgstr "HTTP POST를 통한 데이터 전송을 위한 FormRequest 사용"
+
+#: ../docs/topics/request-response.rst:467
+msgid ""
+"If you want to simulate a HTML Form POST in your spider and send a couple"
+" of key-value fields, you can return a :class:`FormRequest` object (from "
+"your spider) like this::"
+msgstr ""
+"HTML 형식 POST를 스파이더 내에서 시뮬레이션하고 여러 키-값 필드를 전송하고 싶으면 (스파이더에서) 아래처럼 "
+":class:`FormRequest` 객체를 반환하면 된다::"
+
+#: ../docs/topics/request-response.rst:478
+msgid "Using FormRequest.from_response() to simulate a user login"
+msgstr "사용자 로그인을 시뮬레이션하기 위한 FormRequest.from_response() 사용"
+
+#: ../docs/topics/request-response.rst:480
+msgid ""
+"It is usual for web sites to provide pre-populated form fields through "
+"``<input type=\"hidden\">`` elements, such as session related data or "
+"authentication tokens (for login pages). When scraping, you'll want these"
+" fields to be automatically pre-populated and only override a couple of "
+"them, such as the user name and password. You can use the "
+":meth:`FormRequest.from_response` method for this job. Here's an example "
+"spider which uses it::"
+msgstr ""
+"웹사이트는 데이터와 연관된 세션이나 (로그인 페이지를 위한) 토큰 인증 같은 ``<input type=\"hidden\">`` "
+"요소를 통해서 사전에 채워진 형식 필드를 제공하는 것이 일반적이다. 스크랩을 할 때, 이 필드들이 자동적으로 채워지고 사용자 "
+"이름이나 패스와드 같은, 일부 필드만 오버라이드하기를 원할 수 있다. 이런 작업을 위해서는 "
+":meth:`FormRequest.from_response` 메서드를 사용하면 된다. 아래는 이 메서드를 사용하는 스파이더 예시다::"
+
+#: ../docs/topics/request-response.rst:511
+msgid "Response objects"
+msgstr "리스펀스 객체"
+
+#: ../docs/topics/request-response.rst:515
+msgid ""
+"A :class:`Response` object represents an HTTP response, which is usually "
+"downloaded (by the Downloader) and fed to the Spiders for processing."
+msgstr ""
+":class: `Response` 객체는 HTTP 리스펀스를 나타내며, (다운로더가) 다운로드 하고 "
+"스파이더에 처리를 위해 넘겨준 것이다."
+#: ../docs/topics/request-response.rst:518
+msgid "the URL of this response"
+msgstr "이 리스펀스의 URL"
+
+#: ../docs/topics/request-response.rst:521
+msgid "the HTTP status of the response. Defaults to ``200``."
+msgstr "리스펀스의 HTTP 상태. 기본은 ``200``\\ 로 설정"
+
+#: ../docs/topics/request-response.rst:524
+msgid ""
+"the headers of this response. The dict values can be strings (for single "
+"valued headers) or lists (for multi-valued headers)."
+msgstr ""
+"이 리스펀스의 헤더. 딕셔너리 값은 (단일 값인 헤더의 경우) 문자열이나 (복수 값인 헤더의 경우) "
+"리스트일 수 있다."
+
+#: ../docs/topics/request-response.rst:528
+msgid ""
+"the response body. To access the decoded text as str (unicode in Python "
+"2) you can use ``response.text`` from an encoding-aware :ref:`Response "
+"subclass <topics-request-response-ref-response-subclasses>`, such as "
+":class:`TextResponse`."
+msgstr ""
+"리스펀스 바디. 텍스트를 문자열로 (파이썬 2에서는 유니코드) 디코딩하고 싶으면 인코딩을 인식하는 :class:`TextResponse` 같은 "
+":ref:`Response subclass <topics-request-response-ref-response-subclasses>`\\ 의 ``response.text``\\ 를 "
+"사용하면 된다."
+
+#: ../docs/topics/request-response.rst:534
+msgid ""
+"is a list containing the initial values for the :attr:`Response.flags` "
+"attribute. If given, the list will be shallow copied."
+msgstr ""
+"는 :attr:`Response.flags` 속성의 초기 값을 포함하고 있는 리스트다. "
+"주어지는 경우, 리스트는 셸로우 복다된다."
+
+#: ../docs/topics/request-response.rst:539
+msgid ""
+"the initial value of the :attr:`Response.request` attribute. This "
+"represents the :class:`Request` that generated this response."
+msgstr ""
+":attr:`Response.request` 속성의 초기 값."
+"이 리스펀스를 생성한 :class:`Request`\\ 를 나타낸다."
+
+
+#: ../docs/topics/request-response.rst:545
+msgid "A string containing the URL of the response."
+msgstr "리스펀스의 URL을 포함하고 있는 문자열."
+
+#: ../docs/topics/request-response.rst:547
+msgid ""
+"This attribute is read-only. To change the URL of a Response use "
+":meth:`replace`."
+msgstr "이 속성은 읽기 전용이다. 리스펀스의 URL을 변경하려면 :meth:`replace`\\ 를 사용하라."
+
+#: ../docs/topics/request-response.rst:552
+msgid ""
+"An integer representing the HTTP status of the response. Example: "
+"``200``, ``404``."
+msgstr "리스펀스의 HTTP 상태를 나타내는 정수. 예: ``200``, ``404``."
+
+#: ../docs/topics/request-response.rst:557
+msgid ""
+"A dictionary-like object which contains the response headers. Values can "
+"be accessed using :meth:`get` to return the first header value with the "
+"specified name or :meth:`getlist` to return all header values with the "
+"specified name. For example, this call will give you all cookies in the "
+"headers::"
+msgstr ""
+"리스펀스 해더를 포함하는 딕셔너리 형태의 객체. 지정된 이름을 가진 첫 번째 헤더를 반환하는 :meth:`get`\\ 을 사용하거나 "
+"지정된 이름을 가진 모든 헤더 값을 반환하는 :meth:`getlist`\\ 을 사용해서 값에 접근할 수 있다. "
+"예를 들어, 아래의 코드는 헤더에 있는 모든 쿠키를 호출한다."
+
+#: ../docs/topics/request-response.rst:567
+msgid ""
+"The body of this Response. Keep in mind that Response.body is always a "
+"bytes object. If you want the unicode version use "
+":attr:`TextResponse.text` (only available in :class:`TextResponse` and "
+"subclasses)."
+msgstr ""
+"리스펀스의 바디. Response.body는 항상 바이트 객체인 것을 명심하라. 유니코드 버전을 원하면 "
+"(:class:`TextResponse`\\ 와 그 상속 클래스에서만 가능한) :attr:`TextResponse.text`\\ 를 사용하라."
+
+#: ../docs/topics/request-response.rst:572
+msgid ""
+"This attribute is read-only. To change the body of a Response use "
+":meth:`replace`."
+msgstr "이 속성은 읽기 전용이다. 리스펀스의 바디를 변경하고 싶으면 :meth:`replace` 메서드를 사용하라."
+
+#: ../docs/topics/request-response.rst:577
+msgid ""
+"The :class:`Request` object that generated this response. This attribute "
+"is assigned in the Scrapy engine, after the response and the request have"
+" passed through all :ref:`Downloader Middlewares <topics-downloader-"
+"middleware>`. In particular, this means that:"
+msgstr ""
+"이 리스펀스를 생성한 :class:`Request` 객체. 리스펀스와 리퀘스트가 모든 :ref:`Downloader Middlewares <topics-downloader-"
+"middleware>`\\ 를 통과한 후에 이 속성은 스크래피 엔진에 할당된다."
+
+#: ../docs/topics/request-response.rst:582
+msgid ""
+"HTTP redirections will cause the original request (to the URL before "
+"redirection) to be assigned to the redirected response (with the final "
+"URL after redirection)."
+msgstr ""
+"HTTP 리다이렉션(redirection)은 (리다이렉션 전의 URL에 대한) 기존 리퀘스트를 (리다이렉션 이후 최종 URL이 있는) "
+"리다이렉트 된 리스펀스에 할당되도록 한다."
+
+#: ../docs/topics/request-response.rst:586
+msgid "Response.request.url doesn't always equal Response.url"
+msgstr "Response.request.url은 Response.url과 항상 같지는 않다."
+
+#: ../docs/topics/request-response.rst:588
+msgid ""
+"This attribute is only available in the spider code, and in the "
+":ref:`Spider Middlewares <topics-spider-middleware>`, but not in "
+"Downloader Middlewares (although you have the Request available there by "
+"other means) and handlers of the :signal:`response_downloaded` signal."
+msgstr ""
+"이 속성은 스파이더 코드와 :ref:`Spider Middlewares <topics-spider-middleware>`\\ 에서만 사용 가능하고, "
+"Donwload Middlewares와 :signal:`response_downladed` 시그널 관리자에서는 가능하지 않다."
+
+#: ../docs/topics/request-response.rst:595
+msgid ""
+"A shortcut to the :attr:`Request.meta` attribute of the "
+":attr:`Response.request` object (ie. ``self.request.meta``)."
+msgstr ":atta:`Response.request` 객체의 `Request.meta` 속성에 대한 숏컷. (즉, ``self.request.meta``)"
+
+#: ../docs/topics/request-response.rst:598
+msgid ""
+"Unlike the :attr:`Response.request` attribute, the :attr:`Response.meta` "
+"attribute is propagated along redirects and retries, so you will get the "
+"original :attr:`Request.meta` sent from your spider."
+msgstr ""
+":attr:`Response.request` 속성과 달리, :attr:`Response.meta` 속성은 리다이렉트와 재시도를 따라 전파된다, "
+"따라서 스파이더에서 보내진 기존 :attr:`Request.meta`\\ 를 얻을 수 있다."
+
+#: ../docs/topics/request-response.rst:602
+msgid ":attr:`Request.meta` attribute"
+msgstr ":attr:`Request.meta` 속성"
+
+#: ../docs/topics/request-response.rst:606
+msgid ""
+"A list that contains flags for this response. Flags are labels used for "
+"tagging Responses. For example: `'cached'`, `'redirected`', etc. And "
+"they're shown on the string representation of the Response (`__str__` "
+"method) which is used by the engine for logging."
+msgstr ""
+"이 리스펀스의 플래그를 포함하고 있는 리스트. 플래그는 리스펀스 태깅에 사용되는 라벨이다. "
+"예, `'cached'`, `'redirected'` 등. 또한 로그 기록을 위해서 엔진이 사용하는 리스펀스의 문자열 표현 "
+"(`__str__` 메서드) 에서 표시된다."
+
+#: ../docs/topics/request-response.rst:613
+msgid "Returns a new Response which is a copy of this Response."
+msgstr "이 리스펀스의 복사본인 새 리스펀스를 반환한다."
+
+#: ../docs/topics/request-response.rst:617
+msgid ""
+"Returns a Response object with the same members, except for those members"
+" given new values by whichever keyword arguments are specified. The "
+"attribute :attr:`Response.meta` is copied by default."
+msgstr ""
+"키워드 인자 값으로 새 값이 지정넨 멤버를 제외하고 같은 멤버를 포함하고 있는 리스펀스 객체를 반환한다. "
+":attr:`Response.meta` 속성은 기본적으로 복사된다."
+
+#: ../docs/topics/request-response.rst:623
+msgid ""
+"Constructs an absolute url by combining the Response's :attr:`url` with a"
+" possible relative url."
+msgstr "가능한 상대 url과 리스펀스의 :attr:`url`\\ 을 결합해서 절대 url을 생성한다."
+
+#: ../docs/topics/request-response.rst:626
+msgid ""
+"This is a wrapper over `urlparse.urljoin`_, it's merely an alias for "
+"making this call::"
+msgstr "'urlparse.urljoin`\\ 에 대한 랩퍼(wrapper)이며 호출을 하기 위한 별칭(alias)다."
+
+#: of scrapy.http.Response.follow:1
+msgid ""
+"Return a :class:`~.Request` instance to follow a link ``url``. It accepts"
+" the same arguments as ``Request.__init__`` method, but ``url`` can be a "
+"relative URL or a ``scrapy.link.Link`` object, not only an absolute URL."
+msgstr ""
+"``url`` 링크를 따라가는 :class:`~.Request` 인스턴스를 반환한다."
+"``Request.__init__`` 메서드와 같은 인자를 받지만 절대 URL만이 아니라 ``url``\ 은 상대 URL이나 ``scrapy.link.Link`` 객체도 "
+" 받을 수 있다."
+
+#: of scrapy.http.Response.follow:6
+msgid ""
+":class:`~.TextResponse` provides a :meth:`~.TextResponse.follow`  method "
+"which supports selectors in addition to absolute/relative URLs and Link "
+"objects."
+msgstr ""
+":class:`~.TextResponse`\\ 는 절대/상대 URL과 Link 객체 외에도 셀렉터를 지원하는 :meth:`~.TextResponse.follow` 객체를 "
+"제공한다."
+
+#: ../docs/topics/request-response.rst:639
+msgid "Response subclasses"
+msgstr "리스펀스 상속클래스"
+
+#: ../docs/topics/request-response.rst:641
+msgid ""
+"Here is the list of available built-in Response subclasses. You can also "
+"subclass the Response class to implement your own functionality."
+msgstr ""
+"아래는 이용 가능한 빌트인 리스펀스 상속클래스 리스트다. 사용자의 기능을 추가하기 위해서 리스펀스 클래스를 상속할 수 있다."
+
+#: ../docs/topics/request-response.rst:645
+msgid "TextResponse objects"
+msgstr "TextResponse 객체"
+
+#: ../docs/topics/request-response.rst:649
+msgid ""
+":class:`TextResponse` objects adds encoding capabilities to the base "
+":class:`Response` class, which is meant to be used only for binary data, "
+"such as images, sounds or any media file."
+msgstr ""
+":class:`TextResponse` 객체는 이미지나 소리, 다른 미디어 파일 같은 바이너리 데이터에만 사용되는 기본 "
+":class:`Response` 클래스에 인코딩 기능을 추가한다. "
+
+#: ../docs/topics/request-response.rst:653
+msgid ""
+":class:`TextResponse` objects support a new constructor argument, in "
+"addition to the base :class:`Response` objects. The remaining "
+"functionality is the same as for the :class:`Response` class and is not "
+"documented here."
+msgstr ""
+"기본 :class:`Response` 객체 인자 외에 :class:`TextResponse` 객체는 새로운 컨스트럭터 인자를 지원한다."
+"기존의 기능은 :class:`Response` 클래스와 같으며 이곳에 문서화하지 않았다."
+
+#: ../docs/topics/request-response.rst:657
+msgid ""
+"is a string which contains the encoding to use for this response. If you "
+"create a :class:`TextResponse` object with a unicode body, it will be "
+"encoded using this encoding (remember the body attribute is always a "
+"string). If ``encoding`` is ``None`` (default value), the encoding will "
+"be looked up in the response headers and body instead."
+msgstr ""
+"\\ 는 이 리스펀스에 사용하는 인코딩을 포함하고 있는 문자열. 만약 유니코드 바디를 포함하는 :class:`TextRespoonse` 객체를 "
+"생성하면 이 인코딩을 사용해서 인코딩된다. (바디 속성은 항상 문자열인 것을 명심하라). 만약 ``encoding``\\ 이 ``None`` (기본 값) "
+"이면 인코딩은 리스펀스 헤더나 바디에서 탐색될 것이다."
+
+#: ../docs/topics/request-response.rst:664
+msgid ""
+":class:`TextResponse` objects support the following attributes in "
+"addition to the standard :class:`Response` ones:"
+msgstr ":class:`TextResponse` 객체는 :class:`Response`\\ 가 지원하는 속성 외에 아래의 속성을 지원한다."
+
+#: ../docs/topics/request-response.rst:669
+msgid "Response body, as unicode."
+msgstr "리스펀스 바디, 유니코드 형식"
+
+#: ../docs/topics/request-response.rst:671
+msgid ""
+"The same as ``response.body.decode(response.encoding)``, but the result "
+"is cached after the first call, so you can access ``response.text`` "
+"multiple times without extra overhead."
+msgstr ""
+"``response.body.decode(response.encoding)``\\ 과 같다, 하지만 결과는 첫 호출 후에 캐싱된다, 따라서 추가 오버헤드 없이 "
+"``response.text``\\ 에 여러번 접근할 수 있다."
+
+#: ../docs/topics/request-response.rst:677
+msgid ""
+"``unicode(response.body)`` is not a correct way to convert response body "
+"to unicode: you would be using the system default encoding (typically "
+"`ascii`) instead of the response encoding."
+msgstr "``unicode(response.body)``\\ 는 리스펀스 바디를 유니코드로 바꾸는 적절한 방법이 아니다: "
+"리스펀스 인코딩 대신 시스템 기본 인코딩 (일반적으로 `ascii`)을 사용하게 될 것이다."
+
+#: ../docs/topics/request-response.rst:684
+msgid ""
+"A string with the encoding of this response. The encoding is resolved by "
+"trying the following mechanisms, in order:"
+msgstr "이 리스펀스의 인코딩을 포함한 문자열. 인코딩은 아래의 메커니즘을 시도하여 해결된다:"
+
+#: ../docs/topics/request-response.rst:687
+msgid "the encoding passed in the constructor `encoding` argument"
+msgstr "컨스트럭터 `encoding` 인자에 전달되는 인코딩"
+
+#: ../docs/topics/request-response.rst:689
+msgid ""
+"the encoding declared in the Content-Type HTTP header. If this encoding "
+"is not valid (ie. unknown), it is ignored and the next resolution "
+"mechanism is tried."
+msgstr ""
+"컨텐츠 타입 HTTP 헤더에서 선언된 인코딩. 이 인코딩이 유효하지 않은 경우 (즉, 알수 없는 경우), 무시되며 다음 해결 "
+"메커니즘이 시도된다."
+
+#: ../docs/topics/request-response.rst:693
+msgid ""
+"the encoding declared in the response body. The TextResponse class "
+"doesn't provide any special functionality for this. However, the "
+":class:`HtmlResponse` and :class:`XmlResponse` classes do."
+msgstr ""
+"리스펀스 바디에서 선언된 인코딩. TextResponse 클래스는 이에 관한 특별한 기능을 제공하지 않는다. "
+"그러나 :class:`HtmlResponse`\\ 와 :class:`XmlResponse` 클래스는 기능을 제공한다."
+
+
+#: ../docs/topics/request-response.rst:697
+msgid ""
+"the encoding inferred by looking at the response body. This is the more "
+"fragile method but also the last one tried."
+msgstr "리스펀스 바디를 보고 유추된 인코딩. 더 손상되기 쉬운 방법으로 마지막으로 시도된다."
+
+#: ../docs/topics/request-response.rst:702
+msgid ""
+"A :class:`~scrapy.selector.Selector` instance using the response as "
+"target. The selector is lazily instantiated on first access."
+msgstr ""
+"타겟으로 리스펀스를 사용하는 :class:`~scrapy.selector.Selector` 인스턴스. 셀렉터는 최초 접근 때 지연되어 인스턴스화된다."
+
+#: ../docs/topics/request-response.rst:705
+msgid ""
+":class:`TextResponse` objects support the following methods in addition "
+"to the standard :class:`Response` ones:"
+msgstr ""
+"기본 :class:`Response` 메서드 외 :class:`TextResponse` 객체는 아래의 메서드를 지원한다."
+
+#: ../docs/topics/request-response.rst:710
+msgid "A shortcut to ``TextResponse.selector.xpath(query)``::"
+msgstr "``TextResponse.selector.xpath(query)``\\ 의 숏컷::"
+
+#: ../docs/topics/request-response.rst:716
+msgid "A shortcut to ``TextResponse.selector.css(query)``::"
+msgstr "``TextResponse.selector.css(query)``\\ 의 숏컷"
+
+#: of scrapy.http.TextResponse.follow:1
+msgid ""
+"Return a :class:`~.Request` instance to follow a link ``url``. It accepts"
+" the same arguments as ``Request.__init__`` method, but ``url`` can be "
+"not only an absolute URL, but also"
+msgstr ""
+"``url`` 링크를 따라가는 :class:`~.Request` 인스턴스를 반환한다. ``Request.__init`` 메서드와 같은 인자를 받지만, "
+"``url``\\ 은 절대 url 뿐만 아니라 상대 url도"
+
+#: of scrapy.http.TextResponse.follow:5
+msgid "a relative URL;"
+msgstr "받는다;"
+
+#: of scrapy.http.TextResponse.follow:6
+msgid "a scrapy.link.Link object (e.g. a link extractor result);"
+msgstr "scarpy.link.Link 객체 (예, 링크 추출기 결과);"
+
+#: of scrapy.http.TextResponse.follow:7
+msgid ""
+"an attribute Selector (not SelectorList) - e.g. "
+"``response.css('a::attr(href)')[0]`` or "
+"``response.xpath('//img/@src')[0]``."
+msgstr ""
+"속성 Selector (SelectorList 아님) - 예, ``response.css('a::attr(href)')[0]`` 또는 "
+"``response.xpath('//img/@src')[0]``"
+
+#: of scrapy.http.TextResponse.follow:10
+msgid ""
+"a Selector for ``<a>`` or ``<link>`` element, e.g. "
+"``response.css('a.my_link')[0]``."
+msgstr "``<a>`` 또는 ``<link>`` 요소를 위한 셀렉터, 예, ``response.css('a.my_link')[0]``"
+
+#: of scrapy.http.TextResponse.follow:13
+msgid "See :ref:`response-follow-example` for usage examples."
+msgstr "사용 예시는 :ref:`response-follow-example`\\ 을 참고하라."
+
+#: ../docs/topics/request-response.rst:724
+msgid ""
+"The same as :attr:`text`, but available as a method. This method is kept "
+"for backwards compatibility; please prefer ``response.text``."
+msgstr ""
+":attr:`text`\\ 와 같다, 그러나 메서드로 사용할 수 있다. 이 메서드는 하위 호환성을 위해 유지된다; "
+"``response.text``\\ 를 사용하라."
+
+#: ../docs/topics/request-response.rst:729
+msgid "HtmlResponse objects"
+msgstr "HtmlResponse 객체"
+
+#: ../docs/topics/request-response.rst:733
+msgid ""
+"The :class:`HtmlResponse` class is a subclass of :class:`TextResponse` "
+"which adds encoding auto-discovering support by looking into the HTML "
+"`meta http-equiv`_ attribute.  See :attr:`TextResponse.encoding`."
+msgstr ""
+":class:`HtmlResponse` 클래스는 "
+"HTML `meta http-equiv`_ 속성을 보는 인코딩 자동 탐색 지원을 추가한 :class:`TextResponse`\\ 의 상속 클래스다."
+
+#: ../docs/topics/request-response.rst:740
+msgid "XmlResponse objects"
+msgstr "XmlResponse 객체"
+
+#: ../docs/topics/request-response.rst:744
+msgid ""
+"The :class:`XmlResponse` class is a subclass of :class:`TextResponse` "
+"which adds encoding auto-discovering support by looking into the XML "
+"declaration line.  See :attr:`TextResponse.encoding`."
+msgstr ""
+":class:`XmlResponse` 클래스는 "
+"XML declaration line을 보는 인코딩 자동 탐색 지원을 추가한 :class:`TextResponse`\\ 의 상속 클래스다."
+
