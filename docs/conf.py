@@ -231,12 +231,3 @@ linkcheck_ignore = [
     'http://localhost:\d+', 'http://hg.scrapy.org',
     'http://directory.google.com/'
 ]
-
-# Options for internationalization
-# --------------------------------
-
-locale_dirs = ['locale/']
-gettext_compact = False
-
-
-
