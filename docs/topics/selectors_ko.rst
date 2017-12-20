@@ -5,7 +5,7 @@
 ====================
 
 웹 페이지를 스크랩할 때, 가장 많이 해야 하는 작업은 HTML 자료로부터 데이터를
-추출하는 일이다. 이런 일을 할 수 있는 라이브러리는 몇 가지가 있다.:
+추출하는 일이다. 이런 일을 할 수 있는 라이브러리는 몇 가지가 있다:
 
  * `BeautifulSoup`_\ 는 파이썬(Python) 프로그래머 사이에서 가장 인기있는 웹 스크랩핑
    라이브러리로 HTML의 구조를 기반으로 파이썬 객체를 생성하고 나쁜 마크업을 꽤 잘
@@ -90,12 +90,12 @@
 
 .. highlight:: sh
 
-우선 shell을 열자::
+우선 셸(shell)을 열자::
 
     scrapy shell https://doc.scrapy.org/en/latest/_static/selectors-sample1.html
 
-shell이 로드되면 사용자는 ``response`` shell 변수를 써서 사용 가능한 리스펀스와
-``response.selector` 속성으로 붙은 셀렉터를 갖게 된다.
+셸이 로드되면 사용자는 ``response`` 셸 변수를 써서 사용 가능한 리스펀스와
+``response.selector`` 속성으로 붙은 셀렉터를 갖게 된다.
 
 HTML을 처리하고 있기 대문에, 셀렉터는 자동적으로 HTML 파서를 사용한다.
 
@@ -117,7 +117,7 @@ XPath나 CSS를 사용해 리스펀스를 쿼리하는 것은 매우 일반적�
 
 보다시피, ``.xpath()``\ 와 ``.css()`` 메서드는
 :class:`~scrapy.selector.SelectorList` 인스턴스를 반환하며, 이는 새로운
-셀렉터 리스트다. 이 API 내포된 데이터를 빠르게 선택하는 데 사용할 수 있다::
+셀렉터 리스트다. 이 API는 중첩된 데이터를 빠르게 선택하는 데 사용할 수 있다::
 
     >>> response.css('img').xpath('@src').extract()
     [u'image1_thumb.jpg',
@@ -296,10 +296,10 @@ XPath는 XPath 표현식에서 ``$somevariable`` 신택스를 사용해
 (그렇지 않으면 ``ValueError: XPath error:`` 예외가 발생한다).
 이는 네임드 인자를 필요한 만큼 전달해서 실행한다.
 
-스크래피 셀렉터를 강력하게 해주는 `parsel`_ 라이브러리에 관한 자세한 내용과 예제는 `XPath variables`_\ 에 나와있다.
+스크래피 셀렉터를 강력하게 해주는 `parsel`_ 라이브러리에 관한 자세한 내용과 예제는 `XPath 변수`_\ 에 나와있다.
 
 .. _parsel: https://parsel.readthedocs.io/
-.. _XPath variables: https://parsel.readthedocs.io/en/latest/usage.html#variables-in-xpath-expressions
+.. _XPath 변수: https://parsel.readthedocs.io/en/latest/usage.html#variables-in-xpath-expressions
 
 EXSLT 확장 사용하기
 --------------------------------
@@ -347,14 +347,13 @@ set     \http://exslt.org/sets                   `set manipulation`_
     그러므로 정규식 함수를 XPath 표현식에서 사용하는 것은 성능 측면에서 작은 패널티를
     주게 된다.
 
-Set operations
+세트 작업
 ~~~~~~~~~~~~~~
 
-These can be handy for excluding parts of a document tree before
-extracting text elements for example.
+텍스트 요소를 추출하기 전에 문서트리의 일부를 제외시키는 것이 편리할 수 있다.
 
-Example extracting microdata (sample content taken from http://schema.org/Product)
-with groups of itemscopes and corresponding itemprops::
+아이템스코프(itemscope)와 대응하는 아이템프롭(itemprop)이 그룹이 있는 마이크로데이터를 추출하는 예제
+(샘플 컨텐츠는 http://schema.org/Product\ 에서 가져왔다::
 
     >>> doc = """
     ... <div itemscope itemtype="http://schema.org/Product">
@@ -438,77 +437,77 @@ with groups of itemscopes and corresponding itemprops::
 
     >>>
 
-Here we first iterate over ``itemscope`` elements, and for each one,
-we look for all ``itemprops`` elements and exclude those that are themselves
-inside another ``itemscope``.
+위에서 우리는 일단 ``itemscope`` 요소에 대해 반복을 했고, 각각에 대해
+모든 ``itemprops`` 요소를 찾았다. 그 다음 또다른 ``itemscope`` 안에 있는 것들을
+제외시켰다.
 
 .. _EXSLT: http://exslt.org/
 .. _regular expressions: http://exslt.org/regexp/index.html
 .. _set manipulation: http://exslt.org/set/index.html
 
 
-Some XPath tips
+XPath 팁
 ---------------
 
-Here are some tips that you may find useful when using XPath
-with Scrapy selectors, based on `this post from ScrapingHub's blog`_.
-If you are not much familiar with XPath yet,
-you may want to take a look first at this `XPath tutorial`_.
+스크래피 셀렉터로 XPath를 사용할 때 유용한 팁들이
+`ScrapingHub의 블로그 포스트`_\ 에 있다.
+XPath에 아직 익숙하지 않다면 먼저 `XPath 튜토리얼`_\ 을
+보는 것도 좋다.
 
 
-.. _`XPath tutorial`: http://www.zvon.org/comp/r/tut-XPath_1.html
-.. _`this post from ScrapingHub's blog`: https://blog.scrapinghub.com/2014/07/17/xpath-tips-from-the-web-scraping-trenches/
+.. _`XPath 튜토리얼`: http://www.zvon.org/comp/r/tut-XPath_1.html
+.. _`ScrapingHub의 블로그 포스트`: https://blog.scrapinghub.com/2014/07/17/xpath-tips-from-the-web-scraping-trenches/
 
 
-Using text nodes in a condition
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+조건이 있는 텍스트 노드 사용하기
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When you need to use the text content as argument to an `XPath string function`_,
-avoid using ``.//text()`` and use just ``.`` instead.
+`XPath string function`_\ 에 인자로 텍스트 건텐츠를 사용할 필요가 있을 때,
+``.//text()``\ 사용을 피하고 ``.``\ 만 사용하라.
 
-This is because the expression ``.//text()`` yields a collection of text elements -- a *node-set*.
-And when a node-set is converted to a string, which happens when it is passed as argument to
-a string function like ``contains()`` or ``starts-with()``, it results in the text for the first element only.
+왜냐하면 ``.//text()`` 표현은 텍스트 요소의 집합을 생산하기 때문이다 -- *노드-세트* .
+그리고 ``contains()`` 또는 ``starts-with()`` 같은 문자열 함수에 인자로 전달돼서 노드-세트가 문자열로 변환될 때,
+첫 번째 요소에 대한 텍스트만 불러온다.
 
-Example::
+예::
 
     >>> from scrapy import Selector
     >>> sel = Selector(text='<a href="#">Click here to go to the <strong>Next Page</strong></a>')
 
-Converting a *node-set* to string::
+*노드-세트*\ 를 문자열로 변환::
 
-    >>> sel.xpath('//a//text()').extract() # take a peek at the node-set
+    >>> sel.xpath('//a//text()').extract() # 노드-셋을 본다
     [u'Click here to go to the ', u'Next Page']
-    >>> sel.xpath("string(//a[1]//text())").extract() # convert it to string
+    >>> sel.xpath("string(//a[1]//text())").extract() # 문자열로 변환한다
     [u'Click here to go to the ']
 
-A *node* converted to a string, however, puts together the text of itself plus of all its descendants::
+그러나 문자열로 변환된 *노드*\ 는 텍스트와 모든 디센던트(descendant)를 합쳐버린다::
 
-    >>> sel.xpath("//a[1]").extract() # select the first node
+    >>> sel.xpath("//a[1]").extract() # 첫 번째 노드를 선택한다
     [u'<a href="#">Click here to go to the <strong>Next Page</strong></a>']
-    >>> sel.xpath("string(//a[1])").extract() # convert it to string
+    >>> sel.xpath("string(//a[1])").extract() # 문자열로 변환한다
     [u'Click here to go to the Next Page']
 
-So, using the ``.//text()`` node-set won't select anything in this case::
+따라서, ``.//text()`` 노드-세트를 사용하는 것은 이 경우에 아무것도 선택하지 않는다::
 
     >>> sel.xpath("//a[contains(.//text(), 'Next Page')]").extract()
     []
 
-But using the ``.`` to mean the node, works::
+하지만 노드를 의미하는 ``.``\ 를 사용하면 작동한다::
 
     >>> sel.xpath("//a[contains(., 'Next Page')]").extract()
     [u'<a href="#">Click here to go to the <strong>Next Page</strong></a>']
 
 .. _`XPath string function`: https://www.w3.org/TR/xpath/#section-String-Functions
 
-Beware of the difference between //node[1] and (//node)[1]
+//node[1]와 (//node)[1]의 차이를 주의하라
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-``//node[1]`` selects all the nodes occurring first under their respective parents.
+``//node[1]``\ 는 각각의 부모 아래서 처음으로 발생하는 모든 노드를 선택한다.
 
-``(//node)[1]`` selects all the nodes in the document, and then gets only the first of them.
+``(//node)[1]``\ 는 문서 내에서 모든 노드를 선택하고, 그중 첫 번째만 가져온다.
 
-Example::
+예::
 
     >>> from scrapy import Selector
     >>> sel = Selector(text="""
@@ -524,257 +523,247 @@ Example::
     ....:     </ul>""")
     >>> xp = lambda x: sel.xpath(x).extract()
 
-This gets all first ``<li>``  elements under whatever it is its parent::
+아래는 부모에 상관없이 모든 첫 번째 ``<li>`` 요소를 가져온다::
 
     >>> xp("//li[1]")
     [u'<li>1</li>', u'<li>4</li>']
 
-And this gets the first ``<li>``  element in the whole document::
+그리고 아래는 전체 문서의 첫 번째 ``<li>`` 요소만 가져온다::
 
     >>> xp("(//li)[1]")
     [u'<li>1</li>']
 
-This gets all first ``<li>``  elements under an ``<ul>``  parent::
+아래는 ``<ul>`` 부모 아래 있는 모든 첫 번째 ``<li>`` 요소만 가지고 온다::
 
     >>> xp("//ul/li[1]")
     [u'<li>1</li>', u'<li>4</li>']
 
-And this gets the first ``<li>``  element under an ``<ul>``  parent in the whole document::
+그리고 아래는 전체 문서의 ``<ul>`` 부모 아래 있는 첫 번째 ``<li>`` 요소만 가지고 온다::
 
     >>> xp("(//ul/li)[1]")
     [u'<li>1</li>']
 
-When querying by class, consider using CSS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+클래스로 쿼리 할 때, CSS 사용을 고려하라
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Because an element can contain multiple CSS classes, the XPath way to select elements
-by class is the rather verbose::
+요소가 여러 CSS 클래스를 포함할 수 있기 때문에, 클래스로 요소를 선택하는 XPath 방식은
+다소 장황하다::
 
     *[contains(concat(' ', normalize-space(@class), ' '), ' someclass ')]
 
-If you use ``@class='someclass'`` you may end up missing elements that have
-other classes, and if you just use ``contains(@class, 'someclass')`` to make up
-for that you may end up with more elements that you want, if they have a different
-class name that shares the string ``someclass``.
+만약 ``@class='someclass'``\ 로 쓴다면 다른 클래스를 가진 요소를 놓치게 될 것이다.
+그리고 ``contains(@class, 'someclass')``\ 로 쓰면 ``someclass`` 문자열을 공유하는 다른
+클래스 이름이 있으면 원하는 것 보다 많은 요소를 얻게 된다.
 
-As it turns out, Scrapy selectors allow you to chain selectors, so most of the time
-you can just select by class using CSS and then switch to XPath when needed::
+스크래피 셀렉터는 셀렉터를 연결시켜서 사용할 수 있기 때문에, 대부분의 경우 CSS를 사용해
+클래스로 선택을 한 다음 필요할 때 XPath로 전환하면 된다::
 
     >>> from scrapy import Selector
     >>> sel = Selector(text='<div class="hero shout"><time datetime="2014-07-23 19:00">Special date</time></div>')
     >>> sel.css('.shout').xpath('./time/@datetime').extract()
     [u'2014-07-23 19:00']
 
-This is cleaner than using the verbose XPath trick shown above. Just remember
-to use the ``.`` in the XPath expressions that will follow.
+이것은 위의 장황한 XPath 트릭을 사용하는 것 보다 훨씬 깔끔하다.
+단지 뒤따르는 XPath 표현식에서 ``.``\ 를 사용하는 것을 기억하라.
 
 
 .. _topics-selectors-ref:
 
-Built-in Selectors reference
-============================
+내장 셀렉터 레퍼런스
+====================================
 
 .. module:: scrapy.selector
    :synopsis: Selector class
 
-Selector objects
+Selector 객체
 ----------------
 
 .. class:: Selector(response=None, text=None, type=None)
 
-  An instance of :class:`Selector` is a wrapper over response to select
-  certain parts of its content.
+  :class:`Selector` 인스턴스는 리스펀스의 래퍼(wrapper)로 컨텐츠의 특정 부분을 선택하게 해준다.
 
-  ``response`` is an :class:`~scrapy.http.HtmlResponse` or an
-  :class:`~scrapy.http.XmlResponse` object that will be used for selecting and
-  extracting data.
+  ``response``\ 는 데이터 선택이나 추출에 사용될 :class:`~scrapy.http.HtmlResponse` 또는
+  :class:`~scrapy.http.XmlResponse` 객체다.
 
-  ``text`` is a unicode string or utf-8 encoded text for cases when a
-  ``response`` isn't available. Using ``text`` and ``response`` together is
-  undefined behavior.
+  ``text``\ 는 유니코드 문자열이고 ``response``\ 가 사용 불가능할 때는 utf-8로 인코딩 텍스트가 된다.
+  ``text``\ 와 ``response`` 같이 사용하는 것은 정의되지 않은 동작이다.
 
-  ``type`` defines the selector type, it can be ``"html"``, ``"xml"`` or ``None`` (default).
+  ``type``\ 는 셀렉터 타입을 정의한다. ``"html"``, ``"xml"`` 또는 ``None`` (기본)이 될 수 있다.
 
-    If ``type`` is ``None``, the selector automatically chooses the best type
-    based on ``response`` type (see below), or defaults to ``"html"`` in case it
-    is used together with ``text``.
+    만약 ``type``\ 이 ``None``\ 이면, 셀렉터는 자동으로 최선의 타입(type)을 ``response`` 타입에
+    기반해 고르며(아래를 참고하라), ``text``\ 와 같이 쓰이는 경우는 ``"html"``\ 이 기본으로
+    설정되어 있다.
 
-    If ``type`` is ``None`` and a ``response`` is passed, the selector type is
-    inferred from the response type as follows:
+    ``type``\ 이 ``None``\ 이고 ``response``\ 가 전달 되었으면, 셀렉터 타입은 아래처럼
+    리스펀스 타입에 따라 추정된다:
 
-        * ``"html"`` for :class:`~scrapy.http.HtmlResponse` type
-        * ``"xml"`` for :class:`~scrapy.http.XmlResponse` type
-        * ``"html"`` for anything else
+        * :class:`~scrapy.http.HtmlResponse` 타입의 경우 ``"html"``
+        * :class:`~scrapy.http.XmlResponse` 타입의 경우 ``"xml"``
+        * 그 이외의 타입의 경우 ``"html"``
 
-   Otherwise, if ``type`` is set, the selector type will be forced and no
-   detection will occur.
+    이외의 경우에 ``type``\ 이 설정되어 있으면, 셀렉터 타입이 강제되어 탐색이 일어나지 않을 수 있다.
 
   .. method:: xpath(query)
 
-      Find nodes matching the xpath ``query`` and return the result as a
-      :class:`SelectorList` instance with all elements flattened. List
-      elements implement :class:`Selector` interface too.
+      xpath ``query``\ 와 매치되는 노드를 찾고 일자화된(flattened) 모든 요소를 포함한
+      :class:`SelectorList` 인스턴스를 결과로 반환한다. 리스트 요소 또한
+      :class:`Selector` 인터페이스를 구현하고 있다.
 
-      ``query`` is a string containing the XPATH query to apply.
+      ``query``\ 는 문자열로 사용할 XPATH 쿼리를 포함하고 있다.
 
       .. note::
 
-          For convenience, this method can be called as ``response.xpath()``
+          편의를 위해, 이 메서드는 ``response.xpath()``\ 로 호출될 수 있다.
 
   .. method:: css(query)
 
-      Apply the given CSS selector and return a :class:`SelectorList` instance.
+      주어진 CSS 셀렉터를 적용하고 :class:`SelectorList` 인스턴스를 반환한다.
 
-      ``query`` is a string containing the CSS selector to apply.
+      ``query``\ 는 사용할 CSS 셀렉터를 포함하고 있는 문자열이다.
 
-      In the background, CSS queries are translated into XPath queries using
-      `cssselect`_ library and run ``.xpath()`` method.
+      뒷단에서, CSS 쿼리는 `cssselect`_ 라이브러리를 사용해서 XPath 쿼리로 변경되고
+      ``.xpath()`` 메서드를 실행한다.
 
       .. note::
 
-          For convenience this method can be called as ``response.css()``
+          편의를 위해 이 메서드는 ``response.css()``\ 로 호출된다.
 
   .. method:: extract()
 
-     Serialize and return the matched nodes as a list of unicode strings.
-     Percent encoded content is unquoted.
+     매치된 노드를 유니코드 문자열 리스트로 직렬화(serialize)하고 반환한다.
+     퍼센트 인코딩된 컨텐츠는 인용부호가 없다.
 
   .. method:: re(regex)
 
-     Apply the given regex and return a list of unicode strings with the
-     matches.
+     주어진 정규표현식을 적용하고 칠치하는 유니코드 문자열의 리스트를 반환한다.\
 
-     ``regex`` can be either a compiled regular expression or a string which
-     will be compiled to a regular expression using ``re.compile(regex)``
+     ``regex``\ 는 컴파일된 정규표현식이나 문자열이면 된다. 문자열은
+     ``re.compile(regex)``\ 를 사용해 정규 표현식으로 컴파일된다.
 
     .. note::
 
-        Note that ``re()`` and ``re_first()`` both decode HTML entities (except ``&lt;`` and ``&amp;``).
+        ``re()``\ 와 ``re_first()``\ 는 모두 HTML 엔티티(entity)를 디코딩한다. (``&lt;``, ``&amp;`` 제외)
 
   .. method:: register_namespace(prefix, uri)
 
-     Register the given namespace to be used in this :class:`Selector`.
-     Without registering namespaces you can't select or extract data from
-     non-standard namespaces. See examples below.
+     :class:`Selector`\ 에서 사용될 주어진 네임스페이스(name space)를 등록한다.
+     네임스페이스를 등록하지 않으면 비표준 네임스페이스로부터 데이터를 추출하거나
+     선택할 수 없다. 아래의 예제를 참고하라.
 
   .. method:: remove_namespaces()
 
-     Remove all namespaces, allowing to traverse the document using
-     namespace-less xpaths. See example below.
+     모든 네임스페이스를 제거하고, 네임스페이스 없는 xpath를 사용해서 문서를 돌아다니게 해준다.
+     아래의 예제를 참고하라.
 
   .. method:: __nonzero__()
 
-     Returns ``True`` if there is any real content selected or ``False``
-     otherwise.  In other words, the boolean value of a :class:`Selector` is
-     given by the contents it selects.
+     선택된 실제 컨텐츠가 있으면 ``True``\ 를 반환하고 그렇지 않은 경우에는 ``False``\ 를
+     반환한다. 즉, :class:`Selector`\ 의 불리언(Boolean) 값은 셀렉터가 선택하는
+     컨텐츠에 따라 달라진다.
 
 
-SelectorList objects
+SelectorList 객체
 --------------------
 
 .. class:: SelectorList
 
-   The :class:`SelectorList` class is a subclass of the builtin ``list``
-   class, which provides a few additional methods.
+   :class:`SelectorList` 클래스는 내장 ``list`` 클래스의 상속 클래스로 추가적인 메서드를
+   제공한다.
 
    .. method:: xpath(query)
 
-       Call the ``.xpath()`` method for each element in this list and return
-       their results flattened as another :class:`SelectorList`.
+       리스트에 있는 각 요소에 대해 ``.xpath()`` 메서드를 호출하고 일자화된 결과를 또다른 :class:`SelectorList`\ 로
+       반환한다.
 
-       ``query`` is the same argument as the one in :meth:`Selector.xpath`
+       ``query``\ 는 :meth:`Selector.xpath`\ 에 있는 인자와 같다.
 
    .. method:: css(query)
 
-       Call the ``.css()`` method for each element in this list and return
-       their results flattened as another :class:`SelectorList`.
+       리스트에 있는 각 요소에 대해 ``.css()`` 메서드를 호출하고 일자화된 결과를 또다른 :class:`SelectorList`\ 로
+       반환한다.
 
-       ``query`` is the same argument as the one in :meth:`Selector.css`
+       ``query`` :meth:`Selector.css`\ 에 있는 인자와 같다.
 
    .. method:: extract()
 
-       Call the ``.extract()`` method for each element in this list and return
-       their results flattened, as a list of unicode strings.
+       리스트에 있는 각 요소에 대해 ``.extract()`` 메서드를 호출하고 일자화된 유니코드 문자열 리스트를 반환한다.
 
    .. method:: re()
 
-       Call the ``.re()`` method for each element in this list and return
-       their results flattened, as a list of unicode strings.
+       리스트에 있는 각 요소에 대해 ``.re()`` 메서드를 호출하고 일자화된 유니코드 문자열 리스트를 반환한다.
 
 
-Selector examples on HTML response
-----------------------------------
+HTML 리스펀스에 관한 셀렉터 예시
+----------------------------------------------------
 
-Here's a couple of :class:`Selector` examples to illustrate several concepts.
-In all cases, we assume there is already a :class:`Selector` instantiated with
-a :class:`~scrapy.http.HtmlResponse` object like this::
+이 섹션에는 여러 개념을 설명하기 위한 몇 가지 :class:`Selector` 예시가 있다.
+모든 예시에서 :class:`~scrapy.http.HtmlResponse`\ 를 받아 인스턴스화된 :class:`Selector`\ 가
+이미 존재한다고 가정한다::
 
       sel = Selector(html_response)
 
-1. Select all ``<h1>`` elements from an HTML response body, returning a list of
-   :class:`Selector` objects (ie. a :class:`SelectorList` object)::
+1. HTML 리스펀스 본문(body)로부터 모든 ``<h1>`` 요소를 선택하고, :class:`Selector` 객체 리스트를
+   반환한다. (:class:`SelectorList` 객체)::
 
       sel.xpath("//h1")
 
-2. Extract the text of all ``<h1>`` elements from an HTML response body,
-   returning a list of unicode strings::
+2. HTML 리스펀스 폰문으로부터 모든 ``<h1>`` 요소의 텍스트를 추출하고 유니코드 문자열
+   리스트를 반환한다::
 
       sel.xpath("//h1").extract()         # this includes the h1 tag
       sel.xpath("//h1/text()").extract()  # this excludes the h1 tag
 
-3. Iterate over all ``<p>`` tags and print their class attribute::
+3. 모든``<p>`` 태그에 대해서 반복해서 각각의 클래스 속성을 출력한다::
 
       for node in sel.xpath("//p"):
           print node.xpath("@class").extract()
 
-Selector examples on XML response
+XML 리스펀스에 관한 셀렉터 예시
 ---------------------------------
 
-Here's a couple of examples to illustrate several concepts. In both cases we
-assume there is already a :class:`Selector` instantiated with an
-:class:`~scrapy.http.XmlResponse` object like this::
+이 섹션에는 여러가지 개념을 설명하기 위한 몇 가지 예제가 있다. 두 경우 모두In both cases we
+:class:`~scrapy.http.XmlResponse`\ 로 인스턴스화한 :class:`Selector`\ 가 이미 존재한다고
+가정한다::
 
       sel = Selector(xml_response)
 
-1. Select all ``<product>`` elements from an XML response body, returning a list
-   of :class:`Selector` objects (ie. a :class:`SelectorList` object)::
+1. 모든 ``<product>`` 요소를 XML 리스펀스 본문으로부터 선택하고, :class:`Selector` 객체 리스트를
+   반환한다. (:class:`SelectorList` 객체)::
 
       sel.xpath("//product")
 
-2. Extract all prices from a `Google Base XML feed`_ which requires registering
-   a namespace::
+2. 네임스페이스 등록을 필요로하는 `Google Base XML feed`_ \ 에서 모든 가격을 추출한다::
 
       sel.register_namespace("g", "http://base.google.com/ns/1.0")
       sel.xpath("//g:price").extract()
 
 .. _removing-namespaces:
 
-Removing namespaces
--------------------
+네임스페이스 제거
+-----------------------
 
-When dealing with scraping projects, it is often quite convenient to get rid of
-namespaces altogether and just work with element names, to write more
-simple/convenient XPaths. You can use the
-:meth:`Selector.remove_namespaces` method for that.
+스크래핑 프로젝트를 다룰 때, 네임스페이스를 완전히 제거하고 요소 이름으로만 작업하는 것이
+더 단순하고 편리한 XPath를 작성하기에 꽤 편할 떄가 있다.
+이를 위해서 :meth:`Selector.remove_namespaces` 메서드를 사용할 수 있다.
 
-Let's show an example that illustrates this with GitHub blog atom feed.
+GitHub 블로그 아톰 피드(atom feed)로 이를 설명하는 예시를 보자.
 
 .. highlight:: sh
 
-First, we open the shell with the url we want to scrape::
+우선, 스크랩하려는 url로 셀을 열었다::
 
     $ scrapy shell https://github.com/blog.atom
 
 .. highlight:: python
 
-Once in the shell we can try selecting all ``<link>`` objects and see that it
-doesn't work (because the Atom XML namespace is obfuscating those nodes)::
+셸에서 모든 ``<link>`` 객체를 선택하려고 시도하면 이것이 작동하지 않는 것을
+볼 수 있다 (왜냐하면 Atom XML 네입스페이스는 노드를 혼란스럽게 만들고 있기 때문이다)::
 
     >>> response.xpath("//link")
     []
 
-But once we call the :meth:`Selector.remove_namespaces` method, all
-nodes can be accessed directly by their names::
+하지만 일단 :meth:`Selector.remove_namespaces` 메서드를 호출하면, 모든
+노드는 자신의 이름으로 바로 접근할 수가 있다::
 
     >>> response.selector.remove_namespaces()
     >>> response.xpath("//link")
@@ -782,16 +771,15 @@ nodes can be accessed directly by their names::
      <Selector xpath='//link' data=u'<link xmlns="http://www.w3.org/2005/Atom'>,
      ...
 
-If you wonder why the namespace removal procedure isn't always called by default
-instead of having to call it manually, this is because of two reasons, which, in order
-of relevance, are:
+네임스페이스 제거 과정을 직접 호출하는 대신에 항상 기본으로 호출되지 않게 해놨는지 궁금하다면
+이는 두 가지 이유 때문이다. 관련성 순서대로:
 
-1. Removing namespaces requires to iterate and modify all nodes in the
-   document, which is a reasonably expensive operation to perform for all
-   documents crawled by Scrapy
+1. 네임스페이스를 제거하는 것은 문서에 있는 모든 노드를 수정하고 반복하는 것을 요구한다.
+   이는 스크래피로 크롤링되는 문서에 대해 수행하기에는 상당히 비용이 많이 드는
+   작업이다.
 
-2. There could be some cases where using namespaces is actually required, in
-   case some element names clash between namespaces. These cases are very rare
-   though.
+2. 네임스페이스가 실제로 필요한 경우가 있을 수 있다.
+   그 경우 몇 요소의 이름은 네임스페이스 사이에서 충돌을 일으킨다. 이런 경우는
+   매우 드물기는 하다.
 
 .. _Google Base XML feed: https://support.google.com/merchants/answer/160589?hl=en&ref_topic=2473799

@@ -88,17 +88,17 @@ URL) URL에 대한 리퀘스트를 생성함으로써 시작되며 기본 콜백
 계속 진행이 된다는 의미다.
 
 (장애 허용(fault-tolerant) 방식으로 한 번에 다수의 동시적인 리퀘스트를 보내서)
-크롤링을 매우 빠르게 해주면서 스크래피는 :ref:`a few settings <topics-settings-ref>`\ 을 통해서
+크롤링을 매우 빠르게 해주면서 스크래피는 :ref:`몇 가지 세팅 <topics-settings-ref>`\ 을 통해서
 크롤링의 politeness에 대한 통제권을도 제공한다. 각 리퀘스트 사이의
 다운로드 딜레이를 조정하고, 각 도메인이나 IP에 대한 동시적인 리퀘스트의 수를
-제한하고, 심지어 자동적으로 이런 것들을 산출하는 :ref:`auto-throttling extension <topics-autothrottle>`\ 을
+제한하고, 심지어 자동적으로 이런 것들을 산출하는 :ref:`자동 쓰로틀링(auto-throttling) 확장 <topics-autothrottle>`\ 을
 사용할 수도 있다.
 
 .. note::
 
-    이 예제는 JSON 파일을 생성하기 위해 :ref:`feed exports <topics-feed-exports>`\ 를
+    이 예제는 JSON 파일을 생성하기 위해 :ref:`피드 익스포트(feed exports) <topics-feed-exports>`\ 를
     사용했다. 포맷(XML, CSV 등)이나 스토리지 백엔드(FTP, `Amazon S3`_ 등)는 쉽게 바꿀 수 있다.
-    또한 :ref:`item pipeline <topics-item-pipeline>`\ 을 만들어서
+    또한 :ref:`아이템 파이프라인 <topics-item-pipeline>`\ 을 만들어서
     아이템을 데이터베이스에 저장할 수도 있다.
 
 
@@ -116,7 +116,7 @@ URL) URL에 대한 리퀘스트를 생성함으로써 시작되며 기본 콜백
   데이터를 :ref:`선택하고 추출하는 <topics-selectors>` 작업을 위한 빌트인 지원.
 
 * CSS와 XPath 표현식을오 데이터를 스크랩하는 것을 시험해볼 수 있고, 스파이더를
-  디버깅할 때 매우 유용한 :ref:`이터랙티브 쉘 콘솔 <topics-shell>` (IPython 인식).
+  디버깅할 때 매우 유용한 :ref:`대화형 쉘 콘솔 <topics-shell>` (IPython 인식).
 
 * 다양한 포맷(JSON, CSV, XML)의 :ref:`피드 익스포트 생성 <topics-feed-exports>`\ 과
   다양한 백엔드로의 저장(FTP, S3, 로컬 파일 시스템)을 위한 빌트인 지원.
@@ -125,8 +125,8 @@ URL) URL에 대한 리퀘스트를 생성함으로써 시작되며 기본 콜백
 
 * :ref:`signals <topics-signals>`\ 을 사용한 사용자 지정 기능성 플러그인을 허용하는
   :ref:`강력한 확장성 지원 <extending-scrapy>`, 명확히 정의된 API
-  (미들웨어, :ref:`extensions <topics-extensions>`,
-  :ref:`pipelines <topics-item-pipeline>`).
+  (미들웨어, :ref:`확장 <topics-extensions>`,
+  :ref:`파이프라인 <topics-item-pipeline>`).
 
 * 광범위한 처리용 미들웨어 및 빌트인 확장:
 
@@ -147,9 +147,9 @@ URL) URL에 대한 리퀘스트를 생성함으로써 시작되며 기본 콜백
 다음 단계는?
 ====================
 
-다음 단계는 :ref:`install Scrapy <intro-install>`\ 고,
-:ref:`follow through the tutorial <intro-tutorial>`\ 에서
-본격적으로 스크래피 프로젝트를 생성하는 법을 배우고 `커뮤니티에 참여하기`_ 바란다.
+다음 단계는 :ref:`스크래피를 설치하는 <intro-install>` 것이며,
+:ref:`튜토리얼을 따라서 <intro-tutorial>` 완전한 스크래피 프로젝트를
+만드는 방법을 배우고 `커뮤니티에 참여하기`_ 바란다.
 
 .. _커뮤니티에 참여하기: https://scrapy.org/community/
 .. _web scraping: https://en.wikipedia.org/wiki/Web_scraping
