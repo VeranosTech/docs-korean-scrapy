@@ -85,7 +85,10 @@ Virtualenvs allow you to not conflict with already-installed Python
 system packages (which could break some of your system tools and scripts),
 and still install packages normally with ``pip`` (without ``sudo`` and the likes).
 
-To get started with virtual environments, see `virtualenv installation instructions`_.
+To get started with virtual environments, see `virtualenv installation instructionsvirtualenv installation instructions`_.
+To install it globally (having it globally installed actually helps here),virtualenv installation instructions`_.
+To install it globally (having it globally installed actually helps here),virtualenv installation instructions`_.
+To install it globally (having it globally installed actually helps here),virtualenv installation instructions`_.
 To install it globally (having it globally installed actually helps here),
 it should be a matter of running::
 
