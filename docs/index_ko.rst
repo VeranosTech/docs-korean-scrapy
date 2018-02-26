@@ -36,7 +36,7 @@
    intro/overview_ko
    intro/install_ko
    intro/tutorial_ko
-   intro/examples
+   intro/examples_ko
 
 :doc:`intro/overview_ko`
     스크래피가 무엇이고 어떤 도움을 주는지 이해하기.
@@ -47,7 +47,7 @@
 :doc:`intro/tutorial_ko`
     첫 번째 스크래피 프로젝트 제작.
 
-:doc:`intro/examples`
+:doc:`intro/examples_ko`
     사전 제작된 스크래피 프로젝트를 이용하여 배우기.
 
 .. _section-basics:
@@ -203,6 +203,7 @@
 
 스크래피 확장
 ==============================
+
 .. toctree::
    :caption: 스크래피 확장
    :hidden:

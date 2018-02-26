@@ -4,7 +4,7 @@
 설치 가이드
 ==================
 
-스크래피(Scrapy) 설치
+스크래피 설치
 =========================
 
 스크래피는 파이썬 2.7과 파이썬 3.4 이상에서 실행된다.
@@ -219,21 +219,21 @@ PyPy
 최신 PyPy 버전을 권장한다. 테스트를 한 버전은 5.9.0이다.
 PyPy3는 리눅스에서만 테스트하였다.
 
-Most scrapy dependencides now have binary wheels for CPython, but not for PyPy.
-This means that these dependecies will be built during installation.
-On OS X, you are likely to face an issue with building Cryptography dependency,
-solution to this problem is described
-`here <https://github.com/pyca/cryptography/issues/2692#issuecomment-272773481>`_,
-that is to ``brew install openssl`` and then export the flags that this command
-recommends (only needed when installing scrapy). Installing on Linux has no special
-issues besides installing build dependencies.
-Installing scrapy with PyPy on Windows is not tested.
+CPython의 경우에는 스크래피가 의존하는 대부분의 패키지가 바이너리 파일로 구현되어 있지만
+PyPy에서는 그렇지 않다. 따라서 설치시에 모든 필요 패키지를 직접 빌드해야 한다.
 
-You can check that scrapy is installed correctly by running ``scrapy bench``.
-If this command gives errors such as
-``TypeError: ... got 2 unexpected keyword arguments``, this means
-that setuptools was unable to pick up one PyPy-specific dependency.
-To fix this issue, run ``pip install 'PyPyDispatcher>=2.1.0'``.
+맥 OS X에서는 암호화 패키지를 빌딩할 때 문제가 있다.
+해결 방법은
+`here <https://github.com/pyca/cryptography/issues/2692#issuecomment-272773481>`_\ 에 있다.
+``brew install openssl`` 명령으로 opensll을 설치하고
+이 명령이 추천하는 옵션(스크래피 설치에만 필요하다.)을 익스포트해서 사용한다.
+리눅스에서 설치할 때는 특별한 문제가 없다.
+윈도우즈에서 PyPy 기반으로 스크래피를 사용하는 것은 테스트하지 않았다.
+
+``scrapy bench`` 명령을 실행하면 스크래피가 잘 설치되었는지 확인할 수 있다.
+만약 ``TypeError: ... got 2 unexpected keyword arguments`` 등의 오류가 나오면
+setuptools가 PyPy의 관련 패키지를 설치하지 못했다는 뜻이다.
+이 문제를 해결하려면 ``pip install 'PyPyDispatcher>=2.1.0'``\ 를 실행한다.
 
 
 .. _Python: https://www.python.org/
