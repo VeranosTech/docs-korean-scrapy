@@ -17,3 +17,4 @@ htmlcov/
 
 # Windows
 Thumbs.db
+!build/

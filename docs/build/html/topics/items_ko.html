@@ -1,0 +1,503 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>아이템 &mdash; Scrapy 1.5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="색인"
+              href="../genindex.html"/>
+        <link rel="search" title="검색" href="../search.html"/>
+    <link rel="top" title="Scrapy 1.5.0 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index_ko.html" class="icon icon-home"> Scrapy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">처음 시작하기</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/overview_ko.html">스크래피(Scrapy) 한눈에 보기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/install_ko.html">설치 가이드</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/tutorial_ko.html">스크래피 튜토리얼</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/examples_ko.html">예제</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기본 개념</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="commands_ko.html">커맨드 라인 툴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spiders_ko.html">스파이더(Spider)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html">Selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="items.html">Items</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loaders.html">Item Loaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shell.html">Scrapy shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="item-pipeline.html">Item Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="feed-exports.html">Feed exports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-response.html">Requests and Responses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="link-extractors.html">Link Extractors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Built-in services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="logging_ko.html">로깅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats_ko.html">통계 수집</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.html">Sending e-mail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telnetconsole.html">Telnet Console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webservice.html">Web Service</a></li>
+</ul>
+<p class="caption"><span class="caption-text">특정 문제 해결하기</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contracts.html">Spiders Contracts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practices.html">Common Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="broad-crawls.html">Broad Crawls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firefox.html">Using Firefox for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firebug.html">Using Firebug for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="leaks.html">Debugging memory leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="media-pipeline.html">Downloading and processing files and images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">Deploying Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autothrottle.html">AutoThrottle extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarking.html">Benchmarking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Jobs: pausing and resuming crawls</a></li>
+</ul>
+<p class="caption"><span class="caption-text">스크래피 확장</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloader-middleware.html">Downloader Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spider-middleware.html">Spider Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extensions.html">Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_ko.html">코어 API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signals.html">Signals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exporters.html">Item Exporters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기타</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to Scrapy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versioning.html">Versioning and API Stability</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index_ko.html">Scrapy</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index_ko.html">Docs</a> &raquo;</li>
+        
+      <li>아이템</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/VeranosTech/docs-korean-scrapy/blob/docs-korean/docs/topics/items_ko.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-scrapy.item">
+<span id="id1"></span><span id="topics-items"></span><h1>아이템<a class="headerlink" href="#module-scrapy.item" title="제목 주소">¶</a></h1>
+<p>스크랩핑의 주 목적은 구조화되지 않은 자료, 주로 웹페이지에서 구조화된 자료를 추출하는
+것이다. 스크래피 스파이더(spider)는 추출된 데이터를 파이썬(Python) 딕셔너리로
+반환할 수 있다. 이는 편리하고 친숙하지만, 파이썬 딕셔너리는 구조가 부족하다:
+특히 많은 스파이더를 사용하는 거대한 프로젝트에서는 필드 이름에 오타를 내거나 일관성
+없는 데이터를 반환하기 쉽다.</p>
+<p>공통적인 출력 데이터 포맷을 정의하기 위해서 스크래피는 <a class="reference internal" href="#scrapy.item.Item" title="scrapy.item.Item"><code class="xref py py-class docutils literal"><span class="pre">Item</span></code></a> 클래스를 제공한다.
+<a class="reference internal" href="#scrapy.item.Item" title="scrapy.item.Item"><code class="xref py py-class docutils literal"><span class="pre">Item</span></code></a> 객체는 스크랩된 데이터를 모으기 위한 간단한 컨테이너다.
+이 객체는 <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict">딕셔너리 형</a> API에 사용할 수 있는 필드를 편리하게 선언할 수 있는 신택스(syntax)를 제공한다.</p>
+<p>다양한 스크래피 구성요소는 아이템이 제공하는 추가적인 정보를 사용한다:
+익스포터(exporter)sms 내보낼 컬럼(column)을 알아내기 위해 선언된 필드를 확인하며,
+직렬화(serialization)는 아이템 필드의 메타데이터를 사용해 커스터마이즈할 수 있고,
+<code class="xref py py-mod docutils literal"><span class="pre">trackref</span></code>는 메모리 누수를 감지를 돕기 위해 아이템 인스턴스를 추척한다
+(<a class="reference internal" href="leaks.html#topics-leaks-trackrefs"><span class="std std-ref">Debugging memory leaks with trackref</span></a>를 참고하라).</p>
+<div class="section" id="topics-items-declaring">
+<span id="id3"></span><h2>아이템 선언<a class="headerlink" href="#topics-items-declaring" title="제목 주소">¶</a></h2>
+<p>아이템은 간단한 클래스 정의 신택스와 <a class="reference internal" href="#scrapy.item.Field" title="scrapy.item.Field"><code class="xref py py-class docutils literal"><span class="pre">Field</span></code></a> 객체를 사용해 선언된다.
+다음은 선언의 예시이다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+
+<span class="k">class</span> <span class="nc">Product</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Item</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Field</span><span class="p">()</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Field</span><span class="p">()</span>
+    <span class="n">stock</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Field</span><span class="p">()</span>
+    <span class="n">last_updated</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">serializer</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last"><a class="reference external" href="https://www.djangoproject.com/">장고(Django)</a>와 익숙한 사람은 스크래피 아이템이
+다른 필드 타입이 없기 때문에 훨씬 단순하다는 사실을 제외하면
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/topics/db/models/">장고 모델</a>과 유사하게 선언되는 것을 알아차렸을 것이다.</p>
+</div>
+</div>
+<div class="section" id="topics-items-fields">
+<span id="id5"></span><h2>아이템 필드<a class="headerlink" href="#topics-items-fields" title="제목 주소">¶</a></h2>
+<p><a class="reference internal" href="#scrapy.item.Field" title="scrapy.item.Field"><code class="xref py py-class docutils literal"><span class="pre">Field</span></code></a> 객체는 각 필드의 메타데이터를 지정하기 위해 사용된다.
+위의 예시에서 묘사된 <code class="docutils literal"><span class="pre">last_updated</span></code> 필드를 위한 직렬화 함수가 그 예이다.</p>
+<p>사용자는 각 필드에 대한 모든 종류의 메타데이터를 지정할 수 있다.<a class="reference internal" href="#scrapy.item.Field" title="scrapy.item.Field"><code class="xref py py-class docutils literal"><span class="pre">Field</span></code></a> 객체가 받아들이는 값에 대해 제한은 없다.
+같은 이유 때문에, 사용 가능한 메타데이터 키의 참조 리스트는 없다.
+<a class="reference internal" href="#scrapy.item.Field" title="scrapy.item.Field"><code class="xref py py-class docutils literal"><span class="pre">Field</span></code></a> 객체에서 정의된 각 키는 다른 구성요소에서 사용될 수 있고,
+구성요소만이 그것에 대해 알고 있다.
+또한 필요에 맞게 프로젝트에 다른 <a class="reference internal" href="#scrapy.item.Field" title="scrapy.item.Field"><code class="xref py py-class docutils literal"><span class="pre">Field</span></code></a>를 정의하고 사용할 수 있다.
+<a class="reference internal" href="#scrapy.item.Field" title="scrapy.item.Field"><code class="xref py py-class docutils literal"><span class="pre">Field</span></code></a>객체의 주 목표는 한 장소에 모든 필드 메타데이터를 정의하는
+방법을 제공하는 것이다. 일반적으로 동작이 각 필드에 의존하는 구성요소는 그 동작을 구성하는
+특정 필드 키를 사용한다. 어떤 메타데이터 키가 각 구성요소에 사용되는지를 보려면
+해당 문서를 반드시 참고해야 한다.</p>
+<p>아이템을 선언하기 위해 사용된 <a class="reference internal" href="#scrapy.item.Field" title="scrapy.item.Field"><code class="xref py py-class docutils literal"><span class="pre">Field</span></code></a> 객체는 클래스 속성으로 할당된 채
+남아있지 않는다는 사실을 명심하라. 대신, <a class="reference internal" href="#scrapy.item.Item.fields" title="scrapy.item.Item.fields"><code class="xref py py-attr docutils literal"><span class="pre">Item.fields</span></code></a> 속성을 통해서
+접근할 수 있다.</p>
+</div>
+<div class="section" id="id6">
+<h2>아이템으로 작업하기<a class="headerlink" href="#id6" title="제목 주소">¶</a></h2>
+<p>이 섹션에는 <a class="reference internal" href="#topics-items-declaring"><span class="std std-ref">위에서 선언된</span></a> <code class="docutils literal"><span class="pre">Product</span></code> 아이템을 사용해서 수행하는
+일반적인 작업의 예시가 있다. API가 <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict">딕셔너리 API</a>와 매우 유사하다는 사실을 알게 될 것이다.</p>
+<div class="section" id="id7">
+<h3>아이템 생성<a class="headerlink" href="#id7" title="제목 주소">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">product</span> <span class="o">=</span> <span class="n">Product</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Desktop PC&#39;</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">product</span>
+<span class="go">Product(name=&#39;Desktop PC&#39;, price=1000)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>필드 값 얻기<a class="headerlink" href="#id8" title="제목 주소">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">product</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+<span class="go">Desktop PC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">product</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+<span class="go">Desktop PC</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">product</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span>
+<span class="go">1000</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">product</span><span class="p">[</span><span class="s1">&#39;last_updated&#39;</span><span class="p">]</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">KeyError</span>: <span class="n">&#39;last_updated&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">product</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;last_updated&#39;</span><span class="p">,</span> <span class="s1">&#39;not set&#39;</span><span class="p">)</span>
+<span class="go">not set</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">product</span><span class="p">[</span><span class="s1">&#39;lala&#39;</span><span class="p">]</span> <span class="c1"># getting unknown field</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">KeyError</span>: <span class="n">&#39;lala&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">product</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lala&#39;</span><span class="p">,</span> <span class="s1">&#39;unknown field&#39;</span><span class="p">)</span>
+<span class="go">&#39;unknown field&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;name&#39;</span> <span class="ow">in</span> <span class="n">product</span>  <span class="c1"># is name field populated?</span>
+<span class="go">True</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;last_updated&#39;</span> <span class="ow">in</span> <span class="n">product</span>  <span class="c1"># is last_updated populated?</span>
+<span class="go">False</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;last_updated&#39;</span> <span class="ow">in</span> <span class="n">product</span><span class="o">.</span><span class="n">fields</span>  <span class="c1"># is last_updated a declared field?</span>
+<span class="go">True</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;lala&#39;</span> <span class="ow">in</span> <span class="n">product</span><span class="o">.</span><span class="n">fields</span>  <span class="c1"># is lala a declared field?</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>필드 값 설정<a class="headerlink" href="#id9" title="제목 주소">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">product</span><span class="p">[</span><span class="s1">&#39;last_updated&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;today&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">product</span><span class="p">[</span><span class="s1">&#39;last_updated&#39;</span><span class="p">]</span>
+<span class="go">today</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">product</span><span class="p">[</span><span class="s1">&#39;lala&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;test&#39;</span> <span class="c1"># setting unknown field</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">KeyError</span>: <span class="n">&#39;Product does not support field: lala&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="accessing-all-populated-values">
+<h3>Accessing all populated values<a class="headerlink" href="#accessing-all-populated-values" title="제목 주소">¶</a></h3>
+<p>입력된 모든 값에 접근하려면, 일반적인 <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict">딕셔너리 API</a>를 사용하라:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">product</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="go">[&#39;price&#39;, &#39;name&#39;]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">product</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+<span class="go">[(&#39;price&#39;, 1000), (&#39;name&#39;, &#39;Desktop PC&#39;)]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id10">
+<h3>다른 일반 작업<a class="headerlink" href="#id10" title="제목 주소">¶</a></h3>
+<p>아이템 복사:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">product2</span> <span class="o">=</span> <span class="n">Product</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">product2</span>
+<span class="go">Product(name=&#39;Desktop PC&#39;, price=1000)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">product3</span> <span class="o">=</span> <span class="n">product2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">product3</span>
+<span class="go">Product(name=&#39;Desktop PC&#39;, price=1000)</span>
+</pre></div>
+</div>
+<p>아이템으로 딕셔너리 생성:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">dict</span><span class="p">(</span><span class="n">product</span><span class="p">)</span> <span class="c1"># create a dict from all populated values</span>
+<span class="go">{&#39;price&#39;: 1000, &#39;name&#39;: &#39;Desktop PC&#39;}</span>
+</pre></div>
+</div>
+<p>딕셔너리로 아이템 생성:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Product</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Laptop PC&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">})</span>
+<span class="go">Product(price=1500, name=&#39;Laptop PC&#39;)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Product</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Laptop PC&#39;</span><span class="p">,</span> <span class="s1">&#39;lala&#39;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">})</span> <span class="c1"># warning: unknown field in dict</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">KeyError</span>: <span class="n">&#39;Product does not support field: lala&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>아이템 확장하기<a class="headerlink" href="#id11" title="제목 주소">¶</a></h2>
+<p>원본 아이템의 상속클래스를 선언해서 아이템을 확장(필드를 추가하거나
+필드의 메타데이터를 변경)할 수 있다.</p>
+<p>예:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DiscountedProduct</span><span class="p">(</span><span class="n">Product</span><span class="p">):</span>
+    <span class="n">discount_percent</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">serializer</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">discount_expiration_date</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Field</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>또한 이전 필드의 메타데이터를 사용해서 값을 더 추가하거나 기존의 값을 변경시켜서 필드
+메타데이터를 확장할 수 있다:::</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SpecificProduct</span><span class="p">(</span><span class="n">Product</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">Product</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">serializer</span><span class="o">=</span><span class="n">my_serializer</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>위 코드는 <code class="docutils literal"><span class="pre">name</span></code> 필드를 위한 <code class="docutils literal"><span class="pre">serializeer</span></code> 메타데이터 키를 추가 (또는 교체) 시키면서
+기존의 메타데이터 값은 유지시켰다.</p>
+</div>
+<div class="section" id="id12">
+<h2>아이템 객체<a class="headerlink" href="#id12" title="제목 주소">¶</a></h2>
+<dl class="class">
+<dt id="scrapy.item.Item">
+<em class="property">class </em><code class="descclassname">scrapy.item.</code><code class="descname">Item</code><span class="sig-paren">(</span><span class="optional">[</span><em>arg</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.item.Item" title="정의 주소">¶</a></dt>
+<dd><p>주어진 인자로 선택적으로 초기화된 새로운 아이템을 반환한다.</p>
+<p>아이템은 생성자(constructor)를 포함해, 기본 <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict">딕셔너리 API</a>를 복제했다.
+아이템으로 제공되는 유일한 추가 속성은 아래와 같다:</p>
+<dl class="attribute">
+<dt id="scrapy.item.Item.fields">
+<code class="descname">fields</code><a class="headerlink" href="#scrapy.item.Item.fields" title="정의 주소">¶</a></dt>
+<dd><p>이 아이템에 입력된 것뿐만 아니라 <em>선언된 모든 필드</em>를 포함하는 사전.
+키는 필드 이름이고 값은 <a class="reference internal" href="#topics-items-declaring"><span class="std std-ref">아이템 선언</span></a> 내에서 사용되는 <a class="reference internal" href="#scrapy.item.Field" title="scrapy.item.Field"><code class="xref py py-class docutils literal"><span class="pre">Field</span></code></a> 객체다.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="id13">
+<h2>필드 객체<a class="headerlink" href="#id13" title="제목 주소">¶</a></h2>
+<dl class="class">
+<dt id="scrapy.item.Field">
+<em class="property">class </em><code class="descclassname">scrapy.item.</code><code class="descname">Field</code><span class="sig-paren">(</span><span class="optional">[</span><em>arg</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.item.Field" title="정의 주소">¶</a></dt>
+<dd><p><a class="reference internal" href="#scrapy.item.Field" title="scrapy.item.Field"><code class="xref py py-class docutils literal"><span class="pre">Field</span></code></a> 클래스는 단순히 내장 <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict">딕셔너리</a> 클래스에 대한 알리아스(alilas)이며
+추가적인 기능이나 속성을 제공하지 않는다. 즉, <a class="reference internal" href="#scrapy.item.Field" title="scrapy.item.Field"><code class="xref py py-class docutils literal"><span class="pre">Field</span></code></a> 객체는 평범한 파이썬
+딕셔너리다. 별도의 클래스는 클래스 속성을 기반으로 하는 <a class="reference internal" href="#topics-items-declaring"><span class="std std-ref">아이템 선언 신택스</span></a>를
+지원하는 데 사용된다</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2008-2016, Scrapy developers.
+      최종 업데이트: 2월 26, 2018
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.5.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

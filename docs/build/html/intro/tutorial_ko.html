@@ -1,0 +1,927 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>스크래피 튜토리얼 &mdash; Scrapy 1.5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="색인"
+              href="../genindex.html"/>
+        <link rel="search" title="검색" href="../search.html"/>
+    <link rel="top" title="Scrapy 1.5.0 documentation" href="../index.html"/>
+        <link rel="next" title="예제" href="examples_ko.html"/>
+        <link rel="prev" title="설치 가이드" href="install_ko.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index_ko.html" class="icon icon-home"> Scrapy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">처음 시작하기</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview_ko.html">스크래피(Scrapy) 한눈에 보기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install_ko.html">설치 가이드</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">스크래피 튜토리얼</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id4">프로젝트 생성</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">첫 번째 스파이더</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id6">스파이더 실행</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id7">밑단에서 일어나는 일에 대해</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#start-requests">start_requests 메서드 대체</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">데이터 추출</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#xpath">XPath: 간략한 소개</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">인용구와 작가 추출</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">스파이더에서 데이터 추출</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#storing-data">스크랩 된 데이터 저장</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id14">링크 따라가기</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#response-follow-example">리퀘스트 생성 지름길</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">추가 예제와 패턴</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id17">스파이더 인수 사용</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id18">다음 단계</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples_ko.html">예제</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기본 개념</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../topics/commands_ko.html">커맨드 라인 툴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/spiders_ko.html">스파이더(Spider)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/selectors.html">Selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/items.html">Items</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/loaders.html">Item Loaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/shell.html">Scrapy shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/item-pipeline.html">Item Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/feed-exports.html">Feed exports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/request-response.html">Requests and Responses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/link-extractors.html">Link Extractors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/exceptions.html">Exceptions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Built-in services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../topics/logging_ko.html">로깅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/stats_ko.html">통계 수집</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/email.html">Sending e-mail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/telnetconsole.html">Telnet Console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/webservice.html">Web Service</a></li>
+</ul>
+<p class="caption"><span class="caption-text">특정 문제 해결하기</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/debug.html">Debugging Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/contracts.html">Spiders Contracts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/practices.html">Common Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/broad-crawls.html">Broad Crawls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/firefox.html">Using Firefox for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/firebug.html">Using Firebug for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/leaks.html">Debugging memory leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/media-pipeline.html">Downloading and processing files and images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/deploy.html">Deploying Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/autothrottle.html">AutoThrottle extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/benchmarking.html">Benchmarking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/jobs.html">Jobs: pausing and resuming crawls</a></li>
+</ul>
+<p class="caption"><span class="caption-text">스크래피 확장</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../topics/architecture.html">Architecture overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/downloader-middleware.html">Downloader Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/spider-middleware.html">Spider Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/extensions.html">Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/api_ko.html">코어 API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signals.html">Signals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/exporters.html">Item Exporters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기타</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to Scrapy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versioning.html">Versioning and API Stability</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index_ko.html">Scrapy</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index_ko.html">Docs</a> &raquo;</li>
+        
+      <li>스크래피 튜토리얼</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/VeranosTech/docs-korean-scrapy/blob/docs-korean/docs/intro/tutorial_ko.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="intro-tutorial">
+<span id="id1"></span><h1>스크래피 튜토리얼<a class="headerlink" href="#intro-tutorial" title="제목 주소">¶</a></h1>
+<p>이 튜토리얼에서 독자의 시스템에 스크래피가 이미 설치되었다고 가정한다.
+만약 아직 설치하지 않았다면 <a class="reference internal" href="install_ko.html#intro-install"><span class="std std-ref">설치 가이드</span></a> 를 참조하여 스크래피를 설치하라.</p>
+<p>여기에선 <a class="reference external" href="http://quotes.toscrape.com/">quotes.toscrape.com</a> 웹사이트를 스크랩 할 것이다.
+이 웹사이트는 유명한 작가들의 구절로 구성되어 있다.</p>
+<p>본 튜토리얼은 다음 단계를 따라 진행된다:</p>
+<ol class="arabic simple">
+<li>새로운 스크래피 프로젝트 생성</li>
+<li><a class="reference internal" href="../topics/spiders_ko.html#topics-spiders"><span class="std std-ref">스파이더(spider)</span></a>를 작성해 웹사이트를 크롤링하고 데이터를 추출한다.</li>
+<li>추출된 스크랩 데이터를 커맨드 라인을 사용해 내보낸다.</li>
+<li>스파이더를 수정해 재귀적으로 링크를 따라가게 한다.</li>
+<li>스파이더 인수를 사용한다.</li>
+</ol>
+<p>스크래피는 <a class="reference external" href="https://www.python.org/">파이썬</a>으로 제작되었다. 파이썬이 처음이라면 이 언어에 대해 먼저 알고 싶을 것이다.</p>
+<p>다른 언어들에 이미 익숙하고 파이썬을 빠르게 배우고 싶다면 <a class="reference external" href="http://www.diveintopython3.net">Dive Into Python 3</a>를 권장한다.
+<a class="reference external" href="https://docs.python.org/3/tutorial">Python Tutorial</a>을 따라 연습해도 좋다.</p>
+<p>프로그래밍이 처음이고 파이썬으로 시작하고 싶다면 <a class="reference external" href="http://learnpythonthehardway.org/book/">Learn Python The Hard Way</a>가 좋은 교재가 될 것이다.
+<a class="reference external" href="https://wiki.python.org/moin/BeginnersGuide/NonProgrammers">프로그래머가 아닌 사람들을 위한 파이썬 자료 리스트</a>도 참고하라.</p>
+<div class="section" id="id4">
+<h2>프로젝트 생성<a class="headerlink" href="#id4" title="제목 주소">¶</a></h2>
+<p>스크랩을 시작하기 전에 새로운 스크래피 프로젝트를 생성해야 한다.
+코드를 저장하고 싶은 경로에 들어가 다음을 실행한다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">scrapy</span> <span class="n">startproject</span> <span class="n">tutorial</span>
+</pre></div>
+</div>
+<p>위 코드는 <code class="docutils literal"><span class="pre">tutorial</span></code> 디렉토리와 다음 파일들을 생성한다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">tutorial</span><span class="o">/</span>
+    <span class="n">scrapy</span><span class="o">.</span><span class="n">cfg</span>            <span class="c1"># deploy configuration file</span>
+
+    <span class="n">tutorial</span><span class="o">/</span>             <span class="c1"># project&#39;s Python module, you&#39;ll import your code from here</span>
+        <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+
+        <span class="n">items</span><span class="o">.</span><span class="n">py</span>          <span class="c1"># project items definition file</span>
+
+        <span class="n">middlewares</span><span class="o">.</span><span class="n">py</span>    <span class="c1"># project middlewares file</span>
+
+        <span class="n">pipelines</span><span class="o">.</span><span class="n">py</span>      <span class="c1"># project pipelines file</span>
+
+        <span class="n">settings</span><span class="o">.</span><span class="n">py</span>       <span class="c1"># project settings file</span>
+
+        <span class="n">spiders</span><span class="o">/</span>          <span class="c1"># a directory where you&#39;ll later put your spiders</span>
+            <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>첫 번째 스파이더<a class="headerlink" href="#id5" title="제목 주소">¶</a></h2>
+<p>스파이더는 사용자가 정의하는 클래스로 스크래피가 웹사이트(또는 웹사이트 그룹)로부터 정보를 스크랩할 때 사용한다.
+스파이더는 반드시 <code class="xref py py-class docutils literal"><span class="pre">scrapy.Spider</span></code>의 상속클래스여야 하며 초기 리퀘스트(request)를 정의해야 한다.
+원하는 경우 페이지의 링크를 따라가는 방법과 페이지 내용물을 다운 받아 데이터를 추출할 때 파싱하는 방법도 정의할 수 있다.</p>
+<p>다음 코드로 첫 번째 스파이더를 정의해보자.
+이 파일을 프로젝트 디렉토리 <code class="docutils literal"><span class="pre">tutorial/spiders</span></code>에 <code class="docutils literal"><span class="pre">quotes_spider.py</span></code>
+라는 이름으로 저장한다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+
+
+<span class="k">class</span> <span class="nc">QuotesSpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;quotes&quot;</span>
+
+    <span class="k">def</span> <span class="nf">start_requests</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">urls</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;http://quotes.toscrape.com/page/1/&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;http://quotes.toscrape.com/page/2/&#39;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;quotes-</span><span class="si">%s</span><span class="s1">.html&#39;</span> <span class="o">%</span> <span class="n">page</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Saved file </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>다음에서 알 수 있듯이 우리의 스파이더는 <a class="reference internal" href="../topics/spiders_ko.html#scrapy.spiders.Spider" title="scrapy.spiders.Spider"><code class="xref py py-class docutils literal"><span class="pre">scrapy.Spider</span></code></a>의
+상속클래스이며 다음과 같은 특성과 메서드를 정의했다.</p>
+<ul>
+<li><p class="first"><a class="reference internal" href="../topics/spiders_ko.html#scrapy.spiders.Spider.name" title="scrapy.spiders.Spider.name"><code class="xref py py-attr docutils literal"><span class="pre">name</span></code></a>: 스파이더 식별자.
+프로젝트 내에서 유일해야 한다. 즉, 다른 스파이더에 같은 이름을 설정할 수 없다는
+것을 의미한다.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../topics/spiders_ko.html#scrapy.spiders.Spider.start_requests" title="scrapy.spiders.Spider.start_requests"><code class="xref py py-meth docutils literal"><span class="pre">start_requests()</span></code></a>: 반드시 스파이더가 크롤링을 시작할 수 있는
+이터러블한 리퀘스트를 리턴해야 한다(리퀘스트 리스트를 리턴하거나 제네레이터 함수를 만들면 된다).
+후속 리퀘스트는 이 최초의 리퀘스트로부터 연속적으로 생성될 것이다.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../topics/spiders_ko.html#scrapy.spiders.Spider.parse" title="scrapy.spiders.Spider.parse"><code class="xref py py-meth docutils literal"><span class="pre">parse()</span></code></a>: 생성된 각 리퀘스트로부터 다운로드된 리스판스(response)를 처리하기 위해
+호출될 메서드. 리스판스 파라미터는 페이지 내용을 포함하고 있는 <a class="reference internal" href="../topics/request-response_ko.html#scrapy.http.TextResponse" title="scrapy.http.TextResponse"><code class="xref py py-class docutils literal"><span class="pre">TextResponse</span></code></a> 인스턴스이며
+이 인스턴스는 내용을 처리할 수 있는 유용한 메서드를 가지고 있다.</p>
+<p><a class="reference internal" href="../topics/spiders_ko.html#scrapy.spiders.Spider.parse" title="scrapy.spiders.Spider.parse"><code class="xref py py-meth docutils literal"><span class="pre">parse()</span></code></a> 메서드는 보통 리스판스를 파싱하며
+스크랩된 데이터를 딕셔너리로 추출하고 새 url을 찾아낸다.
+이 url로부터 새로운 리퀘스트(<a class="reference internal" href="../topics/request-response_ko.html#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a>)를 생성한다.</p>
+</li>
+</ul>
+<div class="section" id="id6">
+<h3>스파이더 실행<a class="headerlink" href="#id6" title="제목 주소">¶</a></h3>
+<p>스파이더를 사용하기 위해 프로젝트의 최상위 디렉토리로 이동해 다음을 실행한다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">scrapy</span> <span class="n">crawl</span> <span class="n">quotes</span>
+</pre></div>
+</div>
+<p>이 커맨드는 우리가 앞서 추가한 <code class="docutils literal"><span class="pre">quotes</span></code> 명칭으로 스파이더를 실행해 <code class="docutils literal"><span class="pre">quotes.toscrape.com</span></code> 도메인으로 리퀘스트를 보낸다.
+다음과 같은 출력을 얻을 수 있다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">...</span> <span class="p">(</span><span class="n">omitted</span> <span class="k">for</span> <span class="n">brevity</span><span class="p">)</span>
+<span class="mi">2016</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">16</span> <span class="mi">21</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mi">05</span> <span class="p">[</span><span class="n">scrapy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">engine</span><span class="p">]</span> <span class="n">INFO</span><span class="p">:</span> <span class="n">Spider</span> <span class="n">opened</span>
+<span class="mi">2016</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">16</span> <span class="mi">21</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mi">05</span> <span class="p">[</span><span class="n">scrapy</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">logstats</span><span class="p">]</span> <span class="n">INFO</span><span class="p">:</span> <span class="n">Crawled</span> <span class="mi">0</span> <span class="n">pages</span> <span class="p">(</span><span class="n">at</span> <span class="mi">0</span> <span class="n">pages</span><span class="o">/</span><span class="nb">min</span><span class="p">),</span> <span class="n">scraped</span> <span class="mi">0</span> <span class="n">items</span> <span class="p">(</span><span class="n">at</span> <span class="mi">0</span> <span class="n">items</span><span class="o">/</span><span class="nb">min</span><span class="p">)</span>
+<span class="mi">2016</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">16</span> <span class="mi">21</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mi">05</span> <span class="p">[</span><span class="n">scrapy</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">telnet</span><span class="p">]</span> <span class="n">DEBUG</span><span class="p">:</span> <span class="n">Telnet</span> <span class="n">console</span> <span class="n">listening</span> <span class="n">on</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6023</span>
+<span class="mi">2016</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">16</span> <span class="mi">21</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mi">05</span> <span class="p">[</span><span class="n">scrapy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">engine</span><span class="p">]</span> <span class="n">DEBUG</span><span class="p">:</span> <span class="n">Crawled</span> <span class="p">(</span><span class="mi">404</span><span class="p">)</span> <span class="o">&lt;</span><span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">quotes</span><span class="o">.</span><span class="n">toscrape</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">robots</span><span class="o">.</span><span class="n">txt</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">referer</span><span class="p">:</span> <span class="kc">None</span><span class="p">)</span>
+<span class="mi">2016</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">16</span> <span class="mi">21</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mi">05</span> <span class="p">[</span><span class="n">scrapy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">engine</span><span class="p">]</span> <span class="n">DEBUG</span><span class="p">:</span> <span class="n">Crawled</span> <span class="p">(</span><span class="mi">200</span><span class="p">)</span> <span class="o">&lt;</span><span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">quotes</span><span class="o">.</span><span class="n">toscrape</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">page</span><span class="o">/</span><span class="mi">1</span><span class="o">/&gt;</span> <span class="p">(</span><span class="n">referer</span><span class="p">:</span> <span class="kc">None</span><span class="p">)</span>
+<span class="mi">2016</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">16</span> <span class="mi">21</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mi">05</span> <span class="p">[</span><span class="n">scrapy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">engine</span><span class="p">]</span> <span class="n">DEBUG</span><span class="p">:</span> <span class="n">Crawled</span> <span class="p">(</span><span class="mi">200</span><span class="p">)</span> <span class="o">&lt;</span><span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">quotes</span><span class="o">.</span><span class="n">toscrape</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">page</span><span class="o">/</span><span class="mi">2</span><span class="o">/&gt;</span> <span class="p">(</span><span class="n">referer</span><span class="p">:</span> <span class="kc">None</span><span class="p">)</span>
+<span class="mi">2016</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">16</span> <span class="mi">21</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mi">05</span> <span class="p">[</span><span class="n">quotes</span><span class="p">]</span> <span class="n">DEBUG</span><span class="p">:</span> <span class="n">Saved</span> <span class="n">file</span> <span class="n">quotes</span><span class="o">-</span><span class="mf">1.</span><span class="n">html</span>
+<span class="mi">2016</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">16</span> <span class="mi">21</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mi">05</span> <span class="p">[</span><span class="n">quotes</span><span class="p">]</span> <span class="n">DEBUG</span><span class="p">:</span> <span class="n">Saved</span> <span class="n">file</span> <span class="n">quotes</span><span class="o">-</span><span class="mf">2.</span><span class="n">html</span>
+<span class="mi">2016</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">16</span> <span class="mi">21</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mi">05</span> <span class="p">[</span><span class="n">scrapy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">engine</span><span class="p">]</span> <span class="n">INFO</span><span class="p">:</span> <span class="n">Closing</span> <span class="n">spider</span> <span class="p">(</span><span class="n">finished</span><span class="p">)</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>이제 현재 디렉토리에서 파일을 확인하자. <em>quotes-1.html</em> 와 <em>quotes-2.html</em> 두 파일이 생성되어 있어야 한다.
+파일에는 각각의 url이 <code class="docutils literal"><span class="pre">parse</span></code> 메서드 명령에 따라 담겨 있다.</p>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">이 단계에서 HTML 파싱하지 않는 이유에 대해선 곧 다룰 것이다.</p>
+</div>
+<div class="section" id="id7">
+<h4>밑단에서 일어나는 일에 대해<a class="headerlink" href="#id7" title="제목 주소">¶</a></h4>
+<p>스크래피는 스파이더의 <code class="docutils literal"><span class="pre">start_requests</span></code> 메서드에 의해 반환된 객체 <a class="reference internal" href="../topics/request-response_ko.html#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">scrapy.Request</span></code></a> 를 예약한다.
+각각에 대한 리스판스를 받으면 스파이더는 <a class="reference internal" href="../topics/request-response_ko.html#scrapy.http.Response" title="scrapy.http.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a> 객체를 인스턴스화하고
+리퀘스트와 연결된 콜백 메서드를 호출하는데 리스판스를 인자로서 전달한다(이 경우에는 <code class="docutils literal"><span class="pre">parse</span></code> 메서드다).</p>
+</div>
+</div>
+<div class="section" id="start-requests">
+<h3>start_requests 메서드 대체<a class="headerlink" href="#start-requests" title="제목 주소">¶</a></h3>
+<p>URL로부터 <a class="reference internal" href="../topics/request-response_ko.html#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">scrapy.Request</span></code></a> 객체를 생성하는 <a class="reference internal" href="../topics/spiders_ko.html#scrapy.spiders.Spider.start_requests" title="scrapy.spiders.Spider.start_requests"><code class="xref py py-meth docutils literal"><span class="pre">start_requests()</span></code></a>
+메서드를 구현하는 대신 URL 리스트를 포함하는 <a class="reference internal" href="../topics/spiders_ko.html#scrapy.spiders.Spider.start_urls" title="scrapy.spiders.Spider.start_urls"><code class="xref py py-attr docutils literal"><span class="pre">start_urls</span></code></a> 클래스 속성을 정의해도 된다.
+이 리스트는 <a class="reference internal" href="../topics/spiders_ko.html#scrapy.spiders.Spider.start_requests" title="scrapy.spiders.Spider.start_requests"><code class="xref py py-meth docutils literal"><span class="pre">start_requests()</span></code></a>의 디폴트 구현에서 사용되며 스파이더를 위한 첫 리퀘스트를 생성한다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+
+
+<span class="k">class</span> <span class="nc">QuotesSpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;quotes&quot;</span>
+    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;http://quotes.toscrape.com/page/1/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;http://quotes.toscrape.com/page/2/&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;quotes-</span><span class="si">%s</span><span class="s1">.html&#39;</span> <span class="o">%</span> <span class="n">page</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="../topics/spiders_ko.html#scrapy.spiders.Spider.parse" title="scrapy.spiders.Spider.parse"><code class="xref py py-meth docutils literal"><span class="pre">parse()</span></code></a> 메서드는 우리가 명시적으로 스크래피에 명령하지 않아도
+각 URL의 리퀘스트를 처리하기 위해 호출된다.
+왜냐하면 <a class="reference internal" href="../topics/spiders_ko.html#scrapy.spiders.Spider.parse" title="scrapy.spiders.Spider.parse"><code class="xref py py-meth docutils literal"><span class="pre">parse()</span></code></a>는 스크래피의 디폴트 콜백 메서드이기 때문이며
+명시적인 콜백 할당 없이 리퀘스트를 위해 호출된다.</p>
+</div>
+<div class="section" id="id8">
+<h3>데이터 추출<a class="headerlink" href="#id8" title="제목 주소">¶</a></h3>
+<p>스크래피로 데이터를 추출하는 방법을 배우는 데는 <a class="reference internal" href="../topics/shell.html#topics-shell"><span class="std std-ref">스크래피 셸</span></a>을 사용한 셀렉터(Selector)를
+사용 해보는 것이 가장 좋다.
+다음을 실행한다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">scrapy</span> <span class="n">shell</span> <span class="s1">&#39;http://quotes.toscrape.com/page/1/&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p>커맨드 라인에서 스크래피 셸을 실행할 때는 url에 항상 따옴표를 둘러야 한다.
+그렇지 않으면 url은 인자를 포함한 (예시. <code class="docutils literal"><span class="pre">&amp;</span></code> 문자) url은 작동하지 않을 것이다.</p>
+<p>윈도우에서는 쌍따옴표를 사용한다.:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">scrapy</span> <span class="n">shell</span> <span class="s2">&quot;http://quotes.toscrape.com/page/1/&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>다음과 같이 나타날 것이다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="o">...</span> <span class="n">Scrapy</span> <span class="n">log</span> <span class="n">here</span> <span class="o">...</span> <span class="p">]</span>
+<span class="mi">2016</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">19</span> <span class="mi">12</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">27</span> <span class="p">[</span><span class="n">scrapy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">engine</span><span class="p">]</span> <span class="n">DEBUG</span><span class="p">:</span> <span class="n">Crawled</span> <span class="p">(</span><span class="mi">200</span><span class="p">)</span> <span class="o">&lt;</span><span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">quotes</span><span class="o">.</span><span class="n">toscrape</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">page</span><span class="o">/</span><span class="mi">1</span><span class="o">/&gt;</span> <span class="p">(</span><span class="n">referer</span><span class="p">:</span> <span class="kc">None</span><span class="p">)</span>
+<span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="n">Available</span> <span class="n">Scrapy</span> <span class="n">objects</span><span class="p">:</span>
+<span class="p">[</span><span class="n">s</span><span class="p">]</span>   <span class="n">scrapy</span>     <span class="n">scrapy</span> <span class="n">module</span> <span class="p">(</span><span class="n">contains</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Request</span><span class="p">,</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Selector</span><span class="p">,</span> <span class="n">etc</span><span class="p">)</span>
+<span class="p">[</span><span class="n">s</span><span class="p">]</span>   <span class="n">crawler</span>    <span class="o">&lt;</span><span class="n">scrapy</span><span class="o">.</span><span class="n">crawler</span><span class="o">.</span><span class="n">Crawler</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7fa91d888c90</span><span class="o">&gt;</span>
+<span class="p">[</span><span class="n">s</span><span class="p">]</span>   <span class="n">item</span>       <span class="p">{}</span>
+<span class="p">[</span><span class="n">s</span><span class="p">]</span>   <span class="n">request</span>    <span class="o">&lt;</span><span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">quotes</span><span class="o">.</span><span class="n">toscrape</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">page</span><span class="o">/</span><span class="mi">1</span><span class="o">/&gt;</span>
+<span class="p">[</span><span class="n">s</span><span class="p">]</span>   <span class="n">response</span>   <span class="o">&lt;</span><span class="mi">200</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">quotes</span><span class="o">.</span><span class="n">toscrape</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">page</span><span class="o">/</span><span class="mi">1</span><span class="o">/&gt;</span>
+<span class="p">[</span><span class="n">s</span><span class="p">]</span>   <span class="n">settings</span>   <span class="o">&lt;</span><span class="n">scrapy</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">Settings</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7fa91d888c10</span><span class="o">&gt;</span>
+<span class="p">[</span><span class="n">s</span><span class="p">]</span>   <span class="n">spider</span>     <span class="o">&lt;</span><span class="n">DefaultSpider</span> <span class="s1">&#39;default&#39;</span> <span class="n">at</span> <span class="mh">0x7fa91c8af990</span><span class="o">&gt;</span>
+<span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="n">Useful</span> <span class="n">shortcuts</span><span class="p">:</span>
+<span class="p">[</span><span class="n">s</span><span class="p">]</span>   <span class="n">shelp</span><span class="p">()</span>           <span class="n">Shell</span> <span class="n">help</span> <span class="p">(</span><span class="nb">print</span> <span class="n">this</span> <span class="n">help</span><span class="p">)</span>
+<span class="p">[</span><span class="n">s</span><span class="p">]</span>   <span class="n">fetch</span><span class="p">(</span><span class="n">req_or_url</span><span class="p">)</span> <span class="n">Fetch</span> <span class="n">request</span> <span class="p">(</span><span class="ow">or</span> <span class="n">URL</span><span class="p">)</span> <span class="ow">and</span> <span class="n">update</span> <span class="n">local</span> <span class="n">objects</span>
+<span class="p">[</span><span class="n">s</span><span class="p">]</span>   <span class="n">view</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>    <span class="n">View</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">browser</span>
+<span class="o">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>셀을 사용하면 리스판스 객체와 함께 <a class="reference external" href="https://www.w3.org/TR/selectors">CSS</a> 를 사용해 요소를 선택할 수 있다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span>
+<span class="go">[&lt;Selector xpath=&#39;descendant-or-self::title&#39; data=&#39;&lt;title&gt;Quotes to Scrape&lt;/title&gt;&#39;&gt;]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">response.css('title')</span></code> 실행의 결과물은 <a class="reference internal" href="../topics/selectors_ko.html#scrapy.selector.SelectorList" title="scrapy.selector.SelectorList"><code class="xref py py-class docutils literal"><span class="pre">SelectorList</span></code></a> 로 불리는 객체로 리스트 같은
+형태이다. 이 객체는 <a class="reference internal" href="../topics/selectors_ko.html#scrapy.selector.Selector" title="scrapy.selector.Selector"><code class="xref py py-class docutils literal"><span class="pre">Selector</span></code></a> 객체의 리스트를 나타내며
+XML/HTML 요소를 감싸서 정밀한 선택이나 데이터를 추출하는 추가적인 쿼리를 사용할 수 있도록 해준다.</p>
+<p>위의 <code class="docutils literal"><span class="pre">title</span></code>로부터 텍스트를 추출하기 위해 다음을 실행한다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;title::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+<span class="go">[&#39;Quotes to Scrape&#39;]</span>
+</pre></div>
+</div>
+<p>여기서 알아야 할 것은 두가지이다. 먼저 CSS 쿼리에 <code class="docutils literal"><span class="pre">::text</span></code>를 추가했으며
+이는 <code class="docutils literal"><span class="pre">&lt;title&gt;</span></code> 요소로부터 텍스트 요소만 선택함을 의미한다.
+<code class="docutils literal"><span class="pre">::text</span></code> 를 명시하지 않으면 title 요소 전체를 가져와 태그까지 포함하게 된다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+<span class="go">[&#39;&lt;title&gt;Quotes to Scrape&lt;/title&gt;&#39;]</span>
+</pre></div>
+</div>
+<p>다음은 <code class="docutils literal"><span class="pre">.extract()</span></code> 를 호출한 결과물이 리스트라는 것이다.
+이는 우리가 <a class="reference internal" href="../topics/selectors_ko.html#scrapy.selector.SelectorList" title="scrapy.selector.SelectorList"><code class="xref py py-class docutils literal"><span class="pre">SelectorList</span></code></a> 의 인스턴스를 처리하고 있기 때문이다.
+이번 예시처럼 첫번째 결과만을 원하면 다음을 실행한다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;title::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">()</span>
+<span class="go">&#39;Quotes to Scrape&#39;</span>
+</pre></div>
+</div>
+<p>다음 코드로 대체할 수 있다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;title::text&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+<span class="go">&#39;Quotes to Scrape&#39;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">.extract_first()</span></code>를 사용하면 <code class="docutils literal"><span class="pre">IndexError</span></code>를 피할 수 있다.
+선택에 대응하는 요소를 찾지 못하면 <code class="docutils literal"><span class="pre">None</span></code>을 출력한다.</p>
+<p>여기서 알아야 할 것이 있다. 대부분의 스크래핑 코드의 경우,
+사람들은 일부분이 스크랩에 실패하더라도 최소한 <strong>일정</strong> 데이터를 얻을 수 있도록
+페이지에서 찾을 수 없는 것들로 인해 발생하는 에러에 대해 코드가 탄력적으로 대응하기를 바랄 것이다.</p>
+<p><a class="reference internal" href="../topics/selectors_ko.html#scrapy.selector.Selector.extract" title="scrapy.selector.Selector.extract"><code class="xref py py-meth docutils literal"><span class="pre">extract()</span></code></a>, <code class="xref py py-meth docutils literal"><span class="pre">extract_first()</span></code>
+메서드에 더해 <a class="reference internal" href="../topics/selectors_ko.html#scrapy.selector.Selector.re" title="scrapy.selector.Selector.re"><code class="xref py py-meth docutils literal"><span class="pre">re()</span></code></a> 메서드로 정규 표현식을 사용한 추출을 할 수 있다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;title::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">re</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Quotes.*&#39;</span><span class="p">)</span>
+<span class="go">[&#39;Quotes to Scrape&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;title::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">re</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Q\w+&#39;</span><span class="p">)</span>
+<span class="go">[&#39;Quotes&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;title::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">re</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\w+) to (\w+)&#39;</span><span class="p">)</span>
+<span class="go">[&#39;Quotes&#39;, &#39;Scrape&#39;]</span>
+</pre></div>
+</div>
+<p>적절한 CSS 셀렉터를 찾기 위해서 <code class="docutils literal"><span class="pre">view(response)</span></code>를 사용해 웹 브라우저의 셸에서 리스판스 페이지를 여는
+것도 유용하다. 브라우저의 개발자 도구나 Firebug와 같은 확장을 사용해도 된다.
+(<a class="reference internal" href="../topics/firebug.html#topics-firebug"><span class="std std-ref">Using Firebug for scraping</span></a>와 <a class="reference internal" href="../topics/firefox.html#topics-firefox"><span class="std std-ref">Using Firefox for scraping</span></a>를 참고하라.)</p>
+<p><a class="reference external" href="http://selectorgadget.com/">Selector Gadget</a> 은 시각적으로 요소를 선택하고 이에 해당하는 CSS 셀렉터를 찾는 도구로
+대부분의 브라우저에서 작동하는 훌륭한 도구이다.</p>
+<div class="section" id="xpath">
+<h4>XPath: 간략한 소개<a class="headerlink" href="#xpath" title="제목 주소">¶</a></h4>
+<p>스크래피 셀렉터는 <a class="reference external" href="https://www.w3.org/TR/selectors">CSS</a>뿐 아니라 <a class="reference external" href="https://www.w3.org/TR/xpath">XPath</a>표현식도 지원한다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//title&#39;</span><span class="p">)</span>
+<span class="go">[&lt;Selector xpath=&#39;//title&#39; data=&#39;&lt;title&gt;Quotes to Scrape&lt;/title&gt;&#39;&gt;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//title/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">()</span>
+<span class="go">&#39;Quotes to Scrape&#39;</span>
+</pre></div>
+</div>
+<p>XPath 표현식은 아주 강력하며 스크래피 셀렉터의 기본이다.
+사실 CSS 셀렉터는 밑단에서 XPath로 변환된다.
+셸 내부 셀렉터 객체의 텍스트 표현을 자세히 보면 이를 알 수 있다.</p>
+<p>CSS 셀렉터만큼 인기가 있지는 않지만 XPath 표현식은 구조를 탐색할 뿐 아니라
+내용까지 보기 때문에 더 강력한 성능을 가지고 있다.
+XPath 를 사용하면 <em>&quot;Next Page&quot; 를 포함하는 링크</em> 같은 것들을 선택할 수 있다.
+이러한 기능들로 인해서 XPath는 스크랩 작업에 적합하며, 그래서
+이미 CSS 셀렉터에 대해 알고 있더라도 XPath에 대해 공부하는 것을 권장한다.
+스크랩을 훨씬 쉽게 할 수 있을 것이다.</p>
+<p>이 문서에서 XPath에 대해 자세히 다루진 않지만 <a class="reference internal" href="../topics/selectors_ko.html#topics-selectors"><span class="std std-ref">스크래피 셀렉터로 XPath 사용하기</span></a>에서 더 많은 정보를 얻을 수 있다.
+XPath 에 더 대해 배우고 싶다면 <a class="reference external" href="http://zvon.org/comp/r/tut-XPath_1.html">예시를 통해 배우는 XPath 튜토리얼</a>과
+<a class="reference external" href="http://plasmasturm.org/log/xpath101/">&quot;how to think in XPath&quot;</a> 를 추천한다.</p>
+</div>
+<div class="section" id="id11">
+<h4>인용구와 작가 추출<a class="headerlink" href="#id11" title="제목 주소">¶</a></h4>
+<p>이제 선택과 추출에 대해 조금 알게 되었으므로, 웹페이지에서 인용구를 추출하는 코드를 작성해서
+스파이더를 완성시키자.</p>
+<p><a class="reference external" href="http://quotes.toscrape.com">http://quotes.toscrape.com</a>의 인용구는 각각 다음과 같은 HTML 요소로 나타난다:</p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;quote&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;text&quot;</span><span class="p">&gt;</span>“The world as we have created it is a process of our
+    thinking. It cannot be changed without changing our thinking.”<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>
+        by <span class="p">&lt;</span><span class="nt">small</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;author&quot;</span><span class="p">&gt;</span>Albert Einstein<span class="p">&lt;/</span><span class="nt">small</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/author/Albert-Einstein&quot;</span><span class="p">&gt;</span>(about)<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;tags&quot;</span><span class="p">&gt;</span>
+        Tags:
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;tag&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/tag/change/page/1/&quot;</span><span class="p">&gt;</span>change<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;tag&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/tag/deep-thoughts/page/1/&quot;</span><span class="p">&gt;</span>deep-thoughts<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;tag&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/tag/thinking/page/1/&quot;</span><span class="p">&gt;</span>thinking<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;tag&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/tag/world/page/1/&quot;</span><span class="p">&gt;</span>world<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>스크래피 셸을 열고 원하는 데이터를 추출하는 방법을 알아보자:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ scrapy shell &#39;http://quotes.toscrape.com&#39;
+</pre></div>
+</div>
+<p>인용구 HTML 요소의 셀렉터 리스트를 다음과 같이 얻는다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s2">&quot;div.quote&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>위의 쿼리로부터 반환된 각각의 셀렉터에서 하위 요소에 대한 쿼리를 더 실행할 수 있다.
+첫번째 셀렉터를 변수에 할당해 특정 인용구에 CSS 셀렉터를 바로 실행할 수 있게 하자:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">quote</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s2">&quot;div.quote&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>방금 생성된 <code class="docutils literal"><span class="pre">quote</span></code>객체를 사용해 인용구로부터 <code class="docutils literal"><span class="pre">title</span></code>, <code class="docutils literal"><span class="pre">author</span></code>, <code class="docutils literal"><span class="pre">tags</span></code>를 추출해 보자:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">title</span> <span class="o">=</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s2">&quot;span.text::text&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">title</span>
+<span class="go">&#39;“The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking.”&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">author</span> <span class="o">=</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s2">&quot;small.author::text&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">author</span>
+<span class="go">&#39;Albert Einstein&#39;</span>
+</pre></div>
+</div>
+<p>태그가 문자열 리스트이기 때문에 <code class="docutils literal"><span class="pre">.extract()</span></code> 메서드를 사용해 모두 얻을 수 있다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tags</span> <span class="o">=</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s2">&quot;div.tags a.tag::text&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tags</span>
+<span class="go">[&#39;change&#39;, &#39;deep-thoughts&#39;, &#39;thinking&#39;, &#39;world&#39;]</span>
+</pre></div>
+</div>
+<p>각각의 인용구를 추출하는 법을 알았으므로 이제 모든 인용구 요소에 대해 반복해서 파이썬 딕셔너리로 넣을 수 있다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">quote</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s2">&quot;div.quote&quot;</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">text</span> <span class="o">=</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s2">&quot;span.text::text&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">author</span> <span class="o">=</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s2">&quot;small.author::text&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">tags</span> <span class="o">=</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s2">&quot;div.tags a.tag::text&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">author</span><span class="o">=</span><span class="n">author</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">))</span>
+<span class="go">{&#39;tags&#39;: [&#39;change&#39;, &#39;deep-thoughts&#39;, &#39;thinking&#39;, &#39;world&#39;], &#39;author&#39;: &#39;Albert Einstein&#39;, &#39;text&#39;: &#39;“The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking.”&#39;}</span>
+<span class="go">{&#39;tags&#39;: [&#39;abilities&#39;, &#39;choices&#39;], &#39;author&#39;: &#39;J.K. Rowling&#39;, &#39;text&#39;: &#39;“It is our choices, Harry, that show what we truly are, far more than our abilities.”&#39;}</span>
+<span class="go">    ... a few more of these, omitted for brevity</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id12">
+<h3>스파이더에서 데이터 추출<a class="headerlink" href="#id12" title="제목 주소">¶</a></h3>
+<p>다시 스파이더로 돌아가 보자. 지금까지는 특정 데이터를 추출하진 않고 전체 HTML 페이지를 로컬 파일로 저장했다.
+위의 추출 로직을 통합해 스파이더에 통합해 보자.</p>
+<p>스크래피 스파이더는 보통 페이지로부터 추출된 데이터를 담고 있는 다수의 딕셔너리를 생성한다.
+이를 위해 콜백에서 <code class="docutils literal"><span class="pre">yield</span></code> 파이썬 키워드를 사용한다. 다음과 코드와 같다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+
+
+<span class="k">class</span> <span class="nc">QuotesSpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;quotes&quot;</span>
+    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;http://quotes.toscrape.com/page/1/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;http://quotes.toscrape.com/page/2/&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">quote</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;div.quote&#39;</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="p">{</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;span.text::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">(),</span>
+                <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;small.author::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">(),</span>
+                <span class="s1">&#39;tags&#39;</span><span class="p">:</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;div.tags a.tag::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">(),</span>
+            <span class="p">}</span>
+</pre></div>
+</div>
+<p>이 스파이더를 실행하면 추출된 데이터와 로그를 출력한다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">2016</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">19</span> <span class="mi">18</span><span class="p">:</span><span class="mi">57</span><span class="p">:</span><span class="mi">19</span> <span class="p">[</span><span class="n">scrapy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">scraper</span><span class="p">]</span> <span class="n">DEBUG</span><span class="p">:</span> <span class="n">Scraped</span> <span class="kn">from</span> <span class="o">&lt;</span><span class="mi">200</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">quotes</span><span class="o">.</span><span class="n">toscrape</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">page</span><span class="o">/</span><span class="mi">1</span><span class="o">/&gt;</span>
+<span class="p">{</span><span class="s1">&#39;tags&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;life&#39;</span><span class="p">,</span> <span class="s1">&#39;love&#39;</span><span class="p">],</span> <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;André Gide&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;“It is better to be hated for what you are than to be loved for what you are not.”&#39;</span><span class="p">}</span>
+<span class="mi">2016</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">19</span> <span class="mi">18</span><span class="p">:</span><span class="mi">57</span><span class="p">:</span><span class="mi">19</span> <span class="p">[</span><span class="n">scrapy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">scraper</span><span class="p">]</span> <span class="n">DEBUG</span><span class="p">:</span> <span class="n">Scraped</span> <span class="kn">from</span> <span class="o">&lt;</span><span class="mi">200</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">quotes</span><span class="o">.</span><span class="n">toscrape</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">page</span><span class="o">/</span><span class="mi">1</span><span class="o">/&gt;</span>
+<span class="p">{</span><span class="s1">&#39;tags&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;edison&#39;</span><span class="p">,</span> <span class="s1">&#39;failure&#39;</span><span class="p">,</span> <span class="s1">&#39;inspirational&#39;</span><span class="p">,</span> <span class="s1">&#39;paraphrased&#39;</span><span class="p">],</span> <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Thomas A. Edison&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s2">&quot;“I have not failed. I&#39;ve just found 10,000 ways that won&#39;t work.”&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="storing-data">
+<span id="id13"></span><h2>스크랩 된 데이터 저장<a class="headerlink" href="#storing-data" title="제목 주소">¶</a></h2>
+<p>스크랩 된 데이터를 저장하는 가장 간단한 방법은 아래의 커맨드를 사용하여
+<a class="reference internal" href="../topics/feed-exports.html#topics-feed-exports"><span class="std std-ref">Feed exports</span></a>를 이용하는 것이다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">scrapy</span> <span class="n">crawl</span> <span class="n">quotes</span> <span class="o">-</span><span class="n">o</span> <span class="n">quotes</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<p>위 커맨드는 모든 스크랩된 항목을 <a class="reference external" href="https://en.wikipedia.org/wiki/JSON">JSON</a>형식으로 나열한 <code class="docutils literal"><span class="pre">quotes.json</span></code> 파일을 생성한다.</p>
+<p>역사적인 이유로 스크래피는 내용을 덮어쓰지 않고 주어진 파일에 내용을 추가한다.
+이로 인해 파일을 제거하지 않고 위 커맨드를 두 번 실행하면 손상된 JSON 파일이 된다.</p>
+<p><a class="reference external" href="http://jsonlines.org">JSON Lines</a>과 같은 다른 형식을 사용할 수도 있다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">scrapy</span> <span class="n">crawl</span> <span class="n">quotes</span> <span class="o">-</span><span class="n">o</span> <span class="n">quotes</span><span class="o">.</span><span class="n">jl</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="http://jsonlines.org">JSON Lines</a> 형식은 stream_like하기 때문에 새로운 기록을 쉽게 추가할 수 있어서 유용하다.
+두 번 실행했을 때 JSON과 같은 문제가 발생하지 않는다.
+각각의 기록은 다른 라인에 기록되기 때문에 모든 것을 메모리에 맞추지 않아도 큰 파일을 처리할 수 있고,
+커맨드라인에서 그런 작업을 할수 있게 돕는 <a class="reference external" href="https://stedolan.github.io/jq">JQ</a>라는 툴도 있다.</p>
+<p>이번 튜토리얼과 같이 작은 프로젝트에서는 필요하지 않지만
+스크랩된 항목으로 보다 복잡한 일을 수행하고 싶으면 <a class="reference internal" href="../topics/item-pipeline_ko.html#topics-item-pipeline"><span class="std std-ref">Item Pipeline</span></a>를
+작성하라. 아이템 파이프라인을 위한 placeholder 파일은 프로젝트가 생성될 때
+<code class="docutils literal"><span class="pre">tutorial/pipelines.py</span></code>에 세팅되어 있다.
+스크랩된 항목들을 저장만 하고 싶다면 아이템 파이프라인을 사용하지 않아도 된다.</p>
+</div>
+<div class="section" id="id14">
+<h2>링크 따라가기<a class="headerlink" href="#id14" title="제목 주소">¶</a></h2>
+<p><a class="reference external" href="http://quotes.toscrape.com">http://quotes.toscrape.com</a>의 처음 두 페이지로부터 스크랩하는 대신 모든 페이지로부터 인용구를 얻고 싶다고 헤보자.</p>
+<p>페이지로부터 데이터를 추출하는 방법은 알고 있으므로 페이지에서 링크를 따라가는 방법을 알아보자.</p>
+<p>첫 번째는 따라가려고 하는 페이지로 향하는 링크를 추출하는 것이다.
+페이지를 조사해보면 아래의 마크업으로 표시된 다음 페이지로 가는 링크가 있는 것을
+볼 수 있다:</p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pager&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;next&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/page/2/&quot;</span><span class="p">&gt;</span>Next <span class="p">&lt;</span><span class="nt">span</span> <span class="na">aria-hidden</span><span class="o">=</span><span class="s">&quot;true&quot;</span><span class="p">&gt;</span><span class="ni">&amp;rarr;</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>셸에서 링크를 추출해보자.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;li.next a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">()</span>
+<span class="go">&#39;&lt;a href=&quot;/page/2/&quot;&gt;Next &lt;span aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;&lt;/a&gt;&#39;</span>
+</pre></div>
+</div>
+<p>앵커 요소를 얻었지만 <code class="docutils literal"><span class="pre">href</span></code> 속성이 필요하다. 이를 위해 스크래피는 다음과 같이 속성 컨텐츠를 선택할 수 있는
+CSS 확장을 지원한다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;li.next a::attr(href)&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">()</span>
+<span class="go">&#39;/page/2/&#39;</span>
+</pre></div>
+</div>
+<p>재귀적으로 다음페이지 링크를 따라가고 데이터를 추출하는 수정된 스파이더를 보자:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+
+
+<span class="k">class</span> <span class="nc">QuotesSpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;quotes&quot;</span>
+    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;http://quotes.toscrape.com/page/1/&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">quote</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;div.quote&#39;</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="p">{</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;span.text::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">(),</span>
+                <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;small.author::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">(),</span>
+                <span class="s1">&#39;tags&#39;</span><span class="p">:</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;div.tags a.tag::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">(),</span>
+            <span class="p">}</span>
+
+        <span class="n">next_page</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;li.next a::attr(href)&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">next_page</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">next_page</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">urljoin</span><span class="p">(</span><span class="n">next_page</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">next_page</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>데이터를 추출한 후에 <code class="docutils literal"><span class="pre">parse()</span></code> 메서드는 다음 페이지 링크를 찾고
+<a class="reference internal" href="../topics/request-response_ko.html#scrapy.http.Response.urljoin" title="scrapy.http.Response.urljoin"><code class="xref py py-meth docutils literal"><span class="pre">urljoin()</span></code></a> 메서드를 사용해 (링크가 상대적일 수 있기 때문에) 절대 URL을 생성하고
+다음 페이지를 위한 새로운 리퀘스트를 생산하고, 자기 자신을 콜백으로 등록해 다음 페이지의 데이터를 추출하고
+그런 식으로 모든 페이지를 크롤링한다.</p>
+<p>여기서 본 것이 스크래피가 링크를 따라가는 메카니즘이다:
+콜백 메서드에서 리퀘스트를 생성할 때 스크래피는 리퀘스트가 보내지도록 예약하고
+리퀘스트가 끝났을 때 실행되도록 콜백 메서드를 등록한다.</p>
+<p>이 방법을 사용하면 지정한 규칙대로 링크를 따라가는 복잡한 크롤러를 만들고
+방문한 페이지에 따라 다양한 종류의 데이터를 추출할 수 있다.</p>
+<p>이번 예에서는 다음 페이지를 찾을 수 없을 때까지 다음 페이지를 따라가는 루프를 만들었다 --
+이는 번호 표시줄이 있는 블로그, 포럼 등의 사이트를 크롤링하는데 유용하다.</p>
+<div class="section" id="response-follow-example">
+<span id="id15"></span><h3>리퀘스트 생성 지름길<a class="headerlink" href="#response-follow-example" title="제목 주소">¶</a></h3>
+<p>리퀘스트 객체를 생성하는 쉬운 방법으로 <a class="reference internal" href="../topics/request-response_ko.html#scrapy.http.TextResponse.follow" title="scrapy.http.TextResponse.follow"><code class="xref py py-meth docutils literal"><span class="pre">response.follow</span></code></a>를 사용할
+수 있다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+
+
+<span class="k">class</span> <span class="nc">QuotesSpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;quotes&quot;</span>
+    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;http://quotes.toscrape.com/page/1/&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">quote</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;div.quote&#39;</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="p">{</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;span.text::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">(),</span>
+                <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;span small::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">(),</span>
+                <span class="s1">&#39;tags&#39;</span><span class="p">:</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;div.tags a.tag::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">(),</span>
+            <span class="p">}</span>
+
+        <span class="n">next_page</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;li.next a::attr(href)&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">next_page</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">response</span><span class="o">.</span><span class="n">follow</span><span class="p">(</span><span class="n">next_page</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>scrapy.Request와 달리 <code class="docutils literal"><span class="pre">response.follow</span></code>는 상대 URL을 지원하므로
+urljoin을 호출하지 않아도 된다.
+하지만 여전히 Request 인스턴스를 반환해야 한다.
+<code class="docutils literal"><span class="pre">response.follow</span></code>가 Request 인스턴스를 반환하도록 되어 있다는 점에 주의한다.</p>
+<p><code class="docutils literal"><span class="pre">response.follow</span></code>에는 문자열 대신 셀렉터를 넣을수도 있다.
+이 셀렉터는 필요한 속성을 추출해야 한다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">href</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;li.next a::attr(href)&#39;</span><span class="p">):</span>
+    <span class="k">yield</span> <span class="n">response</span><span class="o">.</span><span class="n">follow</span><span class="p">(</span><span class="n">href</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">&lt;a&gt;</span></code> 요소의 경우에는 <code class="docutils literal"><span class="pre">response.follow</span></code>가 요소의 href 인자를 자동으로 사용하므로
+코드가 다음처럼 간결해진다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;li.next a&#39;</span><span class="p">):</span>
+    <span class="k">yield</span> <span class="n">response</span><span class="o">.</span><span class="n">follow</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last"><code class="docutils literal"><span class="pre">response.follow(response.css('li.next</span> <span class="pre">a'))</span></code>는 유효하지 않다.
+<code class="docutils literal"><span class="pre">response.css</span></code>는 단일 셀렉터가 아니라 모든 결과에 대한 셀렉터를 포함하는 리스트 형태의
+객체를 반환하기 때문이다. 위 예시에 있는 <code class="docutils literal"><span class="pre">for</span></code> 루프나
+<code class="docutils literal"><span class="pre">response.follow(response.css('li.next</span> <span class="pre">a')[0])</span></code>는 문제가 없다.</p>
+</div>
+</div>
+<div class="section" id="id16">
+<h3>추가 예제와 패턴<a class="headerlink" href="#id16" title="제목 주소">¶</a></h3>
+<p>다음 스파이더는 콜백과 링크 따라가기를 보여주는 또 다른 스파이더다.
+이번에는 저자 정보를 스크랩한다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+
+
+<span class="k">class</span> <span class="nc">AuthorSpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;author&#39;</span>
+
+    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;http://quotes.toscrape.com/&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="c1"># follow links to author pages</span>
+        <span class="k">for</span> <span class="n">href</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;.author + a::attr(href)&#39;</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">response</span><span class="o">.</span><span class="n">follow</span><span class="p">(</span><span class="n">href</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_author</span><span class="p">)</span>
+
+        <span class="c1"># follow pagination links</span>
+        <span class="k">for</span> <span class="n">href</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;li.next a::attr(href)&#39;</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">response</span><span class="o">.</span><span class="n">follow</span><span class="p">(</span><span class="n">href</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">parse_author</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">extract_with_css</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="n">query</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="k">yield</span> <span class="p">{</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">extract_with_css</span><span class="p">(</span><span class="s1">&#39;h3.author-title::text&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;birthdate&#39;</span><span class="p">:</span> <span class="n">extract_with_css</span><span class="p">(</span><span class="s1">&#39;.author-born-date::text&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;bio&#39;</span><span class="p">:</span> <span class="n">extract_with_css</span><span class="p">(</span><span class="s1">&#39;.author-description::text&#39;</span><span class="p">),</span>
+        <span class="p">}</span>
+</pre></div>
+</div>
+<p>이 스파이더는 메인 페이지에서 시작해 작가 페이지로의 모든 링크를 따라간다.
+이 과정에서 매번 <code class="docutils literal"><span class="pre">parse_author</span></code> 콜백을 호출하고 앞서 본 것과 같이 <code class="docutils literal"><span class="pre">parse</span></code> 콜백으로
+번호줄 링크까지 따라간다.</p>
+<p>여기서 우리는 콜백을 위치 인자로서 <code class="docutils literal"><span class="pre">response.follow</span></code>로 보내 코드를 간결하게 했다.
+이 방법은 <code class="docutils literal"><span class="pre">scrapy.Request</span></code>에서도 사용할 수 있다.</p>
+<p><code class="docutils literal"><span class="pre">parse_author</span></code> 콜백은 CSS 쿼리로부터의 데이터를 정리하고 추출하는 헬퍼 함수를 정의하며
+저자 정보가 담긴 파이썬 딕셔너리를 생산한다.</p>
+<p>이 스파이더의 흥미로운 점은 동일한 작가의 인용구가 여러개 있다고 해도 작가 페이지를 여러번 방문하지 않는다는 것이다.
+스크래피는 디폴트로 이미 방문했던 url로의 리퀘스트를 걸러낸다. 이는 프로그램 실수로 인한 서버 과부하를 막기 위함이다.
+이 기능은 <a class="reference internal" href="../topics/settings.html#std:setting-DUPEFILTER_CLASS"><code class="xref std std-setting docutils literal"><span class="pre">DUPEFILTER_CLASS</span></code></a>를 세팅해서 설정을 바꿀 수 있다..</p>
+<p>이제 스크래피로 링크를 따라가고 콜백을 사용하는 매카니즘을 이해했을 것이다.</p>
+<p>링크 따라가기 메카니즘을 활용하는 예시 스파이더로
+그것을 바탕으로 당신의 크롤러를 작성하는데 사용할 수 있는 소형 규칙 엔진을 구현한 일반 스파이더인
+<a class="reference internal" href="../topics/spiders_ko.html#scrapy.spiders.CrawlSpider" title="scrapy.spiders.CrawlSpider"><code class="xref py py-class docutils literal"><span class="pre">CrawlSpider</span></code></a> 클래스를 확인해 보아라.</p>
+<p>또한 공통 패턴은 <a class="reference internal" href="../topics/request-response_ko.html#topics-request-response-ref-request-callback-arguments"><span class="std std-ref">콜백에 추가적인 데이터를 전달하는 트릭</span></a>을 사용해서
+한 페이지 이상으로부터 데이터가 있는 아이템을 생성할 수 있다.</p>
+</div>
+</div>
+<div class="section" id="id17">
+<h2>스파이더 인수 사용<a class="headerlink" href="#id17" title="제목 주소">¶</a></h2>
+<p>스파이더를 실행할 때 <code class="docutils literal"><span class="pre">-a</span></code> 옵션을 사용해 커맨드 라인 인자를 제공할 수 있다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">scrapy</span> <span class="n">crawl</span> <span class="n">quotes</span> <span class="o">-</span><span class="n">o</span> <span class="n">quotes</span><span class="o">-</span><span class="n">humor</span><span class="o">.</span><span class="n">json</span> <span class="o">-</span><span class="n">a</span> <span class="n">tag</span><span class="o">=</span><span class="n">humor</span>
+</pre></div>
+</div>
+<p>이 인자들은 스파이더의 <code class="docutils literal"><span class="pre">__init__</span></code> 메서드로 보내져 기본적으로 스파이더 속성이 된다.</p>
+<p>이번 예시에서 <code class="docutils literal"><span class="pre">tag</span></code> 인자로 제공된 값들은 <code class="docutils literal"><span class="pre">self.tag</span></code>를 통해 사용 가능해 진다.
+이 기능을 사용해 인자에 기반해 URL을 생성하고 스파이더가 특정 태그를 가진 인용구만 가져오도록
+만들 수 있다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+
+
+<span class="k">class</span> <span class="nc">QuotesSpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;quotes&quot;</span>
+
+    <span class="k">def</span> <span class="nf">start_requests</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://quotes.toscrape.com/&#39;</span>
+        <span class="n">tag</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;tag&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tag</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="s1">&#39;tag/&#39;</span> <span class="o">+</span> <span class="n">tag</span>
+        <span class="k">yield</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">quote</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;div.quote&#39;</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="p">{</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;span.text::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">(),</span>
+                <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;small.author::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">(),</span>
+            <span class="p">}</span>
+
+        <span class="n">next_page</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;li.next a::attr(href)&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">next_page</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">response</span><span class="o">.</span><span class="n">follow</span><span class="p">(</span><span class="n">next_page</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>스파이더에 <code class="docutils literal"><span class="pre">tag=humor</span></code> 인자를 보내면 <code class="docutils literal"><span class="pre">http://quotes.toscrape.com/tag/humor</span></code> 같은
+<code class="docutils literal"><span class="pre">humor</span></code> 태그의 URL만 방문함을 알 수 있다.</p>
+<p><a class="reference internal" href="../topics/spiders_ko.html#spiderargs"><span class="std std-ref">스파이더 인자를 다루는 법에 대해 더 배우기</span></a>.</p>
+</div>
+<div class="section" id="id18">
+<h2>다음 단계<a class="headerlink" href="#id18" title="제목 주소">¶</a></h2>
+<p>이 튜토리얼은 스크래피의 기초만 다루었고 이 외에도 많은 기능들이 있다.
+<a class="reference internal" href="overview_ko.html#intro-overview"><span class="std std-ref">스크래피(Scrapy) 한눈에 보기</span></a> 챕터의 <a class="reference internal" href="overview_ko.html#topics-whatelse"><span class="std std-ref">그 밖의 사항</span></a> 섹션에서 중요한 기능들에 대한 간략한 개요를 볼 수 있다.</p>
+<p>커맨드 라인 툴, 스파이더, 셀렉터나 스크랩 데이터 모델링과 같이 튜토리얼에서 다루지 않은 것들에 대해 알고 싶다면
+<a class="reference internal" href="../index_ko.html#section-basics"><span class="std std-ref">기본 개념</span></a> 를 확인하라.
+예시 프로젝트로 배우는 것을 선호한다면 <a class="reference internal" href="examples_ko.html#intro-examples"><span class="std std-ref">예제</span></a> 섹션을 보자.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="examples_ko.html" class="btn btn-neutral float-right" title="예제" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="install_ko.html" class="btn btn-neutral" title="설치 가이드" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2008-2016, Scrapy developers.
+      최종 업데이트: 2월 26, 2018
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.5.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,410 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>통계 수집 &mdash; Scrapy 1.5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="색인"
+              href="../genindex.html"/>
+        <link rel="search" title="검색" href="../search.html"/>
+    <link rel="top" title="Scrapy 1.5.0 documentation" href="../index.html"/>
+        <link rel="next" title="Sending e-mail" href="email.html"/>
+        <link rel="prev" title="로깅" href="logging_ko.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index_ko.html" class="icon icon-home"> Scrapy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">처음 시작하기</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/overview_ko.html">스크래피(Scrapy) 한눈에 보기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/install_ko.html">설치 가이드</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/tutorial_ko.html">스크래피 튜토리얼</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/examples_ko.html">예제</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기본 개념</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="commands_ko.html">커맨드 라인 툴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spiders_ko.html">스파이더(Spider)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html">Selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="items.html">Items</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loaders.html">Item Loaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shell.html">Scrapy shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="item-pipeline.html">Item Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="feed-exports.html">Feed exports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-response.html">Requests and Responses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="link-extractors.html">Link Extractors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Built-in services</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="logging_ko.html">로깅</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">통계 수집</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#topics-stats-usecases">통계 수집기의 일반적 사용법</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">사용가능한 통계 수집기</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#memorystatscollector">MemoryStatsCollector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dummystatscollector">DummyStatsCollector</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="email.html">Sending e-mail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telnetconsole.html">Telnet Console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webservice.html">Web Service</a></li>
+</ul>
+<p class="caption"><span class="caption-text">특정 문제 해결하기</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contracts.html">Spiders Contracts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practices.html">Common Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="broad-crawls.html">Broad Crawls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firefox.html">Using Firefox for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firebug.html">Using Firebug for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="leaks.html">Debugging memory leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="media-pipeline.html">Downloading and processing files and images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">Deploying Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autothrottle.html">AutoThrottle extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarking.html">Benchmarking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Jobs: pausing and resuming crawls</a></li>
+</ul>
+<p class="caption"><span class="caption-text">스크래피 확장</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloader-middleware.html">Downloader Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spider-middleware.html">Spider Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extensions.html">Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_ko.html">코어 API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signals.html">Signals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exporters.html">Item Exporters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기타</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to Scrapy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versioning.html">Versioning and API Stability</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index_ko.html">Scrapy</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index_ko.html">Docs</a> &raquo;</li>
+        
+      <li>통계 수집</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/VeranosTech/docs-korean-scrapy/blob/docs-korean/docs/topics/stats_ko.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="topics-stats">
+<span id="id1"></span><h1>통계 수집<a class="headerlink" href="#topics-stats" title="제목 주소">¶</a></h1>
+<p>스크래피는 키/밸류 형태로 통계를 수집하는 기능을 제공한다.
+여기에서 밸류는 보통 카운터(counter) 값이다.
+이 기능을 통계 수집기(Stats Collector)라고 한다.
+<a class="reference internal" href="api_ko.html#topics-api-crawler"><span class="std std-ref">Crawler API</span></a>의 <a class="reference internal" href="api_ko.html#scrapy.crawler.Crawler.stats" title="scrapy.crawler.Crawler.stats"><code class="xref py py-attr docutils literal"><span class="pre">stats</span></code></a> 속성을
+이용해서 접근할 수 있다.
+<a class="reference internal" href="#topics-stats-usecases"><span class="std std-ref">통계 수집기의 일반적 사용법</span></a> 섹션에서 자세히 설명한다.</p>
+<p>통계 수집 기능이 활성화되어있는지에 상관없이
+통계 수집기는 언제나 모듈에서 임포트하고 API를 사용할 수 있다.
+비활성화되어 있어도 API를 사용할 수는 있으나 실제로는 아무것도 수집하지 않는다.
+이는 통계 수집기 사용을 단순화하기 위해서이다.
+스파이더나 스크래피 확장 모듈, 그밖의 모든 코드에서 통계를 수집하려면
+한 줄 이상의 코드를 써야 한다.</p>
+<p>통계 수집기의 또다른 특징은 (활성화되어 있을 때) 아주 효율적이고
+비활성화되어 있을 때도 극도로 효율적이라는 점이다.</p>
+<p>통계 수집기는 스파이더가 열릴 때 한 스파이더당 하나의 통계 테이블을 자동으로 열고
+스파이더가 닫히면 테이블도 닫는다.</p>
+<div class="section" id="topics-stats-usecases">
+<span id="id2"></span><h2>통계 수집기의 일반적 사용법<a class="headerlink" href="#topics-stats-usecases" title="제목 주소">¶</a></h2>
+<p><a class="reference internal" href="api_ko.html#scrapy.crawler.Crawler.stats" title="scrapy.crawler.Crawler.stats"><code class="xref py py-attr docutils literal"><span class="pre">stats</span></code></a> 속성을 통해 통계 수집기에 접근한다.
+다음은 통계 접근용 확장 모듈의 예이다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ExtensionThatAccessStats</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stats</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="n">stats</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_crawler</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">crawler</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">crawler</span><span class="o">.</span><span class="n">stats</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>통계 값 설정:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">stats</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="s1">&#39;hostname&#39;</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>통계 값 증가:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">stats</span><span class="o">.</span><span class="n">inc_value</span><span class="p">(</span><span class="s1">&#39;custom_count&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>값이 이전 값보다 클 때만 갱신:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">stats</span><span class="o">.</span><span class="n">max_value</span><span class="p">(</span><span class="s1">&#39;max_items_scraped&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>값이 이전 값보다 작을 때만 갱신:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">stats</span><span class="o">.</span><span class="n">min_value</span><span class="p">(</span><span class="s1">&#39;min_free_memory_percent&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>통계 값 얻기:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stats</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="s1">&#39;custom_count&#39;</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>모든 통계 값 얻기:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stats</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span>
+<span class="go">{&#39;custom_count&#39;: 1, &#39;start_time&#39;: datetime.datetime(2009, 7, 14, 21, 47, 28, 977139)}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>사용가능한 통계 수집기<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
+<p>기본적인 <code class="xref py py-class docutils literal"><span class="pre">StatsCollector</span></code> 이외에도 기능을 확장한 다른 통계 수집기도 있다.
+<a class="reference internal" href="settings.html#std:setting-STATS_CLASS"><code class="xref std std-setting docutils literal"><span class="pre">STATS_CLASS</span></code></a> 설정값을 사용하여 통계 수집기를 선택할 수 있다.
+디폴트는 <code class="xref py py-class docutils literal"><span class="pre">MemoryStatsCollector</span></code>이다.</p>
+<span class="target" id="module-scrapy.statscollectors"></span><div class="section" id="memorystatscollector">
+<h3>MemoryStatsCollector<a class="headerlink" href="#memorystatscollector" title="제목 주소">¶</a></h3>
+<dl class="class">
+<dt id="scrapy.statscollectors.MemoryStatsCollector">
+<em class="property">class </em><code class="descclassname">scrapy.statscollectors.</code><code class="descname">MemoryStatsCollector</code><a class="headerlink" href="#scrapy.statscollectors.MemoryStatsCollector" title="정의 주소">¶</a></dt>
+<dd><p>마지막으로 스크래핑을 실행했을 때의 통계를 메모리에 유지하고 스파이터가 닫히면 닫히는 간단한 통계 수집기.
+<a class="reference internal" href="#scrapy.statscollectors.MemoryStatsCollector.spider_stats" title="scrapy.statscollectors.MemoryStatsCollector.spider_stats"><code class="xref py py-attr docutils literal"><span class="pre">spider_stats</span></code></a> 속성으로 접근할 수 있으며 키 값은 스파이더 도메인 이름이다.</p>
+<p>스파이더에서 사용되는 기본 통계 수집기이다.</p>
+<dl class="attribute">
+<dt id="scrapy.statscollectors.MemoryStatsCollector.spider_stats">
+<code class="descname">spider_stats</code><a class="headerlink" href="#scrapy.statscollectors.MemoryStatsCollector.spider_stats" title="정의 주소">¶</a></dt>
+<dd><p>스파이더 이름을 키로 가지는 딕셔너리의 딕셔너리.
+각 스파이더의 마지막 스크래핑 실행시의 통계를 가지고 있다.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="dummystatscollector">
+<h3>DummyStatsCollector<a class="headerlink" href="#dummystatscollector" title="제목 주소">¶</a></h3>
+<dl class="class">
+<dt id="scrapy.statscollectors.DummyStatsCollector">
+<em class="property">class </em><code class="descclassname">scrapy.statscollectors.</code><code class="descname">DummyStatsCollector</code><a class="headerlink" href="#scrapy.statscollectors.DummyStatsCollector" title="정의 주소">¶</a></dt>
+<dd><p>아무런 작업을 하지 않는 통계 수집기.
+<a class="reference internal" href="settings.html#std:setting-STATS_CLASS"><code class="xref std std-setting docutils literal"><span class="pre">STATS_CLASS</span></code></a> 설정으로 이 수집기를 선택하면 실제로는 통계 수집을 비활성화하는 것과 같다.
+통계 수집으로 인한 성능 저하는 페이지 파싱 등의 다른 스크래피 작업에 무시할 정도이다.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="email.html" class="btn btn-neutral float-right" title="Sending e-mail" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="logging_ko.html" class="btn btn-neutral" title="로깅" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2008-2016, Scrapy developers.
+      최종 업데이트: 2월 26, 2018
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.5.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

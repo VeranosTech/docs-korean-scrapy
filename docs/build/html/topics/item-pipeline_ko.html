@@ -1,0 +1,547 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>아이템 파이프라인(Item pipeline) &mdash; Scrapy 1.5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="색인"
+              href="../genindex.html"/>
+        <link rel="search" title="검색" href="../search.html"/>
+    <link rel="top" title="Scrapy 1.5.0 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index_ko.html" class="icon icon-home"> Scrapy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">처음 시작하기</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/overview_ko.html">스크래피(Scrapy) 한눈에 보기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/install_ko.html">설치 가이드</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/tutorial_ko.html">스크래피 튜토리얼</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/examples_ko.html">예제</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기본 개념</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="commands_ko.html">커맨드 라인 툴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spiders_ko.html">스파이더(Spider)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html">Selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="items.html">Items</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loaders.html">Item Loaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shell.html">Scrapy shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="item-pipeline.html">Item Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="feed-exports.html">Feed exports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-response.html">Requests and Responses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="link-extractors.html">Link Extractors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Built-in services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="logging_ko.html">로깅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats_ko.html">통계 수집</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.html">Sending e-mail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telnetconsole.html">Telnet Console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webservice.html">Web Service</a></li>
+</ul>
+<p class="caption"><span class="caption-text">특정 문제 해결하기</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contracts.html">Spiders Contracts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practices.html">Common Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="broad-crawls.html">Broad Crawls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firefox.html">Using Firefox for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firebug.html">Using Firebug for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="leaks.html">Debugging memory leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="media-pipeline.html">Downloading and processing files and images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">Deploying Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autothrottle.html">AutoThrottle extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarking.html">Benchmarking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Jobs: pausing and resuming crawls</a></li>
+</ul>
+<p class="caption"><span class="caption-text">스크래피 확장</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloader-middleware.html">Downloader Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spider-middleware.html">Spider Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extensions.html">Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_ko.html">코어 API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signals.html">Signals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exporters.html">Item Exporters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기타</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to Scrapy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versioning.html">Versioning and API Stability</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index_ko.html">Scrapy</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index_ko.html">Docs</a> &raquo;</li>
+        
+      <li>아이템 파이프라인(Item pipeline)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/VeranosTech/docs-korean-scrapy/blob/docs-korean/docs/topics/item-pipeline_ko.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="item-pipeline">
+<span id="topics-item-pipeline"></span><h1>아이템 파이프라인(Item pipeline)<a class="headerlink" href="#item-pipeline" title="제목 주소">¶</a></h1>
+<p>스파이더(spider)로 아이템이 스크랩되면, 아이템은 아이템 파이프라인으로 보내지며
+파이프라인에서는 연속적으로 실행되는 여러 구성요소를 통해 아이템을 처리한다.</p>
+<p>각 아이템 파이프라인의 구성요소는 (때로는 단순히 &quot;아이템 파이프라인&quot;으로 불린다)
+간단한 메서드를 구현한 파이썬 클래스다. 파이프라인은 아이템을 받아서 동작을 수행하며,
+파이프라인을 지나서도 유지되야 하는지 또는 더이상 처리되지 않고 버려져야 하는지도 결정한다.</p>
+<p>일반적인 아이템 파이프라인의 사용 목적은 다음과 같다:</p>
+<ul class="simple">
+<li>HTML 데이터 정리</li>
+<li>스크랩 데이터 유효성 검사 (아이템이 특정 필드를 포함하고 있는지)</li>
+<li>중복 확인 (중복 아이템 제거)</li>
+<li>스크랩 아이템 데이터베이스에 저장</li>
+</ul>
+<div class="section" id="id1">
+<h2>아이템 파이프라인 제작하기<a class="headerlink" href="#id1" title="제목 주소">¶</a></h2>
+<p>각 아이템 파이프라인 구성요소는 반드시 아래의 메서드를 구현한 파이썬 클래스여야 한다:</p>
+<dl class="method">
+<dt id="process_item">
+<code class="descname">process_item</code><span class="sig-paren">(</span><em>self</em>, <em>item</em>, <em>spider</em><span class="sig-paren">)</span><a class="headerlink" href="#process_item" title="정의 주소">¶</a></dt>
+<dd><p>이 메서드는 모든 아이템 파이프라인 구성요소에 대해 호출된다. <a class="reference internal" href="#process_item" title="process_item"><code class="xref py py-meth docutils literal"><span class="pre">process_item()</span></code></a>는
+반드시 데이터가 있는 딕셔너리나, <a class="reference internal" href="items_ko.html#scrapy.item.Item" title="scrapy.item.Item"><code class="xref py py-class docutils literal"><span class="pre">Item</span></code></a> 객체, 또는 <a class="reference external" href="https://twistedmatrix.com/documents/current/core/howto/defer.html">Twisted Deferred</a>를
+반환하거나 <a class="reference internal" href="exceptions.html#scrapy.exceptions.DropItem" title="scrapy.exceptions.DropItem"><code class="xref py py-exc docutils literal"><span class="pre">DropItem</span></code></a> 예외를 발생시켜야 한다.
+드랍된 아이템은 이후의 파이프라인 구성요소로 처리되지 않는다.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>item</strong> (<a class="reference internal" href="items_ko.html#scrapy.item.Item" title="scrapy.item.Item"><code class="xref py py-class docutils literal"><span class="pre">Item</span></code></a> 객체 또는 딕셔너리) -- 스크랩 된 아이템</li>
+<li><strong>spider</strong> (<a class="reference internal" href="spiders_ko.html#scrapy.spiders.Spider" title="scrapy.spiders.Spider"><code class="xref py py-class docutils literal"><span class="pre">Spider</span></code></a> 객체) -- 아이템을 스크랩하는 스파이더</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>또한 다음 메서드도 구현할 수 있다:</p>
+<dl class="method">
+<dt id="open_spider">
+<code class="descname">open_spider</code><span class="sig-paren">(</span><em>self</em>, <em>spider</em><span class="sig-paren">)</span><a class="headerlink" href="#open_spider" title="정의 주소">¶</a></dt>
+<dd><p>이 메서드는 스파이더가 열렸을 때 호출된다.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>spider</strong> (<a class="reference internal" href="spiders_ko.html#scrapy.spiders.Spider" title="scrapy.spiders.Spider"><code class="xref py py-class docutils literal"><span class="pre">Spider</span></code></a> 객체) -- 열린 스파이더</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="close_spider">
+<code class="descname">close_spider</code><span class="sig-paren">(</span><em>self</em>, <em>spider</em><span class="sig-paren">)</span><a class="headerlink" href="#close_spider" title="정의 주소">¶</a></dt>
+<dd><p>이 메서드 닫혔을 때 호출된다.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>spider</strong> (<a class="reference internal" href="spiders_ko.html#scrapy.spiders.Spider" title="scrapy.spiders.Spider"><code class="xref py py-class docutils literal"><span class="pre">Spider</span></code></a> 객체) -- 닫힌 스파이더</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="from_crawler">
+<code class="descname">from_crawler</code><span class="sig-paren">(</span><em>cls</em>, <em>crawler</em><span class="sig-paren">)</span><a class="headerlink" href="#from_crawler" title="정의 주소">¶</a></dt>
+<dd><p>존재할 경우, 이 클래스 메서드는 <a class="reference internal" href="api_ko.html#scrapy.crawler.Crawler" title="scrapy.crawler.Crawler"><code class="xref py py-class docutils literal"><span class="pre">Crawler</span></code></a>로 파이프라인 인스턴스를
+생성하기위해 호출된다. 반드시 새로운 파이프라인 인스턴스를 반환해야 한다.
+크롤러(Crawler) 객체는 설정정과 시그널(signal) 같은 모든 스크래피 핵심 구성요소에 접근할 수
+있게 해준다; 이것이 파이프라인이 구성요소에 접근하고 스크래피에 기능을 연결하는 방법이다.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>crawler</strong> (<a class="reference internal" href="api_ko.html#scrapy.crawler.Crawler" title="scrapy.crawler.Crawler"><code class="xref py py-class docutils literal"><span class="pre">Crawler</span></code></a> 객체) -- 이 파이프라인을 사용하는 크롤러</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="id2">
+<h2>아이템 파이프라인 예시<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
+<div class="section" id="id3">
+<h3>가격 유효성 검사 및 가격 미포함 아이템 드랍<a class="headerlink" href="#id3" title="제목 주소">¶</a></h3>
+<p>VAT(<code class="docutils literal"><span class="pre">price_excludes_vat</span></code> 속성)를 포함하지 않은 아이템의 <code class="docutils literal"><span class="pre">price</span></code> 속성을 수정하고 가격을 포함하지 않은
+아이템을 버리는 가상의 파이프라인을 살펴보자:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scrapy.exceptions</span> <span class="k">import</span> <span class="n">DropItem</span>
+
+<span class="k">class</span> <span class="nc">PricePipeline</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="n">vat_factor</span> <span class="o">=</span> <span class="mf">1.15</span>
+
+    <span class="k">def</span> <span class="nf">process_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;price_excludes_vat&#39;</span><span class="p">]:</span>
+                <span class="n">item</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">vat_factor</span>
+            <span class="k">return</span> <span class="n">item</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">DropItem</span><span class="p">(</span><span class="s2">&quot;Missing price in </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">item</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="json">
+<h3>아이템을 JSON 파일로 쓰기<a class="headerlink" href="#json" title="제목 주소">¶</a></h3>
+<p>아래의 파이프라인은 (모든 스파이더에서) 스크랩된 모든 아이템을 하나의 <code class="docutils literal"><span class="pre">item.jl</span></code> 파일에
+저장한다. 하나의 아이템은 JSON 포맷으로 직렬화된 한 줄로 나타난다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="k">class</span> <span class="nc">JsonWriterPipeline</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">open_spider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;items.jl&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">close_spider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">process_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">item</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">item</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">JsonWriterPipeline의 목적은 아이템 파이프라인을 어떻게 작성하는지
+소개하기 위해서다. 만약 정말로 스크랩된 모든 데이터를 JOSN 파일로 저장하려면
+<a class="reference internal" href="feed-exports.html#topics-feed-exports"><span class="std std-ref">Feed exports</span></a>를 사용해야 한다.</p>
+</div>
+</div>
+<div class="section" id="mongodb">
+<h3>MongoDB에 아이템 작성하기<a class="headerlink" href="#mongodb" title="제목 주소">¶</a></h3>
+<p>아래의 예에서 우리는 <cite>pymongo_</cite>를 사용해서 <cite>MongoDB_</cite>에 아이템을 작성할 것이다.
+MongoDB 주소와 데이터베이스 이름은 스크래피 설정에서 지정되었다;
+MongoDB 집합의 이름은 아이템 클래스에서 따라 지었다.</p>
+<p>이 예의 주요 포인트는 <a class="reference internal" href="#from_crawler" title="from_crawler"><code class="xref py py-meth docutils literal"><span class="pre">from_crawler()</span></code></a> 메서드를 사용하는 방법과
+리소스를 적절하게 정리하는 방법을 보여주는 것이다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pymongo</span>
+
+<span class="k">class</span> <span class="nc">MongoPipeline</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="n">collection_name</span> <span class="o">=</span> <span class="s1">&#39;scrapy_items&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mongo_uri</span><span class="p">,</span> <span class="n">mongo_db</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mongo_uri</span> <span class="o">=</span> <span class="n">mongo_uri</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mongo_db</span> <span class="o">=</span> <span class="n">mongo_db</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_crawler</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">crawler</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">mongo_uri</span><span class="o">=</span><span class="n">crawler</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;MONGO_URI&#39;</span><span class="p">),</span>
+            <span class="n">mongo_db</span><span class="o">=</span><span class="n">crawler</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;MONGO_DATABASE&#39;</span><span class="p">,</span> <span class="s1">&#39;items&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">open_spider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">pymongo</span><span class="o">.</span><span class="n">MongoClient</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mongo_uri</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mongo_db</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">close_spider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">process_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">collection_name</span><span class="p">]</span><span class="o">.</span><span class="n">insert_one</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">item</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>아이템의 스크린샷 찍기<a class="headerlink" href="#id5" title="제목 주소">¶</a></h3>
+<p>이 예제는 <a class="reference internal" href="#process_item" title="process_item"><code class="xref py py-meth docutils literal"><span class="pre">process_item()</span></code></a> 메서드에서 <a class="reference external" href="https://twistedmatrix.com/documents/current/core/howto/defer.html">Deferred</a>를 반환하는 방법을 설명한다.
+이 메서드는 아이템 url의 스크린샷을 렌더링하기 위해 <a class="reference external" href="https://splash.readthedocs.io/en/stable/">Splash</a>를 사용한다.파이프라인은
+로컬에서 <a class="reference external" href="https://splash.readthedocs.io/en/stable/">Splash</a>의 인스턴스를 실행하도록 요청한다.
+리퀘스트가 다운로드된 후에 지연 콜백이 일어나면, 아이템을 파일에 저장하고 파일명을 아이템에
+추가한다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="k">import</span> <span class="n">quote</span>
+
+
+<span class="k">class</span> <span class="nc">ScreenshotPipeline</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Pipeline that uses Splash to render screenshot of</span>
+<span class="sd">    every Scrapy item.&quot;&quot;&quot;</span>
+
+    <span class="n">SPLASH_URL</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:8050/render.png?url=</span><span class="si">{}</span><span class="s2">&quot;</span>
+
+    <span class="k">def</span> <span class="nf">process_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="n">encoded_item_url</span> <span class="o">=</span> <span class="n">quote</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">])</span>
+        <span class="n">screenshot_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPLASH_URL</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">encoded_item_url</span><span class="p">)</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">screenshot_url</span><span class="p">)</span>
+        <span class="n">dfd</span> <span class="o">=</span> <span class="n">spider</span><span class="o">.</span><span class="n">crawler</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">spider</span><span class="p">)</span>
+        <span class="n">dfd</span><span class="o">.</span><span class="n">addBoth</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">return_item</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dfd</span>
+
+    <span class="k">def</span> <span class="nf">return_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="c1"># Error happened, return item.</span>
+            <span class="k">return</span> <span class="n">item</span>
+
+        <span class="c1"># Save screenshot to file, filename will be hash of url.</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]</span>
+        <span class="n">url_hash</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.png&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url_hash</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+
+        <span class="c1"># Store filename in item.</span>
+        <span class="n">item</span><span class="p">[</span><span class="s2">&quot;screenshot_filename&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="k">return</span> <span class="n">item</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>중복 필더<a class="headerlink" href="#id6" title="제목 주소">¶</a></h3>
+<p>중복된 아이템을 찾고, 이미 처리된 아이템을 드랍하는 필터.
+아이템이 교유한 id를 가지고 있지만 스파이더가 동일한 id를 가진 다수의 아이템을 반환한다고
+가정하자:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scrapy.exceptions</span> <span class="k">import</span> <span class="n">DropItem</span>
+
+<span class="k">class</span> <span class="nc">DuplicatesPipeline</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ids_seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">process_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids_seen</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">DropItem</span><span class="p">(</span><span class="s2">&quot;Duplicate item found: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">item</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids_seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">item</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>아이템파이프라인 구성요소<a class="headerlink" href="#id7" title="제목 주소">¶</a></h2>
+<p>아이템 파이프라인 구성요소를 활성화하려면 반드시 그 클래스를 아래 예시처럼 <a class="reference internal" href="settings.html#std:setting-ITEM_PIPELINES"><code class="xref std std-setting docutils literal"><span class="pre">ITEM_PIPELINES</span></code></a> 세팅에 추가해야 한다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ITEM_PIPELINES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;myproject.pipelines.PricePipeline&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+    <span class="s1">&#39;myproject.pipelines.JsonWriterPipeline&#39;</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>이 세팅에서 클래스에 할당한 정수값은 실행되는 순서를 결정한다:
+아이템은 낮은 값에서부터 높은 값을 가진 클래스를 빠져나간다.
+0-1000 범위로 정의하는 것이 일반적이다.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2008-2016, Scrapy developers.
+      최종 업데이트: 2월 26, 2018
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.5.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

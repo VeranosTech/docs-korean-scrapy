@@ -1,0 +1,1009 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>리퀘스트(Requests)와 리스펀스(Responses) &mdash; Scrapy 1.5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="색인"
+              href="../genindex.html"/>
+        <link rel="search" title="검색" href="../search.html"/>
+    <link rel="top" title="Scrapy 1.5.0 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index_ko.html" class="icon icon-home"> Scrapy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">처음 시작하기</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/overview_ko.html">스크래피(Scrapy) 한눈에 보기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/install_ko.html">설치 가이드</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/tutorial_ko.html">스크래피 튜토리얼</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/examples_ko.html">예제</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기본 개념</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="commands_ko.html">커맨드 라인 툴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spiders_ko.html">스파이더(Spider)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html">Selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="items.html">Items</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loaders.html">Item Loaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shell.html">Scrapy shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="item-pipeline.html">Item Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="feed-exports.html">Feed exports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-response.html">Requests and Responses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="link-extractors.html">Link Extractors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Built-in services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="logging_ko.html">로깅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats_ko.html">통계 수집</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.html">Sending e-mail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telnetconsole.html">Telnet Console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webservice.html">Web Service</a></li>
+</ul>
+<p class="caption"><span class="caption-text">특정 문제 해결하기</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contracts.html">Spiders Contracts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practices.html">Common Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="broad-crawls.html">Broad Crawls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firefox.html">Using Firefox for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firebug.html">Using Firebug for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="leaks.html">Debugging memory leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="media-pipeline.html">Downloading and processing files and images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">Deploying Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autothrottle.html">AutoThrottle extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarking.html">Benchmarking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Jobs: pausing and resuming crawls</a></li>
+</ul>
+<p class="caption"><span class="caption-text">스크래피 확장</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloader-middleware.html">Downloader Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spider-middleware.html">Spider Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extensions.html">Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_ko.html">코어 API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signals.html">Signals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exporters.html">Item Exporters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기타</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to Scrapy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versioning.html">Versioning and API Stability</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index_ko.html">Scrapy</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index_ko.html">Docs</a> &raquo;</li>
+        
+      <li>리퀘스트(Requests)와 리스펀스(Responses)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/VeranosTech/docs-korean-scrapy/blob/docs-korean/docs/topics/request-response_ko.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-scrapy.http">
+<span id="requests-responses"></span><span id="topics-request-response"></span><h1>리퀘스트(Requests)와 리스펀스(Responses)<a class="headerlink" href="#module-scrapy.http" title="제목 주소">¶</a></h1>
+<p>스크래피는 웹사이트 크롤링에 <a class="reference internal" href="#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a>와 <a class="reference internal" href="#scrapy.http.Response" title="scrapy.http.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a> 객체를 사용한다.</p>
+<p>일반적으로, <a class="reference internal" href="#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a> 객체는 스파이더 내에서 생성되고 시스템을 지나서
+다운로더(Downloader)에 도달한다. 다운로더는 리퀘스트를 실행하고
+<a class="reference internal" href="#scrapy.http.Response" title="scrapy.http.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a> 객체를 반환하는데 이 객체는 리퀘스트를 생성했던 스파이더로
+돌아간다.</p>
+<p><a class="reference internal" href="#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a>와 <a class="reference internal" href="#scrapy.http.Response" title="scrapy.http.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a> 클래스는 모두 베이스 클래스에서
+필요하지 않은 기능을 추가하는 상속클래스를 가지고 있다. 이 기능은 아래에
+<a class="reference internal" href="#topics-request-response-ref-request-subclasses"><span class="std std-ref">Request subclasses</span></a>와
+<a class="reference internal" href="#topics-request-response-ref-response-subclasses"><span class="std std-ref">Response subclasses</span></a>에서 설명하고
+있다.</p>
+<div class="section" id="id1">
+<h2>리퀘스트 객체<a class="headerlink" href="#id1" title="제목 주소">¶</a></h2>
+<dl class="class">
+<dt id="scrapy.http.Request">
+<em class="property">class </em><code class="descclassname">scrapy.http.</code><code class="descname">Request</code><span class="sig-paren">(</span><em>url</em><span class="optional">[</span>, <em>callback</em>, <em>method='GET'</em>, <em>headers</em>, <em>body</em>, <em>cookies</em>, <em>meta</em>, <em>encoding='utf-8'</em>, <em>priority=0</em>, <em>dont_filter=False</em>, <em>errback</em>, <em>flags</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.http.Request" title="정의 주소">¶</a></dt>
+<dd><p><a class="reference internal" href="#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a> 객체는 HTTP 리퀘스트를 나타내며, 스파이더에서 생성되고 다운로드에서 실행된다.
+그 결과로 <a class="reference internal" href="#scrapy.http.Response" title="scrapy.http.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>를 생성한다.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>url</strong> (<em>문자열</em>) -- 이 리퀘스트의 URL</li>
+<li><strong>callback</strong> (<em>컬러블</em><em>(</em><em>callable</em><em>)</em>) -- 첫 번째 파라미터로서 이 리퀘스트의 (다운로드된) 리스펀스를 받아서
+호출되는 함수. 상세한 정보는 아래의
+<a class="reference internal" href="#topics-request-response-ref-request-callback-arguments"><span class="std std-ref">추가 데이터를 콜백 함수로 전달</span></a>를 참고하라.
+리퀘스트가 콜백(callback)을 지정하지 않으면 스파이더의
+<a class="reference internal" href="spiders_ko.html#scrapy.spiders.Spider.parse" title="scrapy.spiders.Spider.parse"><code class="xref py py-meth docutils literal"><span class="pre">parse()</span></code></a> 메서드가 사용될 것이다.
+처리중에 예외가 발셍하면, 에러백(errback)이 대신 호출된다.</li>
+<li><strong>method</strong> (<em>문자열</em>) -- 이 리퀘스트의 HTTP 메서드, 디폴트는 <code class="docutils literal"><span class="pre">'GET'</span></code>이다.</li>
+<li><strong>meta</strong> (<em>딕셔너리</em>) -- <a class="reference internal" href="#scrapy.http.Request.meta" title="scrapy.http.Request.meta"><code class="xref py py-attr docutils literal"><span class="pre">Request.meta</span></code></a> 속성의 초기 값은. 주어졌다면
+이 파라미터에 전달된 딕셔너리가 쉘로우(shallow) 복사될 것이다.</li>
+<li><strong>body</strong> (<em>문자열 또는 유니코드</em>) -- 리퀘스트 바디(body). <code class="docutils literal"><span class="pre">unicode</span></code>가 전달되면, 전달된
+(<code class="docutils literal"><span class="pre">utf-8</span></code>로 기본설정되어 있는) <cite>encoding</cite>을
+사용해 <code class="docutils literal"><span class="pre">str</span></code>로 인코딩된다. <code class="docutils literal"><span class="pre">body</span></code>가 주어지지 않으면, 빈 문자열이 저장된다.
+이 인자의 타입과 상관없이 저장되는 최종적인 값은, <code class="docutils literal"><span class="pre">str</span></code>이 된다 (절대
+<code class="docutils literal"><span class="pre">unicode</span></code> 또는 <code class="docutils literal"><span class="pre">None</span></code>이 아니다).</li>
+<li><strong>headers</strong> (<em>딕셔너리</em>) -- 이 리퀘스트의 헤더(header). (단일 헤더인 경우) 딕셔너리 값은 문자열이나
+(다수의 헤더인 경우) 리스트가 될 수 있다. <code class="docutils literal"><span class="pre">None</span></code>이 값으로 주어지면, HTTP 헤더는
+아예 보내지지 않을 것이다.</li>
+<li><strong>cookies</strong> (<em>리스트 또는 딕셔너리</em>) -- <p>리퀘스트 쿠키(cookie), 두 가지 형태로 보내질 수 있다.</p>
+<ol class="arabic">
+<li>딕셔너리 사용:<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">request_with_cookies</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://www.example.com&quot;</span><span class="p">,</span>
+                               <span class="n">cookies</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;USD&#39;</span><span class="p">,</span> <span class="s1">&#39;country&#39;</span><span class="p">:</span> <span class="s1">&#39;UY&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+</li>
+<li>딕셔너리 리스트 사용:<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">request_with_cookies</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://www.example.com&quot;</span><span class="p">,</span>
+                               <span class="n">cookies</span><span class="o">=</span><span class="p">[{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;currency&#39;</span><span class="p">,</span>
+                                        <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="s1">&#39;USD&#39;</span><span class="p">,</span>
+                                        <span class="s1">&#39;domain&#39;</span><span class="p">:</span> <span class="s1">&#39;example.com&#39;</span><span class="p">,</span>
+                                        <span class="s1">&#39;path&#39;</span><span class="p">:</span> <span class="s1">&#39;/currency&#39;</span><span class="p">}])</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>후자의 형태는 쿠키의 <code class="docutils literal"><span class="pre">domain</span></code>과 <code class="docutils literal"><span class="pre">path</span></code> 속성을 커스터마이징할 수 있게
+해준다. 이는 쿠키가 추후의 리퀘스트를 위해 저장된 때만 유용하다.</p>
+<p>어떤 사이트가 (리스펀스에서) 쿠키를 반환할 때, 쿠키는 그 도메인을 위한 쿠키에 저장되고
+미래의 리퀘스트에서 다시 보내진다. 이것이 일반적인 웹 브라우저의 전형적인 동작이다.
+그러나 만약에, 어떤 이유로 인해 기존의 쿠키와 병합하는 것을 피하고 싶다면
+<a class="reference internal" href="#scrapy.http.Request.meta" title="scrapy.http.Request.meta"><code class="xref py py-attr docutils literal"><span class="pre">Request.meta</span></code></a>의 <code class="docutils literal"><span class="pre">dont_merge_cookies</span></code> 키를 True로 설정하면 된다.</p>
+<p>쿠기 병합을 하지 않는 리퀘스트 예시:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">request_with_cookies</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://www.example.com&quot;</span><span class="p">,</span>
+                               <span class="n">cookies</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;currency&#39;</span><span class="p">:</span> <span class="s1">&#39;USD&#39;</span><span class="p">,</span> <span class="s1">&#39;country&#39;</span><span class="p">:</span> <span class="s1">&#39;UY&#39;</span><span class="p">},</span>
+                               <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;dont_merge_cookies&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>더 자세한 내용은 <a class="reference internal" href="downloader-middleware.html#cookies-mw"><span class="std std-ref">CookiesMiddleware</span></a>를 참고하라.</p>
+</li>
+<li><strong>encoding</strong> (<em>문자열</em>) -- 이 리퀘스트의 인코딩. (디폴트는 <code class="docutils literal"><span class="pre">'utf-8'</span></code>이다.)
+이 인코딩은 URL를 퍼센트인코드(percent-encode)하고 바디를 (<code class="docutils literal"><span class="pre">unicode</span></code>로 주어젔다면) <code class="docutils literal"><span class="pre">str</span></code>으로
+변환하기 위해 사용된다.</li>
+<li><strong>priority</strong> (<em>정수</em>) -- 이 리퀘스트의 우선순위. (디폴트는 <code class="docutils literal"><span class="pre">0</span></code>이다.)
+우선순위는 스케쥴러에서 리퀘스트를 처리할 때 사용하는 순서를 정의하기 위해 사용된다.
+높은 우선순위를 가진 리퀘스트는 먼저 실행된다.
+상대적으로 낮은 우선순위를 나타내기위해 음수 값이 허용된다.</li>
+<li><strong>dont_filter</strong> (<em>불리언</em><em>(</em><em>boolean</em><em>)</em>) -- 이 리퀘스트는 스케쥴러에 의해 필터링되지 않음을 나타낸다.
+이는 동일한 리퀘스트에 대해 여러번 작업을 수행하고 중복 필터를 무시하고 싶을 때 사용한다.
+주의해서 사용하지 않으면 크롤링 루프에 빠질 수 있다. 디폴트는 <code class="docutils literal"><span class="pre">False</span></code>다.</li>
+<li><strong>errback</strong> (<em>컬러블</em>) -- 리퀘스트 처리중에 예외가 발생하면 호출되는 함수. 이것은
+404 HTTP 등의 에러가 발생하는 페이지를 포함한다. 이 함수는 <a class="reference external" href="https://twistedmatrix.com/documents/current/api/twisted.python.failure.Failure.html">Twisted Failure</a> 인스턴스를
+첫 번째 파라미터로 받는다.
+더 자세한 내용은 <a class="reference internal" href="#topics-request-response-ref-errbacks"><span class="std std-ref">리퀘스트 처리중 예외를 잡기 위한 에러백 사용</span></a>를 참고하라.</li>
+<li><strong>flags</strong> (<em>리스트</em>) -- 리퀘스트에 보내지는 플래그(Flag), 로깅(logging)이나 유사한 목적으로 사용될 수 있다.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="scrapy.http.Request.url">
+<code class="descname">url</code><a class="headerlink" href="#scrapy.http.Request.url" title="정의 주소">¶</a></dt>
+<dd><p>이 리퀘스트의 URL을 포함하고 있는 문자열. 이 속성은 이스케이프(escape)된 URL을 포함하고 있으므로
+컨스트럭터(constructo)에 전달된 URL과 다를 수 있다는 점을 명심하라.</p>
+<p>이 속성은 읽기 전용이다. 리퀘스트의 URL을 변경하려면 <a class="reference internal" href="#scrapy.http.Request.replace" title="scrapy.http.Request.replace"><code class="xref py py-meth docutils literal"><span class="pre">replace()</span></code></a>를 사용하라라.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.http.Request.method">
+<code class="descname">method</code><a class="headerlink" href="#scrapy.http.Request.method" title="정의 주소">¶</a></dt>
+<dd><p>리퀘스트의 HTTP 메서드를 나타내는 문자열. 대문자로만 표현된다. 에: <code class="docutils literal"><span class="pre">&quot;GET&quot;</span></code>, <code class="docutils literal"><span class="pre">&quot;POST&quot;</span></code>, <code class="docutils literal"><span class="pre">&quot;PUT&quot;</span></code> 등</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.http.Request.headers">
+<code class="descname">headers</code><a class="headerlink" href="#scrapy.http.Request.headers" title="정의 주소">¶</a></dt>
+<dd><p>리퀘스트 헤더를 포함하는 딕셔터리 형태의 객체.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.http.Request.body">
+<code class="descname">body</code><a class="headerlink" href="#scrapy.http.Request.body" title="정의 주소">¶</a></dt>
+<dd><p>리퀘스트 바디를 포함하는 문자열.</p>
+<p>이 속성은 읽기 전용이다. 리퀘스트의 바디를 변경하고 싶으면 <a class="reference internal" href="#scrapy.http.Request.replace" title="scrapy.http.Request.replace"><code class="xref py py-meth docutils literal"><span class="pre">replace()</span></code></a>를 사용하라.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.http.Request.meta">
+<code class="descname">meta</code><a class="headerlink" href="#scrapy.http.Request.meta" title="정의 주소">¶</a></dt>
+<dd><p>이 리퀘스트의 임의의 메타데이터를 포함하는 딕셔너리. 이 딕셔너리는 새로운 리퀘스트를 위해 비어있고,
+일반적으로 다른 스크래피 구성요소(확장, 미들웨어)에 의해 추가된다. 따라서
+이 사전에 포함된 데이터는 활성화시킨 확장에 의존한다.</p>
+<p>스크래피가 인식하는 특수 메타 키 리스트에 관해서는 <a class="reference internal" href="#topics-request-meta"><span class="std std-ref">Request.meta 특수 키</span></a>를 참고하라.</p>
+<p>이 딕셔너리는 리퀘스트가 <code class="docutils literal"><span class="pre">copy()</span></code> 또는 <code class="docutils literal"><span class="pre">replace()</span></code> 메소드를 사용해 복제될 때 <a class="reference external" href="https://docs.python.org/2/library/copy.html">쉘로우 복사</a>되며
+<code class="docutils literal"><span class="pre">response.meta</span></code> 속성으로 스파이더에서 접근 할 수 있다.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scrapy.http.Request.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.http.Request.copy" title="정의 주소">¶</a></dt>
+<dd><p>이 리퀘스트의 복사본인 새로운 리퀘스트를 반환한다.
+<a class="reference internal" href="#topics-request-response-ref-request-callback-arguments"><span class="std std-ref">추가 데이터를 콜백 함수로 전달</span></a>를 참고하라.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scrapy.http.Request.replace">
+<code class="descname">replace</code><span class="sig-paren">(</span><span class="optional">[</span><em>url</em>, <em>method</em>, <em>headers</em>, <em>body</em>, <em>cookies</em>, <em>meta</em>, <em>encoding</em>, <em>dont_filter</em>, <em>callback</em>, <em>errback</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.http.Request.replace" title="정의 주소">¶</a></dt>
+<dd><p>키워드 인자로 지정해서 새로운 값이 주어진 멤버를 제외하고 같은 멤버를 포함한 리퀘스트 객체를 반환한다.
+(새로운 값이 <code class="docutils literal"><span class="pre">meta</span></code> 인자로 주어지지 않으면) <a class="reference internal" href="#scrapy.http.Request.meta" title="scrapy.http.Request.meta"><code class="xref py py-attr docutils literal"><span class="pre">Request.meta</span></code></a> 속성은 기본적으로 복사된다.
+<a class="reference internal" href="#topics-request-response-ref-request-callback-arguments"><span class="std std-ref">추가 데이터를 콜백 함수로 전달</span></a>를 참고하라.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="topics-request-response-ref-request-callback-arguments">
+<span id="id3"></span><h3>추가 데이터를 콜백 함수로 전달<a class="headerlink" href="#topics-request-response-ref-request-callback-arguments" title="제목 주소">¶</a></h3>
+<p>리퀘스트의 콜백은 리퀘스트의 리스펀스가 다운로드 되었을 때 호출되는 함수다.
+콜백 함수는 첫 번째 인자로 다운로드된 <a class="reference internal" href="#scrapy.http.Response" title="scrapy.http.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a> 객체를 받으면서 호출된다.</p>
+<p>예:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse_page1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="s2">&quot;http://www.example.com/some_page.html&quot;</span><span class="p">,</span>
+                          <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_page2</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">parse_page2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+    <span class="c1"># this would log http://www.example.com/some_page.html</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Visited </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>종종 콜백 함수에 인자를 전달해서 나중에 두 번째 콜백에서 인자를 받게 하고 싶을 때가 있을 것이다.
+이를 위해서는 <a class="reference internal" href="#scrapy.http.Request.meta" title="scrapy.http.Request.meta"><code class="xref py py-attr docutils literal"><span class="pre">Request.meta</span></code></a> 속성을 사용하면 된다.</p>
+<p>아래는 다른 페이지로부터 다른 필드를 추가하기 위해 이 메커니즘을 사용해서 아이템을 전달한
+예시이다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse_page1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+    <span class="n">item</span> <span class="o">=</span> <span class="n">MyItem</span><span class="p">()</span>
+    <span class="n">item</span><span class="p">[</span><span class="s1">&#39;main_url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="s2">&quot;http://www.example.com/some_page.html&quot;</span><span class="p">,</span>
+                             <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_page2</span><span class="p">)</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;item&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
+    <span class="k">yield</span> <span class="n">request</span>
+
+<span class="k">def</span> <span class="nf">parse_page2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+    <span class="n">item</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;item&#39;</span><span class="p">]</span>
+    <span class="n">item</span><span class="p">[</span><span class="s1">&#39;other_url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span>
+    <span class="k">yield</span> <span class="n">item</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="topics-request-response-ref-errbacks">
+<span id="id4"></span><h3>리퀘스트 처리중 예외를 잡기 위한 에러백 사용<a class="headerlink" href="#topics-request-response-ref-errbacks" title="제목 주소">¶</a></h3>
+<p>리퀘스트의 에러백은 처리중에 예외가 발생했을 때 호출되는 함수다.</p>
+<p>이 함수는 <a class="reference external" href="https://twistedmatrix.com/documents/current/api/twisted.python.failure.Failure.html">Twisted Failure</a> 인스턴스를 첫 번째 파라미터로 받으며
+연결 설정 시간 초과, DNS&nbsp;에러 등을 추적하기 위해 사용된다.</p>
+<p>아래는 모든 에러를 로깅하고 필요한 경우 특정한 에러를 잡아내는 스파이더 예시다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+
+<span class="kn">from</span> <span class="nn">scrapy.spidermiddlewares.httperror</span> <span class="k">import</span> <span class="n">HttpError</span>
+<span class="kn">from</span> <span class="nn">twisted.internet.error</span> <span class="k">import</span> <span class="n">DNSLookupError</span>
+<span class="kn">from</span> <span class="nn">twisted.internet.error</span> <span class="k">import</span> <span class="ne">TimeoutError</span><span class="p">,</span> <span class="n">TCPTimedOutError</span>
+
+<span class="k">class</span> <span class="nc">ErrbackSpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;errback_example&quot;</span>
+    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;http://www.httpbin.org/&quot;</span><span class="p">,</span>              <span class="c1"># HTTP 200 expected</span>
+        <span class="s2">&quot;http://www.httpbin.org/status/404&quot;</span><span class="p">,</span>    <span class="c1"># Not found error</span>
+        <span class="s2">&quot;http://www.httpbin.org/status/500&quot;</span><span class="p">,</span>    <span class="c1"># server issue</span>
+        <span class="s2">&quot;http://www.httpbin.org:12345/&quot;</span><span class="p">,</span>        <span class="c1"># non-responding host, timeout expected</span>
+        <span class="s2">&quot;http://www.httphttpbinbin.org/&quot;</span><span class="p">,</span>       <span class="c1"># DNS error expected</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">start_requests</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_urls</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_httpbin</span><span class="p">,</span>
+                                    <span class="n">errback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">errback_httpbin</span><span class="p">,</span>
+                                    <span class="n">dont_filter</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">parse_httpbin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Got successful response from </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="p">))</span>
+        <span class="c1"># do something useful here...</span>
+
+    <span class="k">def</span> <span class="nf">errback_httpbin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">failure</span><span class="p">):</span>
+        <span class="c1"># log all failures</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">failure</span><span class="p">))</span>
+
+        <span class="c1"># in case you want to do something special for some errors,</span>
+        <span class="c1"># you may need the failure&#39;s type:</span>
+
+        <span class="k">if</span> <span class="n">failure</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">HttpError</span><span class="p">):</span>
+            <span class="c1"># these exceptions come from HttpError spider middleware</span>
+            <span class="c1"># you can get the non-200 response</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">failure</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">response</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;HttpError on </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">failure</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">DNSLookupError</span><span class="p">):</span>
+            <span class="c1"># this is the original request</span>
+            <span class="n">request</span> <span class="o">=</span> <span class="n">failure</span><span class="o">.</span><span class="n">request</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;DNSLookupError on </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">failure</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="ne">TimeoutError</span><span class="p">,</span> <span class="n">TCPTimedOutError</span><span class="p">):</span>
+            <span class="n">request</span> <span class="o">=</span> <span class="n">failure</span><span class="o">.</span><span class="n">request</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;TimeoutError on </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="request-meta">
+<span id="topics-request-meta"></span><h2>Request.meta 특수 키<a class="headerlink" href="#request-meta" title="제목 주소">¶</a></h2>
+<p><a class="reference internal" href="#scrapy.http.Request.meta" title="scrapy.http.Request.meta"><code class="xref py py-attr docutils literal"><span class="pre">Request.meta</span></code></a> 속성은 임의의 데이터를 포함할 수 있다, 하지만
+스크래피와 빌트인 확장에서 인식되는 몇 가지 특수 키가 존재한다.</p>
+<p>특수 키:</p>
+<ul class="simple">
+<li><a class="reference internal" href="downloader-middleware.html#std:reqmeta-dont_redirect"><code class="xref std std-reqmeta docutils literal"><span class="pre">dont_redirect</span></code></a></li>
+<li><a class="reference internal" href="downloader-middleware.html#std:reqmeta-dont_retry"><code class="xref std std-reqmeta docutils literal"><span class="pre">dont_retry</span></code></a></li>
+<li><a class="reference internal" href="spider-middleware.html#std:reqmeta-handle_httpstatus_list"><code class="xref std std-reqmeta docutils literal"><span class="pre">handle_httpstatus_list</span></code></a></li>
+<li><a class="reference internal" href="spider-middleware.html#std:reqmeta-handle_httpstatus_all"><code class="xref std std-reqmeta docutils literal"><span class="pre">handle_httpstatus_all</span></code></a></li>
+<li><code class="docutils literal"><span class="pre">dont_merge_cookies</span></code> (<a class="reference internal" href="#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a> 컨스트럭트의 <code class="docutils literal"><span class="pre">cookies</span></code> 파라미터를 참고하라)</li>
+<li><a class="reference internal" href="downloader-middleware.html#std:reqmeta-cookiejar"><code class="xref std std-reqmeta docutils literal"><span class="pre">cookiejar</span></code></a></li>
+<li><a class="reference internal" href="downloader-middleware.html#std:reqmeta-dont_cache"><code class="xref std std-reqmeta docutils literal"><span class="pre">dont_cache</span></code></a></li>
+<li><a class="reference internal" href="downloader-middleware.html#std:reqmeta-redirect_urls"><code class="xref std std-reqmeta docutils literal"><span class="pre">redirect_urls</span></code></a></li>
+<li><a class="reference internal" href="#std:reqmeta-bindaddress"><code class="xref std std-reqmeta docutils literal"><span class="pre">bindaddress</span></code></a></li>
+<li><a class="reference internal" href="downloader-middleware.html#std:reqmeta-dont_obey_robotstxt"><code class="xref std std-reqmeta docutils literal"><span class="pre">dont_obey_robotstxt</span></code></a></li>
+<li><a class="reference internal" href="#std:reqmeta-download_timeout"><code class="xref std std-reqmeta docutils literal"><span class="pre">download_timeout</span></code></a></li>
+<li><a class="reference internal" href="settings.html#std:reqmeta-download_maxsize"><code class="xref std std-reqmeta docutils literal"><span class="pre">download_maxsize</span></code></a></li>
+<li><a class="reference internal" href="#std:reqmeta-download_latency"><code class="xref std std-reqmeta docutils literal"><span class="pre">download_latency</span></code></a></li>
+<li><a class="reference internal" href="#std:reqmeta-download_fail_on_dataloss"><code class="xref std std-reqmeta docutils literal"><span class="pre">download_fail_on_dataloss</span></code></a></li>
+<li><a class="reference internal" href="downloader-middleware.html#std:reqmeta-proxy"><code class="xref std std-reqmeta docutils literal"><span class="pre">proxy</span></code></a></li>
+<li><code class="docutils literal"><span class="pre">ftp_user</span></code> (더 자세한 정보는 <a class="reference internal" href="settings.html#std:setting-FTP_USER"><code class="xref std std-setting docutils literal"><span class="pre">FTP_USER</span></code></a>를 참고하라)</li>
+<li><code class="docutils literal"><span class="pre">ftp_password</span></code> (더 자세한 정보는 <a class="reference internal" href="settings.html#std:setting-FTP_PASSWORD"><code class="xref std std-setting docutils literal"><span class="pre">FTP_PASSWORD</span></code></a>를 참고하라)</li>
+<li><a class="reference internal" href="spider-middleware.html#std:reqmeta-referrer_policy"><code class="xref std std-reqmeta docutils literal"><span class="pre">referrer_policy</span></code></a></li>
+<li><a class="reference internal" href="#std:reqmeta-max_retry_times"><code class="xref std std-reqmeta docutils literal"><span class="pre">max_retry_times</span></code></a></li>
+</ul>
+<div class="section" id="bindaddress">
+<span id="std:reqmeta-bindaddress"></span><h3>bindaddress<a class="headerlink" href="#bindaddress" title="제목 주소">¶</a></h3>
+<p>리퀘스트를 수행할 대 사용되는 발신 IP 주소의 IP.</p>
+</div>
+<div class="section" id="download-timeout">
+<span id="std:reqmeta-download_timeout"></span><h3>download_timeout<a class="headerlink" href="#download-timeout" title="제목 주소">¶</a></h3>
+<p>타임 아웃하기 전에 다운로더가 대기하는 (초 단위) 시간.
+<a class="reference internal" href="settings.html#std:setting-DOWNLOAD_TIMEOUT"><code class="xref std std-setting docutils literal"><span class="pre">DOWNLOAD_TIMEOUT</span></code></a>를 참고하라.</p>
+</div>
+<div class="section" id="download-latency">
+<span id="std:reqmeta-download_latency"></span><h3>download_latency<a class="headerlink" href="#download-latency" title="제목 주소">¶</a></h3>
+<p>요청이 시작된 이후, 리스펀스를 불러오기 위해 소모되는 시간. 예, 네트워크를 통해 전송되는 메시지.
+이 메타기는 리스펀스가 다운로드 되었을 때만 사용할 수 있다. 대부분의 다른 메타키는 스크래피의 동작을
+제어하기 위해 사용되지만 이 키는 읽기 전용이다.</p>
+</div>
+<div class="section" id="download-fail-on-dataloss">
+<span id="std:reqmeta-download_fail_on_dataloss"></span><h3>download_fail_on_dataloss<a class="headerlink" href="#download-fail-on-dataloss" title="제목 주소">¶</a></h3>
+<p>깨진 응답에 대해 실패할지 여부.
+<a class="reference internal" href="settings.html#std:setting-DOWNLOAD_FAIL_ON_DATALOSS"><code class="xref std std-setting docutils literal"><span class="pre">DOWNLOAD_FAIL_ON_DATALOSS</span></code></a>를 참고하라.</p>
+</div>
+<div class="section" id="max-retry-times">
+<span id="std:reqmeta-max_retry_times"></span><h3>max_retry_times<a class="headerlink" href="#max-retry-times" title="제목 주소">¶</a></h3>
+<p>이 메타 키는 리퀘스트 당 재시도 횟수를 설정한다.
+초기화 됐을 때, <a class="reference internal" href="#std:reqmeta-max_retry_times"><code class="xref std std-reqmeta docutils literal"><span class="pre">max_retry_times</span></code></a> 메타키는 <a class="reference internal" href="downloader-middleware.html#std:setting-RETRY_TIMES"><code class="xref std std-setting docutils literal"><span class="pre">RETRY_TIMES</span></code></a> 설정보다 우선한다.</p>
+</div>
+</div>
+<div class="section" id="request-subclasses">
+<span id="topics-request-response-ref-request-subclasses"></span><h2>Request subclasses<a class="headerlink" href="#request-subclasses" title="제목 주소">¶</a></h2>
+<p>이 섹션에는 <a class="reference internal" href="#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a>의 빌트인 상속 클래스 리스트가 있다.
+사용자는 커스텀 기능을 구현하기위해서 아래의 클래스를 상속받을 수도 있다.</p>
+<div class="section" id="formrequest">
+<h3>FormRequest 객체<a class="headerlink" href="#formrequest" title="제목 주소">¶</a></h3>
+<p>FormRequest 클래스는 기본 <a class="reference internal" href="#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a>에 HTML 형식을 처리하는 기능을 추가한다.
+이 클래스는 <a class="reference internal" href="#scrapy.http.Response" title="scrapy.http.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a> 객체의 형식 데이터가 있는 형식 필드를 사전에 추가하기 위해
+<a class="reference external" href="http://lxml.de/lxmlhtml.html#forms">lxml.html forms</a>를 사용한다.</p>
+<dl class="class">
+<dt id="scrapy.http.FormRequest">
+<em class="property">class </em><code class="descclassname">scrapy.http.</code><code class="descname">FormRequest</code><span class="sig-paren">(</span><em>url</em><span class="optional">[</span>, <em>formdata</em>, <em>...</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.http.FormRequest" title="정의 주소">¶</a></dt>
+<dd><p><a class="reference internal" href="#scrapy.http.FormRequest" title="scrapy.http.FormRequest"><code class="xref py py-class docutils literal"><span class="pre">FormRequest</span></code></a> 클래스는 컨스트럭터에 새로운 인자를 추가한다.
+나머지 인자는 <a class="reference internal" href="#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a> 클래스와 같으며 이곳에 문서화하지 않았다.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>formdata</strong> (<em>딕셔너리 또는 튜플의 이터러블</em><em>(</em><em>iterable</em><em>)</em>) -- 파라미터는 url 인코딩된 후 리퀘스트의 바디에 할당되는 HTML 형식 데이터를 포함하는
+딕셔너리(또는 (키, 값) 튜플의 이터러블)다.</td>
+</tr>
+</tbody>
+</table>
+<p><a class="reference internal" href="#scrapy.http.FormRequest" title="scrapy.http.FormRequest"><code class="xref py py-class docutils literal"><span class="pre">FormRequest</span></code></a> 객체는 기존 <a class="reference internal" href="#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a> 메서드를 포함해
+아래의 클래스 메서드를 지원한다:</p>
+<dl class="classmethod">
+<dt id="scrapy.http.FormRequest.from_response">
+<em class="property">classmethod </em><code class="descname">from_response</code><span class="sig-paren">(</span><em>response</em><span class="optional">[</span>, <em>formname=None</em>, <em>formid=None</em>, <em>formnumber=0</em>, <em>formdata=None</em>, <em>formxpath=None</em>, <em>formcss=None</em>, <em>clickdata=None</em>, <em>dont_click=False</em>, <em>...</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.http.FormRequest.from_response" title="정의 주소">¶</a></dt>
+<dd><p>주어진 리스펀스에 포함된 HTML <code class="docutils literal"><span class="pre">&lt;form&gt;</span></code> 요소에서 찾아진 형식 필드 값으로 사전에 채워진
+새로운 <a class="reference internal" href="#scrapy.http.FormRequest" title="scrapy.http.FormRequest"><code class="xref py py-class docutils literal"><span class="pre">FormRequest</span></code></a> 객체를 반환한다. 예시는
+<a class="reference internal" href="#topics-request-response-ref-request-userlogin"><span class="std std-ref">사용자 로그인을 시뮬레이션하기 위한 FormRequest.from_response() 사용</span></a>를 참고하라.</p>
+<p>기본적으로 정책은 <code class="docutils literal"><span class="pre">&lt;input</span> <span class="pre">type=&quot;submit&quot;&gt;</span></code> 같이 클릭할 수 있는 모든 형식 컨트롤에 대한
+클릭을 자동적으로 시뮬레이션하는 것이다. 이것은 꽤 편리하고 때로는 원하는 동작이기는 하지만
+때로는 디버그를 하기 힘든 문제를 일으킬 수 있다.
+예를 들어, 자바스크립트(javascript)를 사용해서 제출되거나 채워진 형식으로 작업을 할 때
+기본 <a class="reference internal" href="#scrapy.http.FormRequest.from_response" title="scrapy.http.FormRequest.from_response"><code class="xref py py-meth docutils literal"><span class="pre">from_response()</span></code></a> 동작은 가장 적합한 것이 아닐 수 있다.
+<code class="docutils literal"><span class="pre">dont_click</span></code>을 <code class="docutils literal"><span class="pre">True</span></code>로 설정해서 이 동작을 비활성화할 수 있다.
+또한, 클릭되는 컨트롤을 (비활성화하는 대신) 변경하고 싶다면 <code class="docutils literal"><span class="pre">clickdata</span></code> 인자를 사용하면 된다.</p>
+<div class="admonition caution">
+<p class="first admonition-title">조심</p>
+<p class="last">옵션 값에 앞이나 뒤에 공백이 있는 셀렉트 요소에 이 메서드를 사용하면
+<a class="reference external" href="https://bugs.launchpad.net/lxml/+bug/1665241">bug in lxml</a> 때문에 작동하지 않는다. 이 버그는 lxml 3.8 이상 버전에서 고쳐져야 한다.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>response</strong> (<a class="reference internal" href="#scrapy.http.Response" title="scrapy.http.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a> 객체) -- 형식 필드를 사전에 채우기위해 사용되는 HTML 형식을 포함하는 리스펀스.</li>
+<li><strong>formname</strong> (<em>문자열</em>) -- 주어지는 경우, 이름 속성이 이 값으로 지정된 형식이 사용된다.</li>
+<li><strong>formid</strong> (<em>문자열</em>) -- 주어진 경우, id 속성이 이 값으로 지정된 형식이 사용된다.</li>
+<li><strong>formxpath</strong> (<em>문자열</em>) -- 주어진 경우, xpath에 첫 번쨰로 매치된 형식이 사용된다.</li>
+<li><strong>formcss</strong> (<em>문자열</em>) -- 주어진 경우, ccs 셀렉터(selector)에 첫 번째로 매치된 형식이 사용된다.</li>
+<li><strong>formnumber</strong> (<em>정수</em>) -- 리스펀스가 다수의 형식을 포함하고 있을 때 사용할 형식의 수.
+첫 번째는 (또한 기본값은) <code class="docutils literal"><span class="pre">0</span></code>이다.</li>
+<li><strong>formdata</strong> (<em>딕셔너리</em>) -- 형식 데이터 내에서 오버라이드(override)할 필드.
+만약 필드가 이미 리스펀스의 <code class="docutils literal"><span class="pre">&lt;form&gt;</span></code> 요소에 존재한다면, 이 파라미터에
+전달된 값으로 오버라이드 된다. 이 파라미터에 전달된 값이 <code class="docutils literal"><span class="pre">None</span></code>이면,
+리스펀스의 <code class="docutils literal"><span class="pre">&lt;form&gt;</span></code> 요소에 값이 존재하더라도 필드는 리퀘스트에 포함되지 않을 것이다.</li>
+<li><strong>clickdata</strong> (<em>딕셔너리</em>) -- 클릭된 컨트롤을 찾는 속성. 주어지지 않은 경우
+형식 데이터는 클릭가능한 첫 번째 요소를 클릭하는 것을 시뮬레이션하면서 제출된다.
+html 속성에 외에도, 컨트롤은 형식 내에 다른 제출가능한 입력에 관련된 제로 베이스(zero-based)
+인덱스에 의해 <code class="docutils literal"><span class="pre">nr</span></code> 속성을 통해서 식별될 수 있다.</li>
+<li><strong>dont_click</strong> (<em>불리언</em>) -- 참인 경우, 형식 데이터는 요소 클릭 없이 제출될 것이다.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>이 클래스 메서드의 다른 파라미터는 <a class="reference internal" href="#scrapy.http.FormRequest" title="scrapy.http.FormRequest"><code class="xref py py-class docutils literal"><span class="pre">FormRequest</span></code></a> 컨스트럭터로 바로 전달된다.</p>
+<div class="versionadded">
+<p><span class="versionmodified">버전 0.10.3에 추가: </span>The <code class="docutils literal"><span class="pre">formname</span></code> parameter.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">버전 0.17에 추가: </span>The <code class="docutils literal"><span class="pre">formxpath</span></code> parameter.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">버전 1.1.0에 추가: </span>The <code class="docutils literal"><span class="pre">formcss</span></code> parameter.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">버전 1.1.0에 추가: </span>The <code class="docutils literal"><span class="pre">formid</span></code> parameter.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="id5">
+<h3>리퀘스트 사용 예시<a class="headerlink" href="#id5" title="제목 주소">¶</a></h3>
+<div class="section" id="http-post-formrequest">
+<h4>HTTP POST를 통한 데이터 전송을 위한 FormRequest 사용<a class="headerlink" href="#http-post-formrequest" title="제목 주소">¶</a></h4>
+<p>HTML 형식 POST를 스파이더 내에서 시뮬레이션하고 여러 키-값 필드를 전송하고 싶으면
+(스파이더에서) 아래처럼 <a class="reference internal" href="#scrapy.http.FormRequest" title="scrapy.http.FormRequest"><code class="xref py py-class docutils literal"><span class="pre">FormRequest</span></code></a> 객체를 반환하면 된다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="p">[</span><span class="n">FormRequest</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://www.example.com/post/action&quot;</span><span class="p">,</span>
+                    <span class="n">formdata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;John Doe&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="s1">&#39;27&#39;</span><span class="p">},</span>
+                    <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">after_post</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="formrequest-from-response">
+<span id="topics-request-response-ref-request-userlogin"></span><h4>사용자 로그인을 시뮬레이션하기 위한 FormRequest.from_response() 사용<a class="headerlink" href="#formrequest-from-response" title="제목 주소">¶</a></h4>
+<p>웹사이트는 데이터와 연관된 세션이나 (로그인 페이지를 위한) 토큰 인증 같은 <code class="docutils literal"><span class="pre">&lt;input</span> <span class="pre">type=&quot;hidden&quot;&gt;</span></code> 요소를 통해서
+사전에 채워진 형식 필드를 제공하는 것이 일반적이다. 스크랩을 할 때, 이 필드들이 자동적으로 채워지고
+사용자 이름이나 패스와드 같은, 일부 필드만 오버라이드하기를 원할 수 있다.
+이런 작업을 위해서는 <a class="reference internal" href="#scrapy.http.FormRequest.from_response" title="scrapy.http.FormRequest.from_response"><code class="xref py py-meth docutils literal"><span class="pre">FormRequest.from_response()</span></code></a>
+method for this job. Here's an example spider which uses it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+
+<span class="k">class</span> <span class="nc">LoginSpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;example.com&#39;</span>
+    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;http://www.example.com/users/login.php&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">FormRequest</span><span class="o">.</span><span class="n">from_response</span><span class="p">(</span>
+            <span class="n">response</span><span class="p">,</span>
+            <span class="n">formdata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="s1">&#39;john&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="s1">&#39;secret&#39;</span><span class="p">},</span>
+            <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">after_login</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">after_login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="c1"># check login succeed before going on</span>
+        <span class="k">if</span> <span class="s2">&quot;authentication failed&quot;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Login failed&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># continue scraping with authenticated session...</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="response-objects">
+<h2>Response objects<a class="headerlink" href="#response-objects" title="제목 주소">¶</a></h2>
+<dl class="class">
+<dt id="scrapy.http.Response">
+<em class="property">class </em><code class="descclassname">scrapy.http.</code><code class="descname">Response</code><span class="sig-paren">(</span><em>url</em><span class="optional">[</span>, <em>status=200</em>, <em>headers=None</em>, <em>body=b''</em>, <em>flags=None</em>, <em>request=None</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.http.Response" title="정의 주소">¶</a></dt>
+<dd><p>A <a class="reference internal" href="#scrapy.http.Response" title="scrapy.http.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a> object represents an HTTP response, which is usually
+downloaded (by the Downloader) and fed to the Spiders for processing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>url</strong> (<em>string</em>) -- the URL of this response</li>
+<li><strong>status</strong> (<em>integer</em>) -- the HTTP status of the response. Defaults to <code class="docutils literal"><span class="pre">200</span></code>.</li>
+<li><strong>headers</strong> (<em>dict</em>) -- the headers of this response. The dict values can be strings
+(for single valued headers) or lists (for multi-valued headers).</li>
+<li><strong>body</strong> (<em>bytes</em>) -- the response body. To access the decoded text as str (unicode
+in Python 2) you can use <code class="docutils literal"><span class="pre">response.text</span></code> from an encoding-aware
+<a class="reference internal" href="#topics-request-response-ref-response-subclasses"><span class="std std-ref">Response subclass</span></a>,
+such as <a class="reference internal" href="#scrapy.http.TextResponse" title="scrapy.http.TextResponse"><code class="xref py py-class docutils literal"><span class="pre">TextResponse</span></code></a>.</li>
+<li><strong>flags</strong> (<a class="reference internal" href="api_ko.html#scrapy.loader.SpiderLoader.list" title="scrapy.loader.SpiderLoader.list"><em>list</em></a>) -- is a list containing the initial values for the
+<a class="reference internal" href="#scrapy.http.Response.flags" title="scrapy.http.Response.flags"><code class="xref py py-attr docutils literal"><span class="pre">Response.flags</span></code></a> attribute. If given, the list will be shallow
+copied.</li>
+<li><strong>request</strong> (<a class="reference internal" href="#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a> object) -- the initial value of the <a class="reference internal" href="#scrapy.http.Response.request" title="scrapy.http.Response.request"><code class="xref py py-attr docutils literal"><span class="pre">Response.request</span></code></a> attribute.
+This represents the <a class="reference internal" href="#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a> that generated this response.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="scrapy.http.Response.url">
+<code class="descname">url</code><a class="headerlink" href="#scrapy.http.Response.url" title="정의 주소">¶</a></dt>
+<dd><p>A string containing the URL of the response.</p>
+<p>This attribute is read-only. To change the URL of a Response use
+<a class="reference internal" href="#scrapy.http.Response.replace" title="scrapy.http.Response.replace"><code class="xref py py-meth docutils literal"><span class="pre">replace()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.http.Response.status">
+<code class="descname">status</code><a class="headerlink" href="#scrapy.http.Response.status" title="정의 주소">¶</a></dt>
+<dd><p>An integer representing the HTTP status of the response. Example: <code class="docutils literal"><span class="pre">200</span></code>,
+<code class="docutils literal"><span class="pre">404</span></code>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.http.Response.headers">
+<code class="descname">headers</code><a class="headerlink" href="#scrapy.http.Response.headers" title="정의 주소">¶</a></dt>
+<dd><p>A dictionary-like object which contains the response headers. Values can
+be accessed using <code class="xref py py-meth docutils literal"><span class="pre">get()</span></code> to return the first header value with the
+specified name or <code class="xref py py-meth docutils literal"><span class="pre">getlist()</span></code> to return all header values with the
+specified name. For example, this call will give you all cookies in the
+headers:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s1">&#39;Set-Cookie&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.http.Response.body">
+<code class="descname">body</code><a class="headerlink" href="#scrapy.http.Response.body" title="정의 주소">¶</a></dt>
+<dd><p>The body of this Response. Keep in mind that Response.body
+is always a bytes object. If you want the unicode version use
+<a class="reference internal" href="#scrapy.http.TextResponse.text" title="scrapy.http.TextResponse.text"><code class="xref py py-attr docutils literal"><span class="pre">TextResponse.text</span></code></a> (only available in <a class="reference internal" href="#scrapy.http.TextResponse" title="scrapy.http.TextResponse"><code class="xref py py-class docutils literal"><span class="pre">TextResponse</span></code></a>
+and subclasses).</p>
+<p>This attribute is read-only. To change the body of a Response use
+<a class="reference internal" href="#scrapy.http.Response.replace" title="scrapy.http.Response.replace"><code class="xref py py-meth docutils literal"><span class="pre">replace()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.http.Response.request">
+<code class="descname">request</code><a class="headerlink" href="#scrapy.http.Response.request" title="정의 주소">¶</a></dt>
+<dd><p>The <a class="reference internal" href="#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a> object that generated this response. This attribute is
+assigned in the Scrapy engine, after the response and the request have passed
+through all <a class="reference internal" href="downloader-middleware.html#topics-downloader-middleware"><span class="std std-ref">Downloader Middlewares</span></a>.
+In particular, this means that:</p>
+<ul class="simple">
+<li>HTTP redirections will cause the original request (to the URL before
+redirection) to be assigned to the redirected response (with the final
+URL after redirection).</li>
+<li>Response.request.url doesn't always equal Response.url</li>
+<li>This attribute is only available in the spider code, and in the
+<a class="reference internal" href="spider-middleware.html#topics-spider-middleware"><span class="std std-ref">Spider Middlewares</span></a>, but not in
+Downloader Middlewares (although you have the Request available there by
+other means) and handlers of the <a class="reference internal" href="signals.html#std:signal-response_downloaded"><code class="xref std std-signal docutils literal"><span class="pre">response_downloaded</span></code></a> signal.</li>
+</ul>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.http.Response.meta">
+<code class="descname">meta</code><a class="headerlink" href="#scrapy.http.Response.meta" title="정의 주소">¶</a></dt>
+<dd><p>A shortcut to the <a class="reference internal" href="#scrapy.http.Request.meta" title="scrapy.http.Request.meta"><code class="xref py py-attr docutils literal"><span class="pre">Request.meta</span></code></a> attribute of the
+<a class="reference internal" href="#scrapy.http.Response.request" title="scrapy.http.Response.request"><code class="xref py py-attr docutils literal"><span class="pre">Response.request</span></code></a> object (ie. <code class="docutils literal"><span class="pre">self.request.meta</span></code>).</p>
+<p>Unlike the <a class="reference internal" href="#scrapy.http.Response.request" title="scrapy.http.Response.request"><code class="xref py py-attr docutils literal"><span class="pre">Response.request</span></code></a> attribute, the <a class="reference internal" href="#scrapy.http.Response.meta" title="scrapy.http.Response.meta"><code class="xref py py-attr docutils literal"><span class="pre">Response.meta</span></code></a>
+attribute is propagated along redirects and retries, so you will get
+the original <a class="reference internal" href="#scrapy.http.Request.meta" title="scrapy.http.Request.meta"><code class="xref py py-attr docutils literal"><span class="pre">Request.meta</span></code></a> sent from your spider.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">더 보기</p>
+<p class="last"><a class="reference internal" href="#scrapy.http.Request.meta" title="scrapy.http.Request.meta"><code class="xref py py-attr docutils literal"><span class="pre">Request.meta</span></code></a> attribute</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.http.Response.flags">
+<code class="descname">flags</code><a class="headerlink" href="#scrapy.http.Response.flags" title="정의 주소">¶</a></dt>
+<dd><p>A list that contains flags for this response. Flags are labels used for
+tagging Responses. For example: <cite>'cached'</cite>, <cite>'redirected</cite>', etc. And
+they're shown on the string representation of the Response (<cite>__str__</cite>
+method) which is used by the engine for logging.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scrapy.http.Response.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.http.Response.copy" title="정의 주소">¶</a></dt>
+<dd><p>Returns a new Response which is a copy of this Response.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scrapy.http.Response.replace">
+<code class="descname">replace</code><span class="sig-paren">(</span><span class="optional">[</span><em>url</em>, <em>status</em>, <em>headers</em>, <em>body</em>, <em>request</em>, <em>flags</em>, <em>cls</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.http.Response.replace" title="정의 주소">¶</a></dt>
+<dd><p>Returns a Response object with the same members, except for those members
+given new values by whichever keyword arguments are specified. The
+attribute <a class="reference internal" href="#scrapy.http.Response.meta" title="scrapy.http.Response.meta"><code class="xref py py-attr docutils literal"><span class="pre">Response.meta</span></code></a> is copied by default.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scrapy.http.Response.urljoin">
+<code class="descname">urljoin</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.http.Response.urljoin" title="정의 주소">¶</a></dt>
+<dd><p>Constructs an absolute url by combining the Response's <a class="reference internal" href="#scrapy.http.Response.url" title="scrapy.http.Response.url"><code class="xref py py-attr docutils literal"><span class="pre">url</span></code></a> with
+a possible relative url.</p>
+<p>This is a wrapper over <a class="reference external" href="https://docs.python.org/2/library/urlparse.html#urlparse.urljoin">urlparse.urljoin</a>, it's merely an alias for
+making this call:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">urlparse</span><span class="o">.</span><span class="n">urljoin</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="scrapy.http.Response.follow">
+<code class="descname">follow</code><span class="sig-paren">(</span><em>url</em>, <em>callback=None</em>, <em>method='GET'</em>, <em>headers=None</em>, <em>body=None</em>, <em>cookies=None</em>, <em>meta=None</em>, <em>encoding='utf-8'</em>, <em>priority=0</em>, <em>dont_filter=False</em>, <em>errback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.http.Response.follow" title="정의 주소">¶</a></dt>
+<dd><p>Return a <a class="reference internal" href="#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a> instance to follow a link <code class="docutils literal"><span class="pre">url</span></code>.
+It accepts the same arguments as <code class="docutils literal"><span class="pre">Request.__init__</span></code> method,
+but <code class="docutils literal"><span class="pre">url</span></code> can be a relative URL or a <code class="docutils literal"><span class="pre">scrapy.link.Link</span></code> object,
+not only an absolute URL.</p>
+<p><a class="reference internal" href="#scrapy.http.TextResponse" title="scrapy.http.TextResponse"><code class="xref py py-class docutils literal"><span class="pre">TextResponse</span></code></a> provides a <a class="reference internal" href="#scrapy.http.TextResponse.follow" title="scrapy.http.TextResponse.follow"><code class="xref py py-meth docutils literal"><span class="pre">follow()</span></code></a> 
+method which supports selectors in addition to absolute/relative URLs
+and Link objects.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="response-subclasses">
+<span id="topics-request-response-ref-response-subclasses"></span><h2>Response subclasses<a class="headerlink" href="#response-subclasses" title="제목 주소">¶</a></h2>
+<p>Here is the list of available built-in Response subclasses. You can also
+subclass the Response class to implement your own functionality.</p>
+<div class="section" id="textresponse-objects">
+<h3>TextResponse objects<a class="headerlink" href="#textresponse-objects" title="제목 주소">¶</a></h3>
+<dl class="class">
+<dt id="scrapy.http.TextResponse">
+<em class="property">class </em><code class="descclassname">scrapy.http.</code><code class="descname">TextResponse</code><span class="sig-paren">(</span><em>url</em><span class="optional">[</span>, <em>encoding</em><span class="optional">[</span>, <em>...</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.http.TextResponse" title="정의 주소">¶</a></dt>
+<dd><p><a class="reference internal" href="#scrapy.http.TextResponse" title="scrapy.http.TextResponse"><code class="xref py py-class docutils literal"><span class="pre">TextResponse</span></code></a> objects adds encoding capabilities to the base
+<a class="reference internal" href="#scrapy.http.Response" title="scrapy.http.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a> class, which is meant to be used only for binary data,
+such as images, sounds or any media file.</p>
+<p><a class="reference internal" href="#scrapy.http.TextResponse" title="scrapy.http.TextResponse"><code class="xref py py-class docutils literal"><span class="pre">TextResponse</span></code></a> objects support a new constructor argument, in
+addition to the base <a class="reference internal" href="#scrapy.http.Response" title="scrapy.http.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a> objects. The remaining functionality
+is the same as for the <a class="reference internal" href="#scrapy.http.Response" title="scrapy.http.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a> class and is not documented here.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>encoding</strong> (<em>string</em>) -- is a string which contains the encoding to use for this
+response. If you create a <a class="reference internal" href="#scrapy.http.TextResponse" title="scrapy.http.TextResponse"><code class="xref py py-class docutils literal"><span class="pre">TextResponse</span></code></a> object with a unicode
+body, it will be encoded using this encoding (remember the body attribute
+is always a string). If <code class="docutils literal"><span class="pre">encoding</span></code> is <code class="docutils literal"><span class="pre">None</span></code> (default value), the
+encoding will be looked up in the response headers and body instead.</td>
+</tr>
+</tbody>
+</table>
+<p><a class="reference internal" href="#scrapy.http.TextResponse" title="scrapy.http.TextResponse"><code class="xref py py-class docutils literal"><span class="pre">TextResponse</span></code></a> objects support the following attributes in addition
+to the standard <a class="reference internal" href="#scrapy.http.Response" title="scrapy.http.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a> ones:</p>
+<dl class="attribute">
+<dt id="scrapy.http.TextResponse.text">
+<code class="descname">text</code><a class="headerlink" href="#scrapy.http.TextResponse.text" title="정의 주소">¶</a></dt>
+<dd><p>Response body, as unicode.</p>
+<p>The same as <code class="docutils literal"><span class="pre">response.body.decode(response.encoding)</span></code>, but the
+result is cached after the first call, so you can access
+<code class="docutils literal"><span class="pre">response.text</span></code> multiple times without extra overhead.</p>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last"><code class="docutils literal"><span class="pre">unicode(response.body)</span></code> is not a correct way to convert response
+body to unicode: you would be using the system default encoding
+(typically <cite>ascii</cite>) instead of the response encoding.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.http.TextResponse.encoding">
+<code class="descname">encoding</code><a class="headerlink" href="#scrapy.http.TextResponse.encoding" title="정의 주소">¶</a></dt>
+<dd><p>A string with the encoding of this response. The encoding is resolved by
+trying the following mechanisms, in order:</p>
+<ol class="arabic simple">
+<li>the encoding passed in the constructor <cite>encoding</cite> argument</li>
+<li>the encoding declared in the Content-Type HTTP header. If this
+encoding is not valid (ie. unknown), it is ignored and the next
+resolution mechanism is tried.</li>
+<li>the encoding declared in the response body. The TextResponse class
+doesn't provide any special functionality for this. However, the
+<a class="reference internal" href="#scrapy.http.HtmlResponse" title="scrapy.http.HtmlResponse"><code class="xref py py-class docutils literal"><span class="pre">HtmlResponse</span></code></a> and <a class="reference internal" href="#scrapy.http.XmlResponse" title="scrapy.http.XmlResponse"><code class="xref py py-class docutils literal"><span class="pre">XmlResponse</span></code></a> classes do.</li>
+<li>the encoding inferred by looking at the response body. This is the more
+fragile method but also the last one tried.</li>
+</ol>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.http.TextResponse.selector">
+<code class="descname">selector</code><a class="headerlink" href="#scrapy.http.TextResponse.selector" title="정의 주소">¶</a></dt>
+<dd><p>A <a class="reference internal" href="selectors_ko.html#scrapy.selector.Selector" title="scrapy.selector.Selector"><code class="xref py py-class docutils literal"><span class="pre">Selector</span></code></a> instance using the response as
+target. The selector is lazily instantiated on first access.</p>
+</dd></dl>
+
+<p><a class="reference internal" href="#scrapy.http.TextResponse" title="scrapy.http.TextResponse"><code class="xref py py-class docutils literal"><span class="pre">TextResponse</span></code></a> objects support the following methods in addition to
+the standard <a class="reference internal" href="#scrapy.http.Response" title="scrapy.http.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a> ones:</p>
+<dl class="method">
+<dt id="scrapy.http.TextResponse.xpath">
+<code class="descname">xpath</code><span class="sig-paren">(</span><em>query</em><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.http.TextResponse.xpath" title="정의 주소">¶</a></dt>
+<dd><p>A shortcut to <code class="docutils literal"><span class="pre">TextResponse.selector.xpath(query)</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">response</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//p&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="scrapy.http.TextResponse.css">
+<code class="descname">css</code><span class="sig-paren">(</span><em>query</em><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.http.TextResponse.css" title="정의 주소">¶</a></dt>
+<dd><p>A shortcut to <code class="docutils literal"><span class="pre">TextResponse.selector.css(query)</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="scrapy.http.TextResponse.follow">
+<code class="descname">follow</code><span class="sig-paren">(</span><em>url</em>, <em>callback=None</em>, <em>method='GET'</em>, <em>headers=None</em>, <em>body=None</em>, <em>cookies=None</em>, <em>meta=None</em>, <em>encoding=None</em>, <em>priority=0</em>, <em>dont_filter=False</em>, <em>errback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.http.TextResponse.follow" title="정의 주소">¶</a></dt>
+<dd><p>Return a <a class="reference internal" href="#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a> instance to follow a link <code class="docutils literal"><span class="pre">url</span></code>.
+It accepts the same arguments as <code class="docutils literal"><span class="pre">Request.__init__</span></code> method,
+but <code class="docutils literal"><span class="pre">url</span></code> can be not only an absolute URL, but also</p>
+<ul class="simple">
+<li>a relative URL;</li>
+<li>a scrapy.link.Link object (e.g. a link extractor result);</li>
+<li>an attribute Selector (not SelectorList) - e.g.
+<code class="docutils literal"><span class="pre">response.css('a::attr(href)')[0]</span></code> or
+<code class="docutils literal"><span class="pre">response.xpath('//img/&#64;src')[0]</span></code>.</li>
+<li>a Selector for <code class="docutils literal"><span class="pre">&lt;a&gt;</span></code> or <code class="docutils literal"><span class="pre">&lt;link&gt;</span></code> element, e.g.
+<code class="docutils literal"><span class="pre">response.css('a.my_link')[0]</span></code>.</li>
+</ul>
+<p>See <a class="reference internal" href="../intro/tutorial_ko.html#response-follow-example"><span class="std std-ref">리퀘스트 생성 지름길</span></a> for usage examples.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scrapy.http.TextResponse.body_as_unicode">
+<code class="descname">body_as_unicode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.http.TextResponse.body_as_unicode" title="정의 주소">¶</a></dt>
+<dd><p>The same as <a class="reference internal" href="#scrapy.http.TextResponse.text" title="scrapy.http.TextResponse.text"><code class="xref py py-attr docutils literal"><span class="pre">text</span></code></a>, but available as a method. This method is
+kept for backwards compatibility; please prefer <code class="docutils literal"><span class="pre">response.text</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="htmlresponse-objects">
+<h3>HtmlResponse objects<a class="headerlink" href="#htmlresponse-objects" title="제목 주소">¶</a></h3>
+<dl class="class">
+<dt id="scrapy.http.HtmlResponse">
+<em class="property">class </em><code class="descclassname">scrapy.http.</code><code class="descname">HtmlResponse</code><span class="sig-paren">(</span><em>url</em><span class="optional">[</span>, <em>...</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.http.HtmlResponse" title="정의 주소">¶</a></dt>
+<dd><p>The <a class="reference internal" href="#scrapy.http.HtmlResponse" title="scrapy.http.HtmlResponse"><code class="xref py py-class docutils literal"><span class="pre">HtmlResponse</span></code></a> class is a subclass of <a class="reference internal" href="#scrapy.http.TextResponse" title="scrapy.http.TextResponse"><code class="xref py py-class docutils literal"><span class="pre">TextResponse</span></code></a>
+which adds encoding auto-discovering support by looking into the HTML <a class="reference external" href="https://www.w3schools.com/TAGS/att_meta_http_equiv.asp">meta
+http-equiv</a> attribute.  See <a class="reference internal" href="#scrapy.http.TextResponse.encoding" title="scrapy.http.TextResponse.encoding"><code class="xref py py-attr docutils literal"><span class="pre">TextResponse.encoding</span></code></a>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="xmlresponse-objects">
+<h3>XmlResponse objects<a class="headerlink" href="#xmlresponse-objects" title="제목 주소">¶</a></h3>
+<dl class="class">
+<dt id="scrapy.http.XmlResponse">
+<em class="property">class </em><code class="descclassname">scrapy.http.</code><code class="descname">XmlResponse</code><span class="sig-paren">(</span><em>url</em><span class="optional">[</span>, <em>...</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.http.XmlResponse" title="정의 주소">¶</a></dt>
+<dd><p>The <a class="reference internal" href="#scrapy.http.XmlResponse" title="scrapy.http.XmlResponse"><code class="xref py py-class docutils literal"><span class="pre">XmlResponse</span></code></a> class is a subclass of <a class="reference internal" href="#scrapy.http.TextResponse" title="scrapy.http.TextResponse"><code class="xref py py-class docutils literal"><span class="pre">TextResponse</span></code></a> which
+adds encoding auto-discovering support by looking into the XML declaration
+line.  See <a class="reference internal" href="#scrapy.http.TextResponse.encoding" title="scrapy.http.TextResponse.encoding"><code class="xref py py-attr docutils literal"><span class="pre">TextResponse.encoding</span></code></a>.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2008-2016, Scrapy developers.
+      최종 업데이트: 2월 26, 2018
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.5.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

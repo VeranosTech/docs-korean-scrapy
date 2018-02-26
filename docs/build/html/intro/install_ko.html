@@ -1,0 +1,519 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>설치 가이드 &mdash; Scrapy 1.5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="색인"
+              href="../genindex.html"/>
+        <link rel="search" title="검색" href="../search.html"/>
+    <link rel="top" title="Scrapy 1.5.0 documentation" href="../index.html"/>
+        <link rel="next" title="스크래피 튜토리얼" href="tutorial_ko.html"/>
+        <link rel="prev" title="스크래피(Scrapy) 한눈에 보기" href="overview_ko.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index_ko.html" class="icon icon-home"> Scrapy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">처음 시작하기</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview_ko.html">스크래피(Scrapy) 한눈에 보기</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">설치 가이드</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">스크래피 설치</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">알아두면 좋은 것들</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#intro-using-virtualenv">가상 환경 사용하기</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#intro-install-platform-notes">플랫폼 별 설치 안내</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#windows">윈도우(Windows)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ubuntu-14-04">우분투(Ubuntu) 14.04 이상</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mac-os-x">맥(Mac) OS X</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pypy">PyPy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_ko.html">스크래피 튜토리얼</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples_ko.html">예제</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기본 개념</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../topics/commands_ko.html">커맨드 라인 툴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/spiders_ko.html">스파이더(Spider)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/selectors.html">Selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/items.html">Items</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/loaders.html">Item Loaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/shell.html">Scrapy shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/item-pipeline.html">Item Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/feed-exports.html">Feed exports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/request-response.html">Requests and Responses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/link-extractors.html">Link Extractors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/exceptions.html">Exceptions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Built-in services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../topics/logging_ko.html">로깅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/stats_ko.html">통계 수집</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/email.html">Sending e-mail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/telnetconsole.html">Telnet Console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/webservice.html">Web Service</a></li>
+</ul>
+<p class="caption"><span class="caption-text">특정 문제 해결하기</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/debug.html">Debugging Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/contracts.html">Spiders Contracts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/practices.html">Common Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/broad-crawls.html">Broad Crawls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/firefox.html">Using Firefox for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/firebug.html">Using Firebug for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/leaks.html">Debugging memory leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/media-pipeline.html">Downloading and processing files and images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/deploy.html">Deploying Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/autothrottle.html">AutoThrottle extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/benchmarking.html">Benchmarking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/jobs.html">Jobs: pausing and resuming crawls</a></li>
+</ul>
+<p class="caption"><span class="caption-text">스크래피 확장</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../topics/architecture.html">Architecture overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/downloader-middleware.html">Downloader Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/spider-middleware.html">Spider Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/extensions.html">Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/api_ko.html">코어 API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signals.html">Signals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/exporters.html">Item Exporters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기타</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to Scrapy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versioning.html">Versioning and API Stability</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index_ko.html">Scrapy</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index_ko.html">Docs</a> &raquo;</li>
+        
+      <li>설치 가이드</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/VeranosTech/docs-korean-scrapy/blob/docs-korean/docs/intro/install_ko.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="intro-install">
+<span id="id1"></span><h1>설치 가이드<a class="headerlink" href="#intro-install" title="제목 주소">¶</a></h1>
+<div class="section" id="id2">
+<h2>스크래피 설치<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
+<p>스크래피는 파이썬 2.7과 파이썬 3.4 이상에서 실행된다.</p>
+<p><a class="reference external" href="https://docs.anaconda.com/anaconda/">Anaconda</a> 또는 <a class="reference external" href="https://conda.io/docs/user-guide/install/index.html">Miniconda</a>를 사용하고 있다면, 리눅스, 윈도우, OS X용
+최신 패키지를 보유하고 있는 <a class="reference external" href="https://conda-forge.org/">conda-forge</a> 채널에서
+설치할 수 있다.</p>
+<p><code class="docutils literal"><span class="pre">conda</span></code>를 사용해서 설치하려면, 아래와 같이 실행한다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">scrapy</span>
+</pre></div>
+</div>
+<p>파이썬 패키지 설치에 익숙하다면 스크래피와 스크래피가 필요로 하는 패키지를
+PyPI로 아래와 같이 설치할 수 있다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">Scrapy</span>
+</pre></div>
+</div>
+<p>이 경우에는 운영체제에 따라 스크래피가 의존하는 패키지를 컴파일할 때 문제가 발생 할 수 있다.
+이 경우에는 <a class="reference internal" href="#intro-install-platform-notes"><span class="std std-ref">플랫폼 별 설치 안내</span></a>를 확인한다.</p>
+<p>스크래피가 시스템 패키지와 충돌하는 것을 피하기 위해서
+스크래피를 <a class="reference internal" href="#intro-using-virtualenv"><span class="std std-ref">전용 가상 환경</span></a>에
+설치하는 것을 강하게 추천한다.</p>
+<p>더 자세한 정보와 플랫폼에 대한 설명은 뒤에서 설명한다.</p>
+<div class="section" id="id3">
+<h3>알아두면 좋은 것들<a class="headerlink" href="#id3" title="제목 주소">¶</a></h3>
+<p>스크래피는 순수한 파이썬으로 작성되었으며 몇 가지 핵심 파이썬 패키지에 의존한다.:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://lxml.de/">lxml</a>, 효율적인 XML, HTML 파서(parser)</li>
+<li><a class="reference external" href="https://pypi.python.org/pypi/parsel">parsel</a>, lxml 기반으로 작성된 HTML/XML 데이터 추출 라이브러리</li>
+<li><a class="reference external" href="https://pypi.python.org/pypi/w3lib">w3lib</a>, URL 및 웹 페이지 인코딩을 위한 다용도 헬퍼(helper)</li>
+<li><a class="reference external" href="https://twistedmatrix.com/">twisted</a>, 비동기적 네트워킹 프레임워크</li>
+<li><a class="reference external" href="https://cryptography.io/">cryptography</a>과 <a class="reference external" href="https://pypi.python.org/pypi/pyOpenSSL">pyOpenSSL</a>, 다양한 네트워크 수준 보안 요구사항 처리</li>
+</ul>
+<p>스크래피는 다음 최저 사항에서 테스트하였다:</p>
+<ul class="simple">
+<li>Twisted 14.0</li>
+<li>lxml 3.4</li>
+<li>pyOpenSSL 0.14</li>
+</ul>
+<p>이보다 오래된 버전에서도 작동할 수도 있지만
+테스트가 되지 않았기 때문에 작동여부를 보장하지 않는다.</p>
+<p>플랫폼에 따라서는 이 패키지중 일부가 파이썬이 아닌 패키지에 의존해서
+추가적인 설치 과정을 요구할 수도 있다.
+아래에 있는 <a class="reference internal" href="#intro-install-platform-notes"><span class="std std-ref">플랫폼 별 가이드</span></a>를 참고하라.</p>
+<p>필수 패키지 설치에 문제가 있는 경우,
+각 라이브러리의 설치 안내를 참고하기 바란다:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://lxml.de/installation.html">lxml 설치</a></li>
+<li><a class="reference external" href="https://cryptography.io/en/latest/installation/">cryptography 설치</a></li>
+</ul>
+</div>
+<div class="section" id="intro-using-virtualenv">
+<span id="id4"></span><h3>가상 환경 사용하기<a class="headerlink" href="#intro-using-virtualenv" title="제목 주소">¶</a></h3>
+<p>결론만 얘기하자면 플랫폼에 상관없이 가상 환경에 스크래피를 설치하는 것을
+추천한다.</p>
+<p>파이썬 패키지는 전역(시스템 전체 범위)에 설치될 수도 있고 사용자 공간에 설치될 수도 있다.
+우리는 스크래피를 시스템 전체 범위에 설치하는 것을 추천하지 않는다.</p>
+<p>대신, 소위 &quot;가상 환경&quot;(<a class="reference external" href="https://virtualenv.pypa.io">virtualenv</a>)이라 불리는 곳에 설치할 것을 추천한다.
+가상 환경은 이미 설치된 파이썬 시스템 패키지와 충돌(시스템 도구나 스크립트를 망가뜨릴 수 있다)하지 않게 만들어 주며
+(<code class="docutils literal"><span class="pre">sudo</span></code> 같은 것 없이) <code class="docutils literal"><span class="pre">pip</span></code>로 정상적으로 설치할 수 있게 한다.</p>
+<p>가상 환경에 대해 알아보려면 <a class="reference external" href="https://virtualenv.pypa.io/en/stable/installation/">가상 환경 설치 안내</a>를 참고하라.
+전역으로 설치하려면 (여기서는 전역으로 설치하는 것이 도움이 된다),
+다음을 실행하면 된다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ [sudo] pip install virtualenv
+</pre></div>
+</div>
+<p>가상 환경 생성은 <a class="reference external" href="https://virtualenv.pypa.io/en/stable/userguide/">사용자 가이드</a>를 참고하라.</p>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">Linux 또는 OS X를 사용하는 경우, <a class="reference external" href="https://virtualenvwrapper.readthedocs.io/en/latest/install.html">virtualenvwrapper</a>를 사용해서 쉽게 가상 환경을 생성할
+수 있다.</p>
+</div>
+<p>가상 환경을 생성하고 나면, 가상 환경 안애 다른 패키지와 마찬가지로 <code class="docutils literal"><span class="pre">pip</span></code>로 스크래피를
+설치할 수 있다.
+(먼저 설치할 필요가 있는 비파이썬 의존성에 대해서는 아래의
+<a class="reference internal" href="#intro-install-platform-notes"><span class="std std-ref">플랫폼 별 가이드</span></a>를 참고하라.)</p>
+<p>파이썬 가상환경은 파이썬 2나 3을 기본으로 생성할 수 있다.</p>
+<ul class="simple">
+<li>스크래피를 파이썬 3 용으로 설치하고 싶다면, 파이썬 3 가상 환경에 스크래피를 설치하면 된다.</li>
+<li>만약 파이썬 2 용으로 설치하고 싶다면, 파이썬 2 가상 환경에 설치하면 된다.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="intro-install-platform-notes">
+<span id="id7"></span><h2>플랫폼 별 설치 안내<a class="headerlink" href="#intro-install-platform-notes" title="제목 주소">¶</a></h2>
+<div class="section" id="windows">
+<span id="intro-install-windows"></span><h3>윈도우(Windows)<a class="headerlink" href="#windows" title="제목 주소">¶</a></h3>
+<p>pip를 사용해서 스크래피를 설치하는 것도 가능하지만,
+각종 설치상 문제를 피하기 위해
+<a class="reference external" href="https://docs.anaconda.com/anaconda/">Anaconda</a> 또는 <a class="reference external" href="https://conda.io/docs/user-guide/install/index.html">Miniconda</a>를 설치 한 후에 <a class="reference external" href="https://conda-forge.org/">conda-forge</a> 채널을 사용하여
+스크래피를 설치할 것을 추천한다.</p>
+<p>이미 <a class="reference external" href="https://docs.anaconda.com/anaconda/">Anaconda</a> 또는 <a class="reference external" href="https://conda.io/docs/user-guide/install/index.html">Miniconda</a>을 설치했다면, 아래와 같이 스크래피를 설치하라:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">scrapy</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ubuntu-14-04">
+<span id="intro-install-ubuntu"></span><h3>우분투(Ubuntu) 14.04 이상<a class="headerlink" href="#ubuntu-14-04" title="제목 주소">¶</a></h3>
+<p>스크래피는 최신 버전의 lxml, twisted, pyOpenSSL로 테스트되었으며, 최신
+우분투 패포 버전과 호환이 가능하다.
+잠재적인 TLS 연결 문제가 있지만 14.04 같은 이전 버전의 우분투도 지원한다.</p>
+<p>우분투에서 제공하는 <code class="docutils literal"><span class="pre">python-scrapy</span></code> 패키지는 너무 오래된 버전이므로 사용하면 <strong>안</strong> 된다.</p>
+<p>스크래피를 우분투(또는 우분투 기반) 시스템에 설치하려면 아래의 필수 패키지를 설치해야 한다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">dev</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">libxml2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libxslt1</span><span class="o">-</span><span class="n">dev</span> <span class="n">zlib1g</span><span class="o">-</span><span class="n">dev</span> <span class="n">libffi</span><span class="o">-</span><span class="n">dev</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">python-dev</span></code>, <code class="docutils literal"><span class="pre">zlib1g-dev</span></code>, <code class="docutils literal"><span class="pre">libxml2-dev</span></code>, <code class="docutils literal"><span class="pre">libxslt1-dev</span></code>는
+<code class="docutils literal"><span class="pre">lxml</span></code>을 위해 필요하다</li>
+<li><code class="docutils literal"><span class="pre">libssl-dev</span></code>, <code class="docutils literal"><span class="pre">libffi-dev</span></code>는 <code class="docutils literal"><span class="pre">cryptography</span></code>를 위해 필요하다</li>
+</ul>
+<p>파이썬 3에 스크래피를 설치하고 싶으면, 파이썬 3의 개발용 헤더파일도 필요하다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python3</span> <span class="n">python3</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#intro-using-virtualenv"><span class="std std-ref">가상 환경</span></a>에서
+<code class="docutils literal"><span class="pre">pip</span></code>로 스크래피를 설치할 수도 있다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">scrapy</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">Debian Jessie (8.0) 이상에서도 같은 필수 패키지를 사용한다.</p>
+</div>
+</div>
+<div class="section" id="mac-os-x">
+<span id="intro-install-macos"></span><h3>맥(Mac) OS X<a class="headerlink" href="#mac-os-x" title="제목 주소">¶</a></h3>
+<p>스크래피가 필요로 하는 패키지를 설치하려면 C 컴파일러와 개발용 헤더파일을 필요하다.
+OS X에서는 일반적으로 애플의 Xcode 개발 도구를 통해 제공된다. Xcode 커맨드 라인
+도구를 설치하려면 터미널 창을 열고 다음을 실행하라:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">xcode</span><span class="o">-</span><span class="n">select</span> <span class="o">--</span><span class="n">install</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">pip</span></code>가 시스템 패키지 업데이트를 하지 못하는 <a class="reference external" href="https://github.com/pypa/pip/issues/2468">문제</a>가
+있을 수 있는데 이 경우 스크래피와 필수 패키지 설치가 안될 수 있다. 이에 대한
+해결책은 다음과 같다:</p>
+<ul>
+<li><p class="first"><em>(추천)</em> 시스템 파이썬을 사용하지 <strong>말고</strong> 사용자의 시스템과 충돌을 일으키지 않는
+새 버전의 파이썬을 사용한다. <a class="reference external" href="https://brew.sh/">homebrew</a> 패키지 매니저를 사용해서
+다음처럼 설치할 수 있다.:</p>
+<ul>
+<li><p class="first"><a class="reference external" href="https://brew.sh/">https://brew.sh/</a> 의 안내에 따라 <a class="reference external" href="https://brew.sh/">homebrew</a>를 설치한다.</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">PATH</span></code> 변수를 시스템 패키지 전에 homebrew 패키지가 사용되도록 업데이트 한다.
+(기본 셸로 <a class="reference external" href="https://www.zsh.org/">zsh</a>를 사용하고 있으면 <code class="docutils literal"><span class="pre">.bashrc</span></code>를 <code class="docutils literal"><span class="pre">.zshrc</span></code>로 변경한다.):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;export PATH=/usr/local/bin:/usr/local/sbin:$PATH&quot;</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">bashrc</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">변경 사항이 적용되도록 <code class="docutils literal"><span class="pre">.bashrc</span></code>를 다시 로드한다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">~/.</span><span class="n">bashrc</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">파이썬을 설치한다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">python</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">최신 버전의 파이썬은 <code class="docutils literal"><span class="pre">pip</span></code>를 번들로 포함하고 있다. 따라서 따로 설치할 필요가 없다.
+그렇지 않은 경우에는 파이썬을 업그레이드하라:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">update</span><span class="p">;</span> <span class="n">brew</span> <span class="n">upgrade</span> <span class="n">python</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p class="first"><em>(선택)</em> 새 파이썬 환경에서 스크래피를 설치한다.</p>
+<p>이 방법은 위의 OS X 문제를 위한 해결방법일 뿐 아니라 의존성 관리를 위해서도 좋다.</p>
+<p><a class="reference external" href="https://virtualenv.pypa.io">virtualenv</a>는 파이썬에서 가상 환경을 생성하기 위해 사용하는 도구이다.
+<a class="reference external" href="http://docs.python-guide.org/en/latest/dev/virtualenvs/">http://docs.python-guide.org/en/latest/dev/virtualenvs/</a> 튜토리얼을 읽어볼 것을 추천한다.</p>
+</li>
+</ul>
+<p>모든 해결이 되면 스크래피를 설치한다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">Scrapy</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pypy">
+<h3>PyPy<a class="headerlink" href="#pypy" title="제목 주소">¶</a></h3>
+<p>최신 PyPy 버전을 권장한다. 테스트를 한 버전은 5.9.0이다.
+PyPy3는 리눅스에서만 테스트하였다.</p>
+<p>CPython의 경우에는 스크래피가 의존하는 대부분의 패키지가 바이너리 파일로 구현되어 있지만
+PyPy에서는 그렇지 않다. 따라서 설치시에 모든 필요 패키지를 직접 빌드해야 한다.</p>
+<p>맥 OS X에서는 암호화 패키지를 빌딩할 때 문제가 있다.
+해결 방법은
+<a class="reference external" href="https://github.com/pyca/cryptography/issues/2692#issuecomment-272773481">here</a>에 있다.
+<code class="docutils literal"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">openssl</span></code> 명령으로 opensll을 설치하고
+이 명령이 추천하는 옵션(스크래피 설치에만 필요하다.)을 익스포트해서 사용한다.
+리눅스에서 설치할 때는 특별한 문제가 없다.
+윈도우즈에서 PyPy 기반으로 스크래피를 사용하는 것은 테스트하지 않았다.</p>
+<p><code class="docutils literal"><span class="pre">scrapy</span> <span class="pre">bench</span></code> 명령을 실행하면 스크래피가 잘 설치되었는지 확인할 수 있다.
+만약 <code class="docutils literal"><span class="pre">TypeError:</span> <span class="pre">...</span> <span class="pre">got</span> <span class="pre">2</span> <span class="pre">unexpected</span> <span class="pre">keyword</span> <span class="pre">arguments</span></code> 등의 오류가 나오면
+setuptools가 PyPy의 관련 패키지를 설치하지 못했다는 뜻이다.
+이 문제를 해결하려면 <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">'PyPyDispatcher&gt;=2.1.0'</span></code>를 실행한다.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tutorial_ko.html" class="btn btn-neutral float-right" title="스크래피 튜토리얼" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="overview_ko.html" class="btn btn-neutral" title="스크래피(Scrapy) 한눈에 보기" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2008-2016, Scrapy developers.
+      최종 업데이트: 2월 26, 2018
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.5.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,1069 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>스파이더(Spider) &mdash; Scrapy 1.5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="색인"
+              href="../genindex.html"/>
+        <link rel="search" title="검색" href="../search.html"/>
+    <link rel="top" title="Scrapy 1.5.0 documentation" href="../index.html"/>
+        <link rel="next" title="Selectors" href="selectors.html"/>
+        <link rel="prev" title="커맨드 라인 툴" href="commands_ko.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index_ko.html" class="icon icon-home"> Scrapy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">처음 시작하기</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/overview_ko.html">스크래피(Scrapy) 한눈에 보기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/install_ko.html">설치 가이드</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/tutorial_ko.html">스크래피 튜토리얼</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/examples_ko.html">예제</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기본 개념</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="commands_ko.html">커맨드 라인 툴</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">스파이더(Spider)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#scrapy-spider">scrapy.Spider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spiderargs">스파이더 인자</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#builtin-spiders">범용 스파이더</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#crawlspider">CrawlSpider</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#crawling-rules">Crawling rules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#crawlspider-example">CrawlSpider example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#xmlfeedspider">XMLFeedSpider</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">XMLFeedSpider 예제</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#csvfeedspider">CSVFeedSpider</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">CSVFeedSpider 예제</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#sitemapspider">SitemapSpider</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">SitemapSpider 예제</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html">Selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="items.html">Items</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loaders.html">Item Loaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shell.html">Scrapy shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="item-pipeline.html">Item Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="feed-exports.html">Feed exports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-response.html">Requests and Responses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="link-extractors.html">Link Extractors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Built-in services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="logging_ko.html">로깅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats_ko.html">통계 수집</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.html">Sending e-mail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telnetconsole.html">Telnet Console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webservice.html">Web Service</a></li>
+</ul>
+<p class="caption"><span class="caption-text">특정 문제 해결하기</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contracts.html">Spiders Contracts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practices.html">Common Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="broad-crawls.html">Broad Crawls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firefox.html">Using Firefox for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firebug.html">Using Firebug for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="leaks.html">Debugging memory leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="media-pipeline.html">Downloading and processing files and images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">Deploying Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autothrottle.html">AutoThrottle extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarking.html">Benchmarking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Jobs: pausing and resuming crawls</a></li>
+</ul>
+<p class="caption"><span class="caption-text">스크래피 확장</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloader-middleware.html">Downloader Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spider-middleware.html">Spider Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extensions.html">Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_ko.html">코어 API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signals.html">Signals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exporters.html">Item Exporters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기타</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to Scrapy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versioning.html">Versioning and API Stability</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index_ko.html">Scrapy</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index_ko.html">Docs</a> &raquo;</li>
+        
+      <li>스파이더(Spider)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/VeranosTech/docs-korean-scrapy/blob/docs-korean/docs/topics/spiders_ko.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="spider">
+<span id="topics-spiders"></span><h1>스파이더(Spider)<a class="headerlink" href="#spider" title="제목 주소">¶</a></h1>
+<p>스파이더는 특정 사이트(또는 사이트 그룹)을 어떻게 스크랩할 건지 정의하는 클래스이며,
+크롤링을(예, 링크 따라가기 등) 수행하는 방식과, 페이지에서 구조화된 데이터(스크랩되는 아이템)를
+추출하는 방식도 포함하고 있다. 즉, 스파이더는 사용자가 특정한 사이트(또는 사이트 그룹)를 파싱하고 크롤링 하기
+위한 커스텀 행동을 정의하는 곳이다.</p>
+<p>스파이더의 스크랩 사이클은 아래와 같이 진행된다:</p>
+<ol class="arabic">
+<li><p class="first">첫 번째 URL을 크롤링 하는 최초의 리퀘트르르 생성함으로써 시작하고,
+리퀘스트로부터 다운로드된 리스펀스와 호출되는 콜백 함수를 지정한다.</p>
+<p>수행될 첫 번째 리퀘스트는
+(기본적으로) <a class="reference internal" href="#scrapy.spiders.Spider.start_urls" title="scrapy.spiders.Spider.start_urls"><code class="xref py py-attr docutils literal"><span class="pre">start_urls</span></code></a>에서 지정되는 URL을 위해
+<a class="reference internal" href="request-response_ko.html#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a>를 생성하는 <a class="reference internal" href="#scrapy.spiders.Spider.start_requests" title="scrapy.spiders.Spider.start_requests"><code class="xref py py-meth docutils literal"><span class="pre">start_requests()</span></code></a> 메서드와
+리퀘스트를 위한 콜백 함수로써 <a class="reference internal" href="#scrapy.spiders.Spider.parse" title="scrapy.spiders.Spider.parse"><code class="xref py py-attr docutils literal"><span class="pre">parse</span></code></a> 메서드를 호출함으로써 얻어진다.</p>
+</li>
+<li><p class="first">콜백 함수에서, 리스펀스(웹 페이지)를 파싱하고 추출된 데이터가 있는 dict와
+<a class="reference internal" href="items_ko.html#scrapy.item.Item" title="scrapy.item.Item"><code class="xref py py-class docutils literal"><span class="pre">Item</span></code></a> 객체, <a class="reference internal" href="request-response_ko.html#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a> 객체,
+또는 반복가능한 이러한 객체들을 반환한다.
+반환되는 리리퀘스트들도 콜백 함수를 포함하고 있으며 (일반적으로 자기자신)
+스크래피로 다운로드된 후 리스펀스는 콜백 함수에 의해 처리된다.</p>
+</li>
+<li><p class="first">콜백 함수는 페이지 컨텐츠를 일반적으로 <a class="reference internal" href="selectors_ko.html#topics-selectors"><span class="std std-ref">셀렉터(Selector)</span></a>를 사용해서
+파싱하고(BeautifuulSoup, lxml 등 원하는 어떤 메커니즘을 사용해도 상관없다)
+파싱된 데이터로 이루어진 아이템을 생성한다.</p>
+</li>
+<li><p class="first">최종적으로 스파이더에서 반환된 아이템을 일반적으로 데이터베이스에서 유지되거나
+(<a class="reference internal" href="item-pipeline_ko.html#topics-item-pipeline"><span class="std std-ref">Item Pipeline</span></a>을 통해서) 또는 <a class="reference internal" href="feed-exports.html#topics-feed-exports"><span class="std std-ref">Feed exports</span></a>를
+사용해서 파일로 작성된다.</p>
+</li>
+</ol>
+<p>이 사이클은 모든 종류의 스파이더에 적용되지만, 스크래피에 번들로 포함된 다른 목적을 위한
+다른 종류의 스파이더도 있다. 앞으로 이 타입에 대해서 다루어볼 것이다.</p>
+<span class="target" id="module-scrapy.spiders"></span><div class="section" id="scrapy-spider">
+<span id="topics-spiders-ref"></span><h2>scrapy.Spider<a class="headerlink" href="#scrapy-spider" title="제목 주소">¶</a></h2>
+<dl class="class">
+<dt id="scrapy.spiders.Spider">
+<em class="property">class </em><code class="descclassname">scrapy.spiders.</code><code class="descname">Spider</code><a class="headerlink" href="#scrapy.spiders.Spider" title="정의 주소">¶</a></dt>
+<dd><p>이것은 가장 간단한 스파이더이며 다른 모든 스파이더들이 반드시 상속받아야 하는 것 중에 하나다.
+(직접 제작한 스파이더뿐만 아니라 스크래피와 번들로 제공되는 스파이더 포함)
+이 스파이더는 특별한 기능을 제공하지는 않는다.
+이것은 단지 <a class="reference internal" href="#scrapy.spiders.Spider.start_urls" title="scrapy.spiders.Spider.start_urls"><code class="xref py py-attr docutils literal"><span class="pre">start_urls</span></code></a>스파이더 속성에서 리퀘스트를 보내는 <a class="reference internal" href="#scrapy.spiders.Spider.start_requests" title="scrapy.spiders.Spider.start_requests"><code class="xref py py-meth docutils literal"><span class="pre">start_requests()</span></code></a> 구현을
+제공하고 얻어진 각 결과의 리스펀스를 위한 스파이더의 메서드 <code class="docutils literal"><span class="pre">parse</span></code>를 호출한다.</p>
+<dl class="attribute">
+<dt id="scrapy.spiders.Spider.name">
+<code class="descname">name</code><a class="headerlink" href="#scrapy.spiders.Spider.name" title="정의 주소">¶</a></dt>
+<dd><p>스파이더의 이름을 정의하는 문자열. 스파이더 이름은 스크래피에 의해
+찾아지고 (그리고 인스턴스화되는) 방식이므로, 따라서 반드시 유일해야 한다.
+그러나 같은 스파이더를 하나 이상 인스턴스화하는 것은 가능하다ㅏ.
+이것은 스파이더 속성중에서 가장 중요한 것이며 꼭 필요하다.</p>
+<p>스파이더가 단일 도메인을 스크랩한다면, 일반적인 관습은 <a class="reference external" href="https://en.wikipedia.org/wiki/Top-level_domain">TLD</a>를 포함하거나
+포함하지 않은 도메인을 따서 스파이더 이름을 짓는 것이다. 예를 들면,
+<code class="docutils literal"><span class="pre">mywebsite.com</span></code>를 크롤링하는 스파이더는 <code class="docutils literal"><span class="pre">mywebsite</span></code>라고 하는
+것이다.</p>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">파이썬 2에서는 ASCII만 가능하다.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.spiders.Spider.allowed_domains">
+<code class="descname">allowed_domains</code><a class="headerlink" href="#scrapy.spiders.Spider.allowed_domains" title="정의 주소">¶</a></dt>
+<dd><p>스파이더의 크롤링을 허용하는 도메인을 포함한 선택적인 문자열 리스트다.
+이 리스트에서 지정된 도메인 이름(또는 하위 도메인까지)에 속하지 않은 URL에 대한 리퀘스트는
+<a class="reference internal" href="spider-middleware.html#scrapy.spidermiddlewares.offsite.OffsiteMiddleware" title="scrapy.spidermiddlewares.offsite.OffsiteMiddleware"><code class="xref py py-class docutils literal"><span class="pre">OffsiteMiddleware</span></code></a>가 활성화되어 있으면
+따라가지지 않는다.</p>
+<p>만약 타겟 url이 <code class="docutils literal"><span class="pre">https://www.example.com/1.html</span></code>면,
+<code class="docutils literal"><span class="pre">'example.com'</span></code>를 이 리스트에 추가하라.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.spiders.Spider.start_urls">
+<code class="descname">start_urls</code><a class="headerlink" href="#scrapy.spiders.Spider.start_urls" title="정의 주소">¶</a></dt>
+<dd><p>특별히 지정된 URL이 없으면 스파이더가 크롤링을 시작할 URL 리스트다.
+따라서, 처 번째로 다운로드되는 페이지는 여기에 리스팅될 것이다.
+후속 URL은 시작 URL에 포함된 데이터로부터 연속해서 생성될 것이다.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.spiders.Spider.custom_settings">
+<code class="descname">custom_settings</code><a class="headerlink" href="#scrapy.spiders.Spider.custom_settings" title="정의 주소">¶</a></dt>
+<dd><p>스파이더를 실행할 때 전체 프로젝트 설정에서 덮어쓰여질 세팅의 딕셔너리.
+인스턴스화하기 전에 세팅이 업데이트 되기 때문에 클래스 속성으로 정의되어야 한다.</p>
+<p>이용가능한 빌트인 세팅 리스트는 다음을 참고하라:
+<a class="reference internal" href="settings.html#topics-settings-ref"><span class="std std-ref">Built-in settings reference</span></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.spiders.Spider.crawler">
+<code class="descname">crawler</code><a class="headerlink" href="#scrapy.spiders.Spider.crawler" title="정의 주소">¶</a></dt>
+<dd><p>이 속성은 클래스를 초기화한 이후의 <a class="reference internal" href="item-pipeline_ko.html#from_crawler" title="from_crawler"><code class="xref py py-meth docutils literal"><span class="pre">from_crawler()</span></code></a> 클래스 메서드에 의해 설정되고
+스파이더의 인스턴스가 묶이는 <a class="reference internal" href="api_ko.html#scrapy.crawler.Crawler" title="scrapy.crawler.Crawler"><code class="xref py py-class docutils literal"><span class="pre">Crawler</span></code></a> 객체로 연결된다.</p>
+<p>Crawler는 단일 엔트리 접근(확장, 미들웨어, 시그널 관리, 등)을 위해 프로젝트 내부의
+많은 구성요소들을 캡슐화하고 있다.
+더 알고 싶은 경우 <a class="reference internal" href="api_ko.html#topics-api-crawler"><span class="std std-ref">Crawler API</span></a>를 참고하라.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.spiders.Spider.settings">
+<code class="descname">settings</code><a class="headerlink" href="#scrapy.spiders.Spider.settings" title="정의 주소">¶</a></dt>
+<dd><p>스파이더 실행에 관한 설정. 이것은
+<a class="reference internal" href="api_ko.html#scrapy.settings.Settings" title="scrapy.settings.Settings"><code class="xref py py-class docutils literal"><span class="pre">Settings</span></code></a> 인스턴스다,
+이 주제에 대한 자세한 사항은 <a class="reference internal" href="settings.html#topics-settings"><span class="std std-ref">Settings</span></a>를 참고하라.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.spiders.Spider.logger">
+<code class="descname">logger</code><a class="headerlink" href="#scrapy.spiders.Spider.logger" title="정의 주소">¶</a></dt>
+<dd><p>스파이더의 <a class="reference internal" href="#scrapy.spiders.Spider.name" title="scrapy.spiders.Spider.name"><code class="xref py py-attr docutils literal"><span class="pre">name</span></code></a>과 함께 생성된 파이썬 logger.
+<a class="reference internal" href="logging_ko.html#topics-logging-from-spiders"><span class="std std-ref">스파이더에서 로그 남기기</span></a>에 나온대로 이것을 사용해서 로그 메세지를
+보낼 수 있다.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scrapy.spiders.Spider.from_crawler">
+<code class="descname">from_crawler</code><span class="sig-paren">(</span><em>crawler</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.spiders.Spider.from_crawler" title="정의 주소">¶</a></dt>
+<dd><p>스크래피가 스파이더를 만들기위해 사용하는 클래스 메서드.</p>
+<p>직접 이것을 오버라이드할 필요는 없을 것이다, 왜냐하면 기본 구현이
+<code class="xref py py-meth docutils literal"><span class="pre">__init__()</span></code> 메서드에 대한 프록시로서 주어진 인자 <cite>args</cite>와 키워드 인자
+<cite>kwargs</cite>를 호출하면서 작동하기 때문이다.</p>
+<p>그럼에도 불구하고, 이 메서드는 새 인스턴스의 <a class="reference internal" href="#scrapy.spiders.Spider.crawler" title="scrapy.spiders.Spider.crawler"><code class="xref py py-attr docutils literal"><span class="pre">crawler</span></code></a>와 <a class="reference internal" href="#scrapy.spiders.Spider.settings" title="scrapy.spiders.Spider.settings"><code class="xref py py-attr docutils literal"><span class="pre">settings</span></code></a> 속성을
+지정해서 나중에 스파이더 코드 내에서 접근 가능하게 만든다.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>crawler</strong> (<a class="reference internal" href="api_ko.html#scrapy.crawler.Crawler" title="scrapy.crawler.Crawler"><code class="xref py py-class docutils literal"><span class="pre">Crawler</span></code></a> 인스턴스) -- 스파이더와 바인드될 크롤러</li>
+<li><strong>args</strong> (<em>리스트</em>) -- <code class="xref py py-meth docutils literal"><span class="pre">__init__()</span></code> 메서드에 전달될 인자</li>
+<li><strong>kwargs</strong> (<em>딕셔너리</em>) -- <code class="xref py py-meth docutils literal"><span class="pre">__init__()</span></code> 메서드에 전달될 키워드 인자</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="scrapy.spiders.Spider.start_requests">
+<code class="descname">start_requests</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.spiders.Spider.start_requests" title="정의 주소">¶</a></dt>
+<dd><p>이 메서드는 스파이더가 크롤링할 첫 번째 리퀘스트가 있는 이터러블을 반환해야 된다.
+스크랩을 위해서 스파이더가 열렸을 때 스크래피에 의해서 호출된다.
+스크래피는 이것을 한 번만 호출해서 <a class="reference internal" href="#scrapy.spiders.Spider.start_requests" title="scrapy.spiders.Spider.start_requests"><code class="xref py py-meth docutils literal"><span class="pre">start_requests()</span></code></a>를
+제네레이터로 구현해도 안전하다.</p>
+<p>기본 구현은 <a class="reference internal" href="#scrapy.spiders.Spider.start_urls" title="scrapy.spiders.Spider.start_urls"><code class="xref py py-attr docutils literal"><span class="pre">start_urls</span></code></a>에 있는 각 url에 대한 <code class="docutils literal"><span class="pre">Request(url,</span> <span class="pre">dont_filter=True)</span></code>를
+생성한다.</p>
+<p>만약 도메인 스크랩핑을 시작하기위해 사용되는 리퀘스트를 변경하고 싶으면,
+이 메서드를 오버라이드 하면 된다. 예를 들어, POST 리퀘스트를 사용해서 로그인하면서 시작해야
+한다면 아래와 같이 쓸 수 있다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MySpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;myspider&#39;</span>
+
+    <span class="k">def</span> <span class="nf">start_requests</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">scrapy</span><span class="o">.</span><span class="n">FormRequest</span><span class="p">(</span><span class="s2">&quot;http://www.example.com/login&quot;</span><span class="p">,</span>
+                                   <span class="n">formdata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;user&#39;</span><span class="p">:</span> <span class="s1">&#39;john&#39;</span><span class="p">,</span> <span class="s1">&#39;pass&#39;</span><span class="p">:</span> <span class="s1">&#39;secret&#39;</span><span class="p">},</span>
+                                   <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logged_in</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">logged_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="c1"># here you would extract links to follow and return Requests for</span>
+        <span class="c1"># each of them, with another callback</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="scrapy.spiders.Spider.parse">
+<code class="descname">parse</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.spiders.Spider.parse" title="정의 주소">¶</a></dt>
+<dd><p>리퀘스트가 콜백을 지정하지 않았을 때, 스크래피가 다운로드된
+리스펀스를 처리하기 위해 사용하는 기본 콜백이다.</p>
+<p><code class="docutils literal"><span class="pre">parse</span></code> 메소드는 리스펀스를 처리하고 스크랩된 데이터와 추가적으로 따라갈 URL을
+반환하는 역할을 맡고 있다. 다른 리퀘스트 콜백도 <a class="reference internal" href="#scrapy.spiders.Spider" title="scrapy.spiders.Spider"><code class="xref py py-class docutils literal"><span class="pre">Spider</span></code></a> 클래스와 동일한
+요구사항을 가지고 있다.</p>
+<p>다른 리퀘스트 콜백뿐만 아니라 이 메서드도 <a class="reference internal" href="request-response_ko.html#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a> 또는 딕셔너리,
+<a class="reference internal" href="items_ko.html#scrapy.item.Item" title="scrapy.item.Item"><code class="xref py py-class docutils literal"><span class="pre">Item</span></code></a> 객체 이터러블을 반환해야 한다.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><strong>response</strong> (<a class="reference internal" href="request-response_ko.html#scrapy.http.Response" title="scrapy.http.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>) -- 파싱할 리스펀스</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="scrapy.spiders.Spider.log">
+<code class="descname">log</code><span class="sig-paren">(</span><em>message</em><span class="optional">[</span>, <em>level</em>, <em>component</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.spiders.Spider.log" title="정의 주소">¶</a></dt>
+<dd><p>스파이더의 <a class="reference internal" href="#scrapy.spiders.Spider.logger" title="scrapy.spiders.Spider.logger"><code class="xref py py-attr docutils literal"><span class="pre">logger</span></code></a>를 통해 로그 메세지를 보내는 래퍼(Wrapper),
+백워드 호환성을 위해 유지됨. 더 자세한 정보는
+<a class="reference internal" href="logging_ko.html#topics-logging-from-spiders"><span class="std std-ref">스파이더에서 로그 남기기</span></a> 참고하라.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scrapy.spiders.Spider.closed">
+<code class="descname">closed</code><span class="sig-paren">(</span><em>reason</em><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.spiders.Spider.closed" title="정의 주소">¶</a></dt>
+<dd><p>스파이더가 종료될 때 호출된다. 이 메서드는 <a class="reference internal" href="signals.html#std:signal-spider_closed"><code class="xref std std-signal docutils literal"><span class="pre">spider_closed</span></code></a> 시그널을 위해
+signals.connect()에 대한 숏컷을 제공한다.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>예시를 보자:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+
+
+<span class="k">class</span> <span class="nc">MySpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;example.com&#39;</span>
+    <span class="n">allowed_domains</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;example.com&#39;</span><span class="p">]</span>
+    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;http://www.example.com/1.html&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;http://www.example.com/2.html&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;http://www.example.com/3.html&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;A response from </span><span class="si">%s</span><span class="s1"> just arrived!&#39;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>하나의 콜백으로부터 여러 리퀘스트와 아이템을 반환한다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+
+<span class="k">class</span> <span class="nc">MySpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;example.com&#39;</span>
+    <span class="n">allowed_domains</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;example.com&#39;</span><span class="p">]</span>
+    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;http://www.example.com/1.html&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;http://www.example.com/2.html&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;http://www.example.com/3.html&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">h3</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//h3&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">():</span>
+            <span class="k">yield</span> <span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">h3</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//a/@href&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">():</span>
+            <span class="k">yield</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#scrapy.spiders.Spider.start_urls" title="scrapy.spiders.Spider.start_urls"><code class="xref py py-attr docutils literal"><span class="pre">start_urls</span></code></a> 대신 <a class="reference internal" href="#scrapy.spiders.Spider.start_requests" title="scrapy.spiders.Spider.start_requests"><code class="xref py py-meth docutils literal"><span class="pre">start_requests()</span></code></a>를 직접 사용할 수 있다;
+데이터를 더 구조화하기 위해서 <a class="reference internal" href="items_ko.html#topics-items"><span class="std std-ref">아이템</span></a>를 사용할 수 있다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+<span class="kn">from</span> <span class="nn">myproject.items</span> <span class="k">import</span> <span class="n">MyItem</span>
+
+<span class="k">class</span> <span class="nc">MySpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;example.com&#39;</span>
+    <span class="n">allowed_domains</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;example.com&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">start_requests</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="s1">&#39;http://www.example.com/1.html&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="s1">&#39;http://www.example.com/2.html&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="s1">&#39;http://www.example.com/3.html&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">h3</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//h3&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">():</span>
+            <span class="k">yield</span> <span class="n">MyItem</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">h3</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//a/@href&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">():</span>
+            <span class="k">yield</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="spiderargs">
+<span id="id1"></span><h2>스파이더 인자<a class="headerlink" href="#spiderargs" title="제목 주소">¶</a></h2>
+<p>스파이더는 스파이더의 작동을 변경시킬 수 있는 인자를 받는다.
+일반적으로는 시작 URL을 정의하거나 사이트의 특정 섹션을 크롤링하도록 제한하는 데
+사용하지만 스파이더의 기능을 설정하는 데도 사용된다.</p>
+<p>스파이더 인자는 <a class="reference internal" href="commands_ko.html#std:command-crawl"><code class="xref std std-command docutils literal"><span class="pre">crawl</span></code></a> 커맨드의 <code class="docutils literal"><span class="pre">-a</span></code> 옵션을 사용해서 전달된다. 예를 들면:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">scrapy</span> <span class="n">crawl</span> <span class="n">myspider</span> <span class="o">-</span><span class="n">a</span> <span class="n">category</span><span class="o">=</span><span class="n">electronics</span>
+</pre></div>
+</div>
+<p>스파이더는 <cite>__init__</cite> 메서드의 인자에 접근할 수 있다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+
+<span class="k">class</span> <span class="nc">MySpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;myspider&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MySpider</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;http://www.example.com/categories/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">category</span><span class="p">]</span>
+        <span class="c1"># ...</span>
+</pre></div>
+</div>
+<p>기본 <cite>__init__</cite> 메서드는 모든 스파이더 인자를 받아서 스파이더에
+속성으로 복사하는 것이다.
+위의 예제는 아래와 같이 작성될 수도 있다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+
+<span class="k">class</span> <span class="nc">MySpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;myspider&#39;</span>
+
+    <span class="k">def</span> <span class="nf">start_requests</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="s1">&#39;http://www.example.com/categories/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">category</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>스파이더 인자는 문자열이라는 사실을 명심하라.
+스파이더는 알아서 파싱을 하지 않는다.
+만약 <cite>start_urls</cite> 속성을 커맨드라인에서 설정하려면
+직접 <a class="reference external" href="https://docs.python.org/library/ast.html#ast.literal_eval">ast.literal_eval</a> 또는
+<a class="reference external" href="https://docs.python.org/library/json.html#json.loads">json.loads</a> 같은 것을 활용해
+리스트로 파싱을 한 다음 속성으로 지정해야 한다.
+그렇지 않으면, <cite>start_urls</cite> 문자열에 대해서 문자 각각을 별개의 url로 인식하는 이터레이션 (매우
+일반적인 파이썬 함정)을 발생킬 수 있다.</p>
+<p>유요한 사용 케이스는 <a class="reference internal" href="downloader-middleware.html#scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware" title="scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware"><code class="xref py py-class docutils literal"><span class="pre">HttpAuthMiddleware</span></code></a>가 사용하는
+사용되는 http 인증 자격증명이나 <a class="reference internal" href="downloader-middleware.html#scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware" title="scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware"><code class="xref py py-class docutils literal"><span class="pre">HttpAuthMiddleware</span></code></a>가
+사용하는 사용자 에이전트를 설정하는 경우다.</p>
+<blockquote>
+<div>scrapy crawl myspider -a http_user=myuser -a http_pass=mypassword -a user_agent=mybot</div></blockquote>
+<p>스파이더 인자는 Scrapyd <code class="docutils literal"><span class="pre">schedule.json</span></code> API를 통해서 전달될 수도 있다.
+<a class="reference external" href="https://scrapyd.readthedocs.io/en/latest/">Scrapyd documentation</a>를 참고하라</p>
+</div>
+<div class="section" id="builtin-spiders">
+<span id="id2"></span><h2>범용 스파이더<a class="headerlink" href="#builtin-spiders" title="제목 주소">¶</a></h2>
+<p>스크래피는 사용자의 스파이더가 상속하는 데 사용할 수 있는 유용한 범용 스파이더를 제공한다.
+그것들의 목표는 몇가지 일반적인 스크랩핑의 경우를 위한 편리한 기능을 제공하는 것이다.
+일반적인 경우는 특정한 룰에 따라 사이트에 있는 모든 링크를 따라가거나, <a class="reference external" href="https://www.sitemaps.org/index.html">Sitemaps</a>에서
+크롤링 하거나, 또는 XML/CSV 피드를 파싱하는 경우를 말한다.</p>
+<p>아래의 스파이더에서 사용되는 예시의 경우, <code class="docutils literal"><span class="pre">myproject.items</span></code> 모듈에 <code class="docutils literal"><span class="pre">TestItem</span></code>이 선언된
+프로젝트가 있다고 가정한다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+
+<span class="k">class</span> <span class="nc">TestItem</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Item</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Field</span><span class="p">()</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Field</span><span class="p">()</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Field</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="section" id="crawlspider">
+<h3>CrawlSpider<a class="headerlink" href="#crawlspider" title="제목 주소">¶</a></h3>
+<dl class="class">
+<dt id="scrapy.spiders.CrawlSpider">
+<em class="property">class </em><code class="descclassname">scrapy.spiders.</code><code class="descname">CrawlSpider</code><a class="headerlink" href="#scrapy.spiders.CrawlSpider" title="정의 주소">¶</a></dt>
+<dd><p>일반적인 웹사이트를 크롤링하는데 가장 보편적으로 사용되는 것으로,
+규칙을 정의함으로써 링크를 따라가는 데 편리한 메커니즘을 제공한다.
+특정한 웹사이트나 프로젝트에 가장 적합한 스파이더는 아닐 수 있지만
+여러 경우에 일반적으로 쓰기에는 충분하다. 그러므로 이 스파이더로 시작해서
+커스텀 기능이 필요한 경우는 오버라이드 하거나 직접 구현하면 된다.</p>
+<p>스파이더에서 상속받은 속성 외에도 이 클래스는 새 속성을 지원한다:</p>
+<dl class="attribute">
+<dt id="scrapy.spiders.CrawlSpider.rules">
+<code class="descname">rules</code><a class="headerlink" href="#scrapy.spiders.CrawlSpider.rules" title="정의 주소">¶</a></dt>
+<dd><p>하나 이상의 <a class="reference internal" href="#scrapy.spiders.Rule" title="scrapy.spiders.Rule"><code class="xref py py-class docutils literal"><span class="pre">Rule</span></code></a> 객체 리스트. 각각의 <a class="reference internal" href="#scrapy.spiders.Rule" title="scrapy.spiders.Rule"><code class="xref py py-class docutils literal"><span class="pre">Rule</span></code></a>은
+사이트 크롤링에 관한 특정한 작동을 정의한다.같은 링크에
+여러 rule이 매칭된다면, 속성에서 정의된 순서에 따라 첫 번째가 사용된다.</p>
+</dd></dl>
+
+<p>이 스파이더는 오버라이드 가능한 메서드도 노출하고 있다:</p>
+<dl class="method">
+<dt id="scrapy.spiders.CrawlSpider.parse_start_url">
+<code class="descname">parse_start_url</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.spiders.CrawlSpider.parse_start_url" title="정의 주소">¶</a></dt>
+<dd><p>이 메서드는 start_urls 리스펀스를 위해서 호출된다. 이것은
+최초 리스펀스를 파싱하게 해주고 반드시
+<a class="reference internal" href="items_ko.html#scrapy.item.Item" title="scrapy.item.Item"><code class="xref py py-class docutils literal"><span class="pre">Item</span></code></a> 객체나, <a class="reference internal" href="request-response_ko.html#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a>
+객체, 또는 둘 중 하나를 포함하는 이터러블을 반환해야 한다.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="crawling-rules">
+<h4>Crawling rules<a class="headerlink" href="#crawling-rules" title="제목 주소">¶</a></h4>
+<dl class="class">
+<dt id="scrapy.spiders.Rule">
+<em class="property">class </em><code class="descclassname">scrapy.spiders.</code><code class="descname">Rule</code><span class="sig-paren">(</span><em>link_extractor</em>, <em>callback=None</em>, <em>cb_kwargs=None</em>, <em>follow=None</em>, <em>process_links=None</em>, <em>process_request=None</em><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.spiders.Rule" title="정의 주소">¶</a></dt>
+<dd><p><code class="docutils literal"><span class="pre">link_extractor</span></code>는 크롤링된 페이지로부터 링크를 어떻게 추출할 것인지
+정의하는 <a class="reference internal" href="link-extractors.html#topics-link-extractors"><span class="std std-ref">Link Extractor</span></a> 객체다.</p>
+<p><code class="docutils literal"><span class="pre">callback</span></code>는 지정된 link_extractor로 추출된 각 링크를 위해 호출되는 callable 또는 문자열(이 경우
+그 이름을 가진 스파이더 객체의 메서드가 사용된다)이다. 이 콜백은
+첫 인자로 리스펀스를 받으며 반드시 <a class="reference internal" href="items_ko.html#scrapy.item.Item" title="scrapy.item.Item"><code class="xref py py-class docutils literal"><span class="pre">Item</span></code></a> 또는
+<a class="reference internal" href="request-response_ko.html#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a> 객체를 포함하는 리스트를 리턴해야 한다(또는</p>
+<div class="admonition warning">
+<p class="first admonition-title">경고</p>
+<p class="last">crawl 스파이더의 rule을 작성할 때는, 콜백으로 <code class="docutils literal"><span class="pre">parse</span></code>를 사용하는 것을
+피하라, 왜냐하면 <a class="reference internal" href="#scrapy.spiders.CrawlSpider" title="scrapy.spiders.CrawlSpider"><code class="xref py py-class docutils literal"><span class="pre">CrawlSpider</span></code></a>가 자신의 로직을 구현하기 위해
+<code class="docutils literal"><span class="pre">parse</span></code> 메서드를 사용하기 때문이다.
+따라서 <code class="docutils literal"><span class="pre">parse</span></code> 메서드를 오버라이드한다면, crawl 스파이더는 더이상 작동하지 않을
+것이다.</p>
+</div>
+<p><code class="docutils literal"><span class="pre">cb_kwargs</span></code> 는 콜백 함수에 전달될 키워드 인자를 포함하고 있는 딕셔너리다.</p>
+<p><code class="docutils literal"><span class="pre">follow</span></code>는 불리언으로 rule로 추출된 리스펀스로부터 링크를 따라가야 하는지를
+지정한다. 만약 <code class="docutils literal"><span class="pre">Callback</span></code>이 None이면 <code class="docutils literal"><span class="pre">follow</span></code>는 <code class="docutils literal"><span class="pre">True</span></code>가 기본이고
+그렇지 않은 경우 기본은 <code class="docutils literal"><span class="pre">False</span></code>다.</p>
+<p><code class="docutils literal"><span class="pre">process_links</span></code> 는 callable이나 문자열(이 경우 해당 이름을 가진 스파이더 객체의
+메서드가 사용된다)로 지정된 <code class="docutils literal"><span class="pre">link_extractor</span></code>을 사용해 리스펀스로부터 추출된 링크
+리스트에 대해 호출된다. 주로 필터링을 목적으로 사용된다.</p>
+<p><code class="docutils literal"><span class="pre">process_request</span></code>는 callable이나 문자열(이 경우 해당 이름을 가진 스파이더 객체의
+메서드가 사용된다)로 rule에 따라 추출된 모든 리퀘스트에 대해 호출되며, 반드시
+리퀘스트나 (요청을 필터링하기 위해서) None을 반환해야 한다.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="crawlspider-example">
+<h4>CrawlSpider example<a class="headerlink" href="#crawlspider-example" title="제목 주소">¶</a></h4>
+<p>이제 rule이 있는 CrawlSpider를 보자:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+<span class="kn">from</span> <span class="nn">scrapy.spiders</span> <span class="k">import</span> <span class="n">CrawlSpider</span><span class="p">,</span> <span class="n">Rule</span>
+<span class="kn">from</span> <span class="nn">scrapy.linkextractors</span> <span class="k">import</span> <span class="n">LinkExtractor</span>
+
+<span class="k">class</span> <span class="nc">MySpider</span><span class="p">(</span><span class="n">CrawlSpider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;example.com&#39;</span>
+    <span class="n">allowed_domains</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;example.com&#39;</span><span class="p">]</span>
+    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;http://www.example.com&#39;</span><span class="p">]</span>
+
+    <span class="n">rules</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="c1"># Extract links matching &#39;category.php&#39; (but not matching &#39;subsection.php&#39;)</span>
+        <span class="c1"># and follow links from them (since no callback means follow=True by default).</span>
+        <span class="n">Rule</span><span class="p">(</span><span class="n">LinkExtractor</span><span class="p">(</span><span class="n">allow</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;category\.php&#39;</span><span class="p">,</span> <span class="p">),</span> <span class="n">deny</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;subsection\.php&#39;</span><span class="p">,</span> <span class="p">))),</span>
+
+        <span class="c1"># Extract links matching &#39;item.php&#39; and parse them with the spider&#39;s method parse_item</span>
+        <span class="n">Rule</span><span class="p">(</span><span class="n">LinkExtractor</span><span class="p">(</span><span class="n">allow</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;item\.php&#39;</span><span class="p">,</span> <span class="p">)),</span> <span class="n">callback</span><span class="o">=</span><span class="s1">&#39;parse_item&#39;</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">parse_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Hi, this is an item page! </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Item</span><span class="p">()</span>
+        <span class="n">item</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//td[@id=&quot;item_id&quot;]/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">re</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;ID: (\d+)&#39;</span><span class="p">)</span>
+        <span class="n">item</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//td[@id=&quot;item_name&quot;]/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+        <span class="n">item</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//td[@id=&quot;item_description&quot;]/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">item</span>
+</pre></div>
+</div>
+<p>이 스파이더는 example.com의 홈페이지를 크롤링하기 시작해서, 카테고리 링크와 아이템 링크를
+수집하고 <code class="docutils literal"><span class="pre">parse_item</span></code> 메서드로 아이템링크를 파싱한다. 모든 아이템
+리스펀스에서는 XPath를 사용해 HTML로부터 데이터를 추출하고, <a class="reference internal" href="items_ko.html#scrapy.item.Item" title="scrapy.item.Item"><code class="xref py py-class docutils literal"><span class="pre">Item</span></code></a>을
+데이터로 채운다.</p>
+</div>
+</div>
+<div class="section" id="xmlfeedspider">
+<h3>XMLFeedSpider<a class="headerlink" href="#xmlfeedspider" title="제목 주소">¶</a></h3>
+<dl class="class">
+<dt id="scrapy.spiders.XMLFeedSpider">
+<em class="property">class </em><code class="descclassname">scrapy.spiders.</code><code class="descname">XMLFeedSpider</code><a class="headerlink" href="#scrapy.spiders.XMLFeedSpider" title="정의 주소">¶</a></dt>
+<dd><p>XMLFeedSpider는 특정 노드 이름에 따라 XML 피드를 반복해서 파싱하도록 설계 되었다.
+이터레이터는 다음 중에서 선택될 수 있다: <code class="docutils literal"><span class="pre">iternodes</span></code>, <code class="docutils literal"><span class="pre">xml</span></code>,
+<code class="docutils literal"><span class="pre">html</span></code>. 성능을 위해서 <code class="docutils literal"><span class="pre">iternodes</span></code> 이터레이터를 사용하는 것을 추천한다.
+<code class="docutils literal"><span class="pre">xml</span></code>과 <code class="docutils literal"><span class="pre">html</span></code> 이터레이터는 파싱하기 위해서 전체 DOM을 한꺼번에 생성한다.
+그러나, <code class="docutils literal"><span class="pre">html</span></code> 이터레이터는 마크업이 좋지 못한 상태인 XML을 파싱할 때는 유용하다.</p>
+<p>이터레이터와 태그명을 설텅하기 위해서 반드시 아래의 클래스 속성을
+정의해야 한다:</p>
+<dl class="attribute">
+<dt id="scrapy.spiders.XMLFeedSpider.iterator">
+<code class="descname">iterator</code><a class="headerlink" href="#scrapy.spiders.XMLFeedSpider.iterator" title="정의 주소">¶</a></dt>
+<dd><p>사용할 이터레이터를 정의하는 문자열. 다음 중 하나일 수 있다:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">'iternodes'</span></code> - 정규식에 기반한 빠른 이터레이터</li>
+<li><code class="docutils literal"><span class="pre">'html'</span></code> - <a class="reference internal" href="selectors_ko.html#scrapy.selector.Selector" title="scrapy.selector.Selector"><code class="xref py py-class docutils literal"><span class="pre">Selector</span></code></a>를 사용하는 이터레이터.
+DOM 파싱을 사용하며 무조건 모든 DOM을 메모리에 로드한다는 사실을 명심하라.
+큰 피드의 경우 문제가 될 수 있다.</li>
+<li><code class="docutils literal"><span class="pre">'xml'</span></code> - <a class="reference internal" href="selectors_ko.html#scrapy.selector.Selector" title="scrapy.selector.Selector"><code class="xref py py-class docutils literal"><span class="pre">Selector</span></code></a>를 사용하는 이터레이터.
+DOM 파싱을 사용하며 무조건 모든 DOM을 메모리에 로드한다는 사실을 명심하라.
+큰 피드의 경우 문제가 될 수 있다.</li>
+</ul>
+</div></blockquote>
+<p>기본으로 <code class="docutils literal"><span class="pre">'iternodes'</span></code>가 설정되어 있다.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.spiders.XMLFeedSpider.itertag">
+<code class="descname">itertag</code><a class="headerlink" href="#scrapy.spiders.XMLFeedSpider.itertag" title="정의 주소">¶</a></dt>
+<dd><p>반복할 노드(또는 요소)의 이름 문자열. 예시:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">itertag</span> <span class="o">=</span> <span class="s1">&#39;product&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.spiders.XMLFeedSpider.namespaces">
+<code class="descname">namespaces</code><a class="headerlink" href="#scrapy.spiders.XMLFeedSpider.namespaces" title="정의 주소">¶</a></dt>
+<dd><p>스파이더가 처리할 문서에서 이용가능한 네임스페이스를 정의한 <code class="docutils literal"><span class="pre">(prefix,</span> <span class="pre">uri)</span></code> 튜플 리스트.
+<code class="docutils literal"><span class="pre">prefix</span></code>와 <code class="docutils literal"><span class="pre">uri</span></code>는 <a class="reference internal" href="selectors_ko.html#scrapy.selector.Selector.register_namespace" title="scrapy.selector.Selector.register_namespace"><code class="xref py py-meth docutils literal"><span class="pre">register_namespace()</span></code></a> 메서드를
+이용해서 네임스페이스로 등록될 것이다.</p>
+<p>그 다음 <a class="reference internal" href="#scrapy.spiders.XMLFeedSpider.itertag" title="scrapy.spiders.XMLFeedSpider.itertag"><code class="xref py py-attr docutils literal"><span class="pre">itertag</span></code></a> 속성에 네임스페이스가 있는 노드를 지정할 수 있다.</p>
+<p>예시:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">YourSpider</span><span class="p">(</span><span class="n">XMLFeedSpider</span><span class="p">):</span>
+
+    <span class="n">namespaces</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;http://www.sitemaps.org/schemas/sitemap/0.9&#39;</span><span class="p">)]</span>
+    <span class="n">itertag</span> <span class="o">=</span> <span class="s1">&#39;n:url&#39;</span>
+    <span class="c1"># ...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p>이러한 새로운 속성 이외에도, 이 스파이더는 아래의 오버라이드가능한 메서드들을
+가지고 있다:</p>
+<dl class="method">
+<dt id="scrapy.spiders.XMLFeedSpider.adapt_response">
+<code class="descname">adapt_response</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.spiders.XMLFeedSpider.adapt_response" title="정의 주소">¶</a></dt>
+<dd><p>스파이더가 파싱을 시작하기 전에, 스파이더 미들웨어에서 도착하자마자 리스펀스를 받는 메서드.
+파싱하기 전에 리스펀스 본문을 수정하기 위해 사용될 수 있다.
+이 메서드는 리스펀스르 받고 리스펀스를 반환한다(똑같은 것일 수도 다른 것일 수도 있다).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scrapy.spiders.XMLFeedSpider.parse_node">
+<code class="descname">parse_node</code><span class="sig-paren">(</span><em>response</em>, <em>selector</em><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.spiders.XMLFeedSpider.parse_node" title="정의 주소">¶</a></dt>
+<dd><p>제공된 태그명(<code class="docutils literal"><span class="pre">itertage</span></code>)과 매칭되는 노드에 대해 호출된다.
+리스펀스와 각 노드에 대한 <a class="reference internal" href="selectors_ko.html#scrapy.selector.Selector" title="scrapy.selector.Selector"><code class="xref py py-class docutils literal"><span class="pre">Selector</span></code></a>를 받는다
+이 메서드는 반드시 오버라이딩 해야 한다.
+그렇지 않으면 스파이더가 작동을 하지 않는다.
+이 메서드는 <a class="reference internal" href="items_ko.html#scrapy.item.Item" title="scrapy.item.Item"><code class="xref py py-class docutils literal"><span class="pre">Item</span></code></a> 객체, <a class="reference internal" href="request-response_ko.html#scrapy.http.Request" title="scrapy.http.Request"><code class="xref py py-class docutils literal"><span class="pre">Request</span></code></a> 객체,
+또는 이런 것들을 포함하고 있는 이터러블을 반환해야 한다.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scrapy.spiders.XMLFeedSpider.process_results">
+<code class="descname">process_results</code><span class="sig-paren">(</span><em>response</em>, <em>results</em><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.spiders.XMLFeedSpider.process_results" title="정의 주소">¶</a></dt>
+<dd><p>이 메서드는 스파이더를 통해 반환된 각 결과(아이템 또는 리퀘스트)에 대해
+호출되며, 프레임워크 코어에 결과를 반환하기 전에 필요한 마지막 프로세싱을 수행하기 위한 것이다.
+예를 들면 아이템 ID를 세팅 하는 것이 있다. 결과 리스트와 그 결과를 생성한
+응답을 받는다. 반드시 결과 리스트를 반환해야 한다(아이템 또는 리퀘스트).</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="id3">
+<h4>XMLFeedSpider 예제<a class="headerlink" href="#id3" title="제목 주소">¶</a></h4>
+<p>이 스파이더들은 사용하기 매우 쉽다, 예제를 보도록 하자:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scrapy.spiders</span> <span class="k">import</span> <span class="n">XMLFeedSpider</span>
+<span class="kn">from</span> <span class="nn">myproject.items</span> <span class="k">import</span> <span class="n">TestItem</span>
+
+<span class="k">class</span> <span class="nc">MySpider</span><span class="p">(</span><span class="n">XMLFeedSpider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;example.com&#39;</span>
+    <span class="n">allowed_domains</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;example.com&#39;</span><span class="p">]</span>
+    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;http://www.example.com/feed.xml&#39;</span><span class="p">]</span>
+    <span class="n">iterator</span> <span class="o">=</span> <span class="s1">&#39;iternodes&#39;</span>  <span class="c1"># This is actually unnecessary, since it&#39;s the default value</span>
+    <span class="n">itertag</span> <span class="o">=</span> <span class="s1">&#39;item&#39;</span>
+
+    <span class="k">def</span> <span class="nf">parse_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Hi, this is a &lt;</span><span class="si">%s</span><span class="s1">&gt; node!: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">itertag</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">extract</span><span class="p">()))</span>
+
+        <span class="n">item</span> <span class="o">=</span> <span class="n">TestItem</span><span class="p">()</span>
+        <span class="n">item</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;@id&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+        <span class="n">item</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+        <span class="n">item</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">item</span>
+</pre></div>
+</div>
+<p>기본적으로 위에서 한 일은 주어진 <code class="docutils literal"><span class="pre">start_urls</span></code>에서 피드를 다운로드하고 각각의
+<code class="docutils literal"><span class="pre">item</span></code> 태그를 반복시켜 출력하고, 임의의 데이터를 <a class="reference internal" href="items_ko.html#scrapy.item.Item" title="scrapy.item.Item"><code class="xref py py-class docutils literal"><span class="pre">Item</span></code></a>에
+저장하는 스파이를 생성한 것이다.</p>
+</div>
+</div>
+<div class="section" id="csvfeedspider">
+<h3>CSVFeedSpider<a class="headerlink" href="#csvfeedspider" title="제목 주소">¶</a></h3>
+<dl class="class">
+<dt id="scrapy.spiders.CSVFeedSpider">
+<em class="property">class </em><code class="descclassname">scrapy.spiders.</code><code class="descname">CSVFeedSpider</code><a class="headerlink" href="#scrapy.spiders.CSVFeedSpider" title="정의 주소">¶</a></dt>
+<dd><p>이 스파이더는 노드 대신 행에 대해 반복된다는 점만 제외하면 XMLFeedSpider과 매우 유사하다.
+반복할 때 호출되는 메서드는 <a class="reference internal" href="#scrapy.spiders.CSVFeedSpider.parse_row" title="scrapy.spiders.CSVFeedSpider.parse_row"><code class="xref py py-meth docutils literal"><span class="pre">parse_row()</span></code></a>다.</p>
+<dl class="attribute">
+<dt id="scrapy.spiders.CSVFeedSpider.delimiter">
+<code class="descname">delimiter</code><a class="headerlink" href="#scrapy.spiders.CSVFeedSpider.delimiter" title="정의 주소">¶</a></dt>
+<dd><p>CSV 파일의 각 필드의 구분 문자인 문자열.
+기본은 <code class="docutils literal"><span class="pre">`','</span></code> (콤마)로 설정되어 있다.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.spiders.CSVFeedSpider.quotechar">
+<code class="descname">quotechar</code><a class="headerlink" href="#scrapy.spiders.CSVFeedSpider.quotechar" title="정의 주소">¶</a></dt>
+<dd><p>CSV 파일의 각 필드의 둘러싸는 문자인 문자열.
+기본은 <code class="docutils literal"><span class="pre">'&quot;'</span></code> (쌍따옴표)로 설정되어 있다.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.spiders.CSVFeedSpider.headers">
+<code class="descname">headers</code><a class="headerlink" href="#scrapy.spiders.CSVFeedSpider.headers" title="정의 주소">¶</a></dt>
+<dd><p>CSV 파일의 컬럼명 리스트.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scrapy.spiders.CSVFeedSpider.parse_row">
+<code class="descname">parse_row</code><span class="sig-paren">(</span><em>response</em>, <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.spiders.CSVFeedSpider.parse_row" title="정의 주소">¶</a></dt>
+<dd><p>리스펀스와 CSV 파일의 제공된 헤더에 대한 키를 포함하는 딕셔너리(각 행을 나타낸다)를 받는다.
+이 스파이더 또한 전처리나 후처리를 위해 <code class="docutils literal"><span class="pre">adapt_response</span></code>, <code class="docutils literal"><span class="pre">process_results</span></code>
+메서드를 오버라이드를 할 수 있는 기회를 제공한다.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="id4">
+<h4>CSVFeedSpider 예제<a class="headerlink" href="#id4" title="제목 주소">¶</a></h4>
+<p>이전 것과 비슷하지만 <a class="reference internal" href="#scrapy.spiders.CSVFeedSpider" title="scrapy.spiders.CSVFeedSpider"><code class="xref py py-class docutils literal"><span class="pre">CSVFeedSpider</span></code></a>를 사용한 예제를
+보도록 하자:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scrapy.spiders</span> <span class="k">import</span> <span class="n">CSVFeedSpider</span>
+<span class="kn">from</span> <span class="nn">myproject.items</span> <span class="k">import</span> <span class="n">TestItem</span>
+
+<span class="k">class</span> <span class="nc">MySpider</span><span class="p">(</span><span class="n">CSVFeedSpider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;example.com&#39;</span>
+    <span class="n">allowed_domains</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;example.com&#39;</span><span class="p">]</span>
+    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;http://www.example.com/feed.csv&#39;</span><span class="p">]</span>
+    <span class="n">delimiter</span> <span class="o">=</span> <span class="s1">&#39;;&#39;</span>
+    <span class="n">quotechar</span> <span class="o">=</span> <span class="s2">&quot;&#39;&quot;</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">parse_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Hi, this is a row!: </span><span class="si">%r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span>
+
+        <span class="n">item</span> <span class="o">=</span> <span class="n">TestItem</span><span class="p">()</span>
+        <span class="n">item</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+        <span class="n">item</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+        <span class="n">item</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">item</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="sitemapspider">
+<h3>SitemapSpider<a class="headerlink" href="#sitemapspider" title="제목 주소">¶</a></h3>
+<dl class="class">
+<dt id="scrapy.spiders.SitemapSpider">
+<em class="property">class </em><code class="descclassname">scrapy.spiders.</code><code class="descname">SitemapSpider</code><a class="headerlink" href="#scrapy.spiders.SitemapSpider" title="정의 주소">¶</a></dt>
+<dd><p>SitemapSpider는 <a class="reference external" href="https://www.sitemaps.org/index.html">Sitemaps</a>을 사용해서 URL을 찾아 사이트를 크롤링 해준다.</p>
+<p>내포된 사이트맵을 지원하고 <a class="reference external" href="http://www.robotstxt.org/">robots.txt</a>에서 사이트맵 url 검색을 지원한다.</p>
+<dl class="attribute">
+<dt id="scrapy.spiders.SitemapSpider.sitemap_urls">
+<code class="descname">sitemap_urls</code><a class="headerlink" href="#scrapy.spiders.SitemapSpider.sitemap_urls" title="정의 주소">¶</a></dt>
+<dd><p>크롤링하고 싶은 url이 있는 사이트맵을 가리키는 url 리스트.</p>
+<p><a class="reference external" href="http://www.robotstxt.org/">robots.txt</a>를 가리킬 수도 있으며 사이트맵 url을 추출하기 위해 파싱될 것이다.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.spiders.SitemapSpider.sitemap_rules">
+<code class="descname">sitemap_rules</code><a class="headerlink" href="#scrapy.spiders.SitemapSpider.sitemap_rules" title="정의 주소">¶</a></dt>
+<dd><p>튜플 <code class="docutils literal"><span class="pre">(regex,</span> <span class="pre">callback)</span></code>의 리스트:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">regex</span></code>는 정규 표현식으로 사이트맵에서 추출된 url과 매치된다.
+<code class="docutils literal"><span class="pre">regex</span></code>는 문자열이나 컴파일된 정규식 객체를 쓸 수 있다.</li>
+<li>callback은 정규표현식에 일치하는 url 처리를 위해 사용하는 콜백이다.
+<code class="docutils literal"><span class="pre">callback</span></code>은 (스파이더 메서드의 이름을 가리키는) 문자열이나 callable이
+될 수 있다.</li>
+</ul>
+<p>예시:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sitemap_rules</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;/product/&#39;</span><span class="p">,</span> <span class="s1">&#39;parse_product&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>Rule은 순서에 따라 적용되며, 매치되는 가장 첫 번째 것만 사용된다.</p>
+<p>만약 이 속성을 생략하면, 사이트맵에서 찾아진 모든 url이 <code class="docutils literal"><span class="pre">parse</span></code> 콜백으로 처리될 것이다.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.spiders.SitemapSpider.sitemap_follow">
+<code class="descname">sitemap_follow</code><a class="headerlink" href="#scrapy.spiders.SitemapSpider.sitemap_follow" title="정의 주소">¶</a></dt>
+<dd><p>따라가야 될 사이트맵의 정규식 리스트. 다른 사이트맵을 가리키는 <a class="reference external" href="https://www.sitemaps.org/protocol.html#index">Sitemap index files</a>를 사용하는
+사이트에만 해당한다.</p>
+<p>기본으로, 모든 사이트맵을 따라가도록 되어있다.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scrapy.spiders.SitemapSpider.sitemap_alternate_links">
+<code class="descname">sitemap_alternate_links</code><a class="headerlink" href="#scrapy.spiders.SitemapSpider.sitemap_alternate_links" title="정의 주소">¶</a></dt>
+<dd><p>한 <code class="docutils literal"><span class="pre">url</span></code>에 대한 대체 링크를 따라가야하는지를 지정한다.
+대체 링크는 동일한 <code class="docutils literal"><span class="pre">url</span></code> 블럭에 전달된 다른 언어로된 웹사이트를 위한 링크다.</p>
+<p>예시:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">url</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">loc</span><span class="o">&gt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">example</span><span class="o">.</span><span class="n">com</span><span class="o">/&lt;/</span><span class="n">loc</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">xhtml</span><span class="p">:</span><span class="n">link</span> <span class="n">rel</span><span class="o">=</span><span class="s2">&quot;alternate&quot;</span> <span class="n">hreflang</span><span class="o">=</span><span class="s2">&quot;de&quot;</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;http://example.com/de&quot;</span><span class="o">/&gt;</span>
+<span class="o">&lt;/</span><span class="n">url</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">sitemap_alternate_links</span></code>이 설정되어 있으면, 두 URL은 모두 획득된다. With
+<code class="docutils literal"><span class="pre">sitemap_alternate_links</span></code>이 작동하지 않도록 설덩되어 있으면, <code class="docutils literal"><span class="pre">http://example.com/</span></code>만이
+획득된다.</p>
+<p>기본은 <code class="docutils literal"><span class="pre">sitemap_alternate_links</span></code>가 작동하지 않도록 되어 있다.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="id5">
+<h4>SitemapSpider 예제<a class="headerlink" href="#id5" title="제목 주소">¶</a></h4>
+<p>가장 간단한 예제: <code class="docutils literal"><span class="pre">parse</span></code> 콜백을 사용해 사이트맵에서 탐색된 모든 url을 처리한다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scrapy.spiders</span> <span class="k">import</span> <span class="n">SitemapSpider</span>
+
+<span class="k">class</span> <span class="nc">MySpider</span><span class="p">(</span><span class="n">SitemapSpider</span><span class="p">):</span>
+    <span class="n">sitemap_urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;http://www.example.com/sitemap.xml&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">pass</span> <span class="c1"># ... scrape item here ...</span>
+</pre></div>
+</div>
+<p>몇몇 url은 특정콜백으로, 다른 url은 다른 콜백으로 처리한다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scrapy.spiders</span> <span class="k">import</span> <span class="n">SitemapSpider</span>
+
+<span class="k">class</span> <span class="nc">MySpider</span><span class="p">(</span><span class="n">SitemapSpider</span><span class="p">):</span>
+    <span class="n">sitemap_urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;http://www.example.com/sitemap.xml&#39;</span><span class="p">]</span>
+    <span class="n">sitemap_rules</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;/product/&#39;</span><span class="p">,</span> <span class="s1">&#39;parse_product&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;/category/&#39;</span><span class="p">,</span> <span class="s1">&#39;parse_category&#39;</span><span class="p">),</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">parse_product</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">pass</span> <span class="c1"># ... scrape product ...</span>
+
+    <span class="k">def</span> <span class="nf">parse_category</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">pass</span> <span class="c1"># ... scrape category ...</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="http://www.robotstxt.org/">robots.txt</a> 파일에 정의된 사이트맵을 따라가고 <code class="docutils literal"><span class="pre">/sitemap_shop</span></code>를 포함한 사이트맵만
+따라간다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scrapy.spiders</span> <span class="k">import</span> <span class="n">SitemapSpider</span>
+
+<span class="k">class</span> <span class="nc">MySpider</span><span class="p">(</span><span class="n">SitemapSpider</span><span class="p">):</span>
+    <span class="n">sitemap_urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;http://www.example.com/robots.txt&#39;</span><span class="p">]</span>
+    <span class="n">sitemap_rules</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;/shop/&#39;</span><span class="p">,</span> <span class="s1">&#39;parse_shop&#39;</span><span class="p">),</span>
+    <span class="p">]</span>
+    <span class="n">sitemap_follow</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;/sitemap_shops&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">parse_shop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">pass</span> <span class="c1"># ... scrape shop here ...</span>
+</pre></div>
+</div>
+<p>SitemapSpider를 다른 url 소스와 결합한다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scrapy.spiders</span> <span class="k">import</span> <span class="n">SitemapSpider</span>
+
+<span class="k">class</span> <span class="nc">MySpider</span><span class="p">(</span><span class="n">SitemapSpider</span><span class="p">):</span>
+    <span class="n">sitemap_urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;http://www.example.com/robots.txt&#39;</span><span class="p">]</span>
+    <span class="n">sitemap_rules</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;/shop/&#39;</span><span class="p">,</span> <span class="s1">&#39;parse_shop&#39;</span><span class="p">),</span>
+    <span class="p">]</span>
+
+    <span class="n">other_urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;http://www.example.com/about&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">start_requests</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">requests</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">MySpider</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">start_requests</span><span class="p">())</span>
+        <span class="n">requests</span> <span class="o">+=</span> <span class="p">[</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_other</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">other_urls</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">requests</span>
+
+    <span class="k">def</span> <span class="nf">parse_shop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">pass</span> <span class="c1"># ... scrape shop here ...</span>
+
+    <span class="k">def</span> <span class="nf">parse_other</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">pass</span> <span class="c1"># ... scrape other here ...</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="selectors.html" class="btn btn-neutral float-right" title="Selectors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="commands_ko.html" class="btn btn-neutral" title="커맨드 라인 툴" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2008-2016, Scrapy developers.
+      최종 업데이트: 2월 26, 2018
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.5.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

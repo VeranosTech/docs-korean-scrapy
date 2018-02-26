@@ -1,0 +1,446 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>스크래피(Scrapy) 한눈에 보기 &mdash; Scrapy 1.5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="색인"
+              href="../genindex.html"/>
+        <link rel="search" title="검색" href="../search.html"/>
+    <link rel="top" title="Scrapy 1.5.0 documentation" href="../index.html"/>
+        <link rel="next" title="설치 가이드" href="install_ko.html"/>
+        <link rel="prev" title="스크래피 1.5 문서" href="../index_ko.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index_ko.html" class="icon icon-home"> Scrapy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">처음 시작하기</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">스크래피(Scrapy) 한눈에 보기</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">예제 스파이더 살펴보기</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">어떤 일이 일어났나?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#topics-whatelse">그 밖의 사항</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">다음 단계</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="install_ko.html">설치 가이드</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_ko.html">스크래피 튜토리얼</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples_ko.html">예제</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기본 개념</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../topics/commands_ko.html">커맨드 라인 툴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/spiders_ko.html">스파이더(Spider)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/selectors.html">Selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/items.html">Items</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/loaders.html">Item Loaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/shell.html">Scrapy shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/item-pipeline.html">Item Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/feed-exports.html">Feed exports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/request-response.html">Requests and Responses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/link-extractors.html">Link Extractors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/exceptions.html">Exceptions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Built-in services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../topics/logging_ko.html">로깅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/stats_ko.html">통계 수집</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/email.html">Sending e-mail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/telnetconsole.html">Telnet Console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/webservice.html">Web Service</a></li>
+</ul>
+<p class="caption"><span class="caption-text">특정 문제 해결하기</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/debug.html">Debugging Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/contracts.html">Spiders Contracts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/practices.html">Common Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/broad-crawls.html">Broad Crawls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/firefox.html">Using Firefox for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/firebug.html">Using Firebug for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/leaks.html">Debugging memory leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/media-pipeline.html">Downloading and processing files and images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/deploy.html">Deploying Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/autothrottle.html">AutoThrottle extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/benchmarking.html">Benchmarking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/jobs.html">Jobs: pausing and resuming crawls</a></li>
+</ul>
+<p class="caption"><span class="caption-text">스크래피 확장</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../topics/architecture.html">Architecture overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/downloader-middleware.html">Downloader Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/spider-middleware.html">Spider Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/extensions.html">Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/api_ko.html">코어 API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/signals.html">Signals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/exporters.html">Item Exporters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기타</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to Scrapy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versioning.html">Versioning and API Stability</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index_ko.html">Scrapy</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index_ko.html">Docs</a> &raquo;</li>
+        
+      <li>스크래피(Scrapy) 한눈에 보기</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/VeranosTech/docs-korean-scrapy/blob/docs-korean/docs/intro/overview_ko.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="scrapy">
+<span id="intro-overview"></span><h1>스크래피(Scrapy) 한눈에 보기<a class="headerlink" href="#scrapy" title="제목 주소">¶</a></h1>
+<p>스크래피는 웹사이트를 크롤링하고 구조화된 데이터를 추출하는 어플리케이션 프레임워크로
+데이터 마이닝, 정보 처리 또는 기록 아카이브 같은 응용 분야에 널리 유용하게 쓰인다.</p>
+<p>비록 스크래피가 <a class="reference external" href="https://en.wikipedia.org/wiki/Web_scraping">웹 스크래핑</a>용으로 설계되었지만,
+(<a class="reference external" href="https://affiliate-program.amazon.com/gp/advertising/api/detail/main.html">Amazon Associates Web Services</a> 같은) API를 사용해서 데이터를 추출하거나
+범용 웹크롤러로도 사용할 수 있다.</p>
+<div class="section" id="id1">
+<h2>예제 스파이더 살펴보기<a class="headerlink" href="#id1" title="제목 주소">¶</a></h2>
+<p>스크래피가 무엇을 제공하는지 보여주기 위해,
+가장 간단한 형태로 스크래피 스파이더 예제를 살펴볼 것이다.</p>
+<p>아래는 <a class="reference external" href="http://quotes.toscrape.com">http://quotes.toscrape.com</a> 웹사이트에서
+페이지를 따라가면서 유명한 인용구를 스크랩하는 스파이더 코드다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+
+
+<span class="k">class</span> <span class="nc">QuotesSpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;quotes&quot;</span>
+    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;http://quotes.toscrape.com/tag/humor/&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">quote</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;div.quote&#39;</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="p">{</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;span.text::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">(),</span>
+                <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="n">quote</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;span/small/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">(),</span>
+            <span class="p">}</span>
+
+        <span class="n">next_page</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;li.next a::attr(&quot;href&quot;)&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract_first</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">next_page</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">response</span><span class="o">.</span><span class="n">follow</span><span class="p">(</span><span class="n">next_page</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>위 코드를  <code class="docutils literal"><span class="pre">quotes_spider.py</span></code>와 같은 이름으로 텍스트 파일로 저장한 후
+<a class="reference internal" href="../topics/commands_ko.html#std:command-runspider"><code class="xref std std-command docutils literal"><span class="pre">runspider</span></code></a> 커맨드를 사용해서 스파이더를 실행한다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">scrapy</span> <span class="n">runspider</span> <span class="n">quotes_spider</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">o</span> <span class="n">quotes</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<p>작업이 끝나면 <code class="docutils literal"><span class="pre">quotes.json</span></code> 파일에 텍스트와 저자를 포함하는 JSON 포맷 인용구 리스트가
+생길 것이다. 파일 내용은 다음처럼 보일 것이다.(여기서는 가독성을 위해서 재포맷팅을 했다):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[{</span>
+    <span class="s2">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;Jane Austen&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\u201c</span><span class="s2">The person, be it gentleman or lady, who has not pleasure in a good novel, must be intolerably stupid.</span><span class="se">\u201d</span><span class="s2">&quot;</span>
+<span class="p">},</span>
+<span class="p">{</span>
+    <span class="s2">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;Groucho Marx&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\u201c</span><span class="s2">Outside of a dog, a book is man&#39;s best friend. Inside of a dog it&#39;s too dark to read.</span><span class="se">\u201d</span><span class="s2">&quot;</span>
+<span class="p">},</span>
+<span class="p">{</span>
+    <span class="s2">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;Steve Martin&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\u201c</span><span class="s2">A day without sunshine is like, you know, night.</span><span class="se">\u201d</span><span class="s2">&quot;</span>
+<span class="p">},</span>
+<span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h3>어떤 일이 일어났나?<a class="headerlink" href="#id2" title="제목 주소">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">scrapy</span> <span class="pre">runspider</span> <span class="pre">quotes_spider.py</span></code> 커맨드를 실행하면,
+스크래피는 그 안에서 스파이더 정의(Spier definition)를 찾고 크롤러 엔진을 통해
+스파이더(spider)를 실행한다.</p>
+<p>크롤링은 <code class="docutils literal"><span class="pre">start_urls</span></code> 속성에서 정의된 (예제의 경우, <em>humor</em> 카테고리에 있는 인용구를 위한
+URL) URL에 대한 리퀘스트를 생성한 후 기본 콜백 메서드인 <code class="docutils literal"><span class="pre">parse</span></code> 를 호출하고,
+리스펀스 객체를 인자로 전달한다. <code class="docutils literal"><span class="pre">parse</span></code> 콜백에서, CSS 셀렉터를 사용해
+인용구 요소에 대해 루프를 돌리고 추출된 인용구와 텍스트, 저자를 포함한 파이썬 dict를
+생산한 다음, 다음 페이지로 향하는 링크를 찾고 같은 <code class="docutils literal"><span class="pre">parse</span></code> 메서드를 콜백으로
+사용해 다음 리퀘스트를 예약한다.</p>
+<p>여기에서 스크래피의 주요한 장점 중 하나를 알 수 있는데
+리퀘스트의 <a class="reference internal" href="../topics/architecture.html#topics-architecture"><span class="std std-ref">비동기적 처리</span></a>가 가능하다는 점이다.
+스크래피는 리퀘스트가 종료되고 처리되는 것을 기다릴 필요가 없이
+동시에 다른 리퀘스트를 보내거나 다른 작업을 할 수 있다.
+즉, 일부 리퀘스트가 처리될 때 실패하거나 에러가 발생하는 경우에도
+다른 리퀘스트는 계속 진행이 된다.</p>
+<p>스크래피는 장애 허용(fault-tolerant) 방식으로 한 번에 다수의 동시적인 리퀘스트를 보내서
+빠르게 크롤링을 한다.
+동시에 스크래피는 <a class="reference internal" href="../topics/settings.html#topics-settings-ref"><span class="std std-ref">몇 가지 세팅</span></a>을 통해
+크롤링의 politeness에 대한 통제권을 제공한다.
+각 리퀘스트 사이의 다운로드 딜레이를 조정하고,
+각 도메인이나 IP에 대한 동시적인 리퀘스트의 수를 제한하고,
+심지어 자동적으로 이런 것들을 산출하는 <a class="reference internal" href="../topics/autothrottle.html#topics-autothrottle"><span class="std std-ref">자동 쓰로틀링(auto-throttling) 확장</span></a>을
+사용할 수도 있다.</p>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">이 예제는 JSON 파일을 생성하기 위해 <a class="reference internal" href="../topics/feed-exports.html#topics-feed-exports"><span class="std std-ref">피드 익스포트(feed exports)</span></a>를
+사용했다. 포맷(XML, CSV 등)이나 스토리지 백엔드(FTP, <a class="reference external" href="https://aws.amazon.com/s3/">Amazon S3</a> 등)는 쉽게 바꿀 수 있다.
+또한 <a class="reference internal" href="../topics/item-pipeline_ko.html#topics-item-pipeline"><span class="std std-ref">아이템 파이프라인</span></a>을 만들어서
+아이템을 데이터베이스에 저장할 수도 있다.</p>
+</div>
+</div>
+</div>
+<div class="section" id="topics-whatelse">
+<span id="id3"></span><h2>그 밖의 사항<a class="headerlink" href="#topics-whatelse" title="제목 주소">¶</a></h2>
+<p>스크래피를 사용해서 웹사이트로부터 아이템을 추출하고 저장하는 법을 배웠지만,
+이것은 시작에 불과하다. 스크래피는 스크랩핑을 쉽고 효율적으로 만드는
+강력한 많은 기능들을 제공한다:</p>
+<ul class="simple">
+<li>정규식을 사용한 추출을 가능하게 하는 헬퍼 메서드를 포함해,
+확장 CSS Selector와 XPath 표현식을 사용해서 HTML/XML 자료로부터
+데이터를 <a class="reference internal" href="../topics/selectors_ko.html#topics-selectors"><span class="std std-ref">선택하고 추출하는</span></a> 작업 기능을 내장.</li>
+<li>CSS와 XPath 표현식으로 데이터를 스크랩하는 것을 시험해볼 수 있고, 스파이더를
+디버깅할 때 매우 유용한 <a class="reference internal" href="../topics/shell.html#topics-shell"><span class="std std-ref">대화형 쉘 콘솔</span></a> (IPython 인식).</li>
+<li>다양한 포맷(JSON, CSV, XML)의 <a class="reference internal" href="../topics/feed-exports.html#topics-feed-exports"><span class="std std-ref">피드 익스포트 생성</span></a>과
+다양한 백엔드로의 저장(FTP, S3, 로컬 파일 시스템) 기능을 내장.</li>
+<li>외국어, 비표준, 망가진 인코딩 선언 처리를 위한 강력한 인코딩 지원과 자동 감지.</li>
+<li><a class="reference internal" href="../topics/signals.html#topics-signals"><span class="std std-ref">시그널</span></a>을 사용한 사용자 지정 플러그인을 허용하는
+<a class="reference internal" href="../index.html#extending-scrapy"><span class="std std-ref">강력한 확장 지원</span></a>, 명확히 정의된 API
+(미들웨어, <a class="reference internal" href="../topics/extensions.html#topics-extensions"><span class="std std-ref">확장</span></a>,
+<a class="reference internal" href="../topics/item-pipeline_ko.html#topics-item-pipeline"><span class="std std-ref">파이프라인</span></a>).</li>
+<li>광범위한 미들웨어 및 내장 기능 확장:<ul>
+<li>쿠키 및 세선 조작</li>
+<li>압축, 인증, 캐싱 등의 HTTP 기능</li>
+<li>사용자-에이전트 스푸핑</li>
+<li>robots.txt</li>
+<li>크롤링 깊이 제한</li>
+<li>기타</li>
+</ul>
+</li>
+<li>크롤러를 검사하고 디버깅하기 위해, 스크래피 프로세스 내에서 실행되고 있는 파이썬 콘솔에 연결하는
+<a class="reference internal" href="../topics/telnetconsole.html#topics-telnetconsole"><span class="std std-ref">텔넷 콘솔</span></a></li>
+<li><a class="reference external" href="https://www.sitemaps.org/index.html">Sitemaps</a>과 XML/CSV 피드가 있는 사이트를 크롤링하는 재사용 가능한 스파이더와,
+스크랩된 아이템과 연결된 <a class="reference internal" href="../topics/media-pipeline.html#topics-media-pipeline"><span class="std std-ref">자동 이미지(또는 다른 미디어) 다운로드</span></a>용
+미디어 파이프라인, 캐싱 DNS resolver, 등</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>다음 단계<a class="headerlink" href="#id4" title="제목 주소">¶</a></h2>
+<p>다음 단계로는 <a class="reference internal" href="install_ko.html#intro-install"><span class="std std-ref">스크래피를 설치하는</span></a> 것을 설명한다.
+이어서 <a class="reference internal" href="tutorial_ko.html#intro-tutorial"><span class="std std-ref">튜토리얼</span></a>을 따라하며 완전한 스크래피 프로젝트를
+만드는 방법을 배우고 <a class="reference external" href="https://scrapy.org/community/">커뮤니티에 참여하기</a> 바란다.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="install_ko.html" class="btn btn-neutral float-right" title="설치 가이드" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index_ko.html" class="btn btn-neutral" title="스크래피 1.5 문서" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2008-2016, Scrapy developers.
+      최종 업데이트: 2월 26, 2018
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.5.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

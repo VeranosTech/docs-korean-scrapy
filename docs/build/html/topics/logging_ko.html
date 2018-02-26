@@ -1,0 +1,585 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>로깅 &mdash; Scrapy 1.5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="색인"
+              href="../genindex.html"/>
+        <link rel="search" title="검색" href="../search.html"/>
+    <link rel="top" title="Scrapy 1.5.0 documentation" href="../index.html"/>
+        <link rel="next" title="통계 수집" href="stats_ko.html"/>
+        <link rel="prev" title="Exceptions" href="exceptions.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index_ko.html" class="icon icon-home"> Scrapy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">처음 시작하기</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/overview_ko.html">스크래피(Scrapy) 한눈에 보기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/install_ko.html">설치 가이드</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/tutorial_ko.html">스크래피 튜토리얼</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/examples_ko.html">예제</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기본 개념</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="commands_ko.html">커맨드 라인 툴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spiders_ko.html">스파이더(Spider)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html">Selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="items.html">Items</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loaders.html">Item Loaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shell.html">Scrapy shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="item-pipeline.html">Item Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="feed-exports.html">Feed exports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-response.html">Requests and Responses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="link-extractors.html">Link Extractors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Built-in services</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">로깅</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#topics-logging-levels">로그 레벨</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">메세지 로깅하는 법</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#topics-logging-from-spiders">스파이더에서 로그 남기기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#topics-logging-configuration">로그 설정</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#topics-logging-settings">로그 세팅</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">명령줄 옵션</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">고급 커스터마이징</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scrapy.utils.log">scrapy.utils.log 모듈</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stats_ko.html">통계 수집</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.html">Sending e-mail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telnetconsole.html">Telnet Console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webservice.html">Web Service</a></li>
+</ul>
+<p class="caption"><span class="caption-text">특정 문제 해결하기</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contracts.html">Spiders Contracts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practices.html">Common Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="broad-crawls.html">Broad Crawls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firefox.html">Using Firefox for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firebug.html">Using Firebug for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="leaks.html">Debugging memory leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="media-pipeline.html">Downloading and processing files and images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">Deploying Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autothrottle.html">AutoThrottle extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarking.html">Benchmarking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Jobs: pausing and resuming crawls</a></li>
+</ul>
+<p class="caption"><span class="caption-text">스크래피 확장</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloader-middleware.html">Downloader Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spider-middleware.html">Spider Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extensions.html">Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_ko.html">코어 API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signals.html">Signals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exporters.html">Item Exporters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기타</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to Scrapy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versioning.html">Versioning and API Stability</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index_ko.html">Scrapy</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index_ko.html">Docs</a> &raquo;</li>
+        
+      <li>로깅</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/VeranosTech/docs-korean-scrapy/blob/docs-korean/docs/topics/logging_ko.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="topics-logging">
+<span id="id1"></span><h1>로깅<a class="headerlink" href="#topics-logging" title="제목 주소">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">파이썬 표준 로깅을 사용하면서
+<code class="xref py py-mod docutils literal"><span class="pre">scrapy.log</span></code> 모듈을 더이상 사용하지 않는다.</p>
+</div>
+<p>스크래피는 이벤트 로깅을 위해 파이썬의 내장 로깅 시스템
+&lt;<a class="reference external" href="https://veranostech.github.io/docs-korean-cpython/Doc/build/html/library/logging_ko.html">https://veranostech.github.io/docs-korean-cpython/Doc/build/html/library/logging_ko.html</a>&gt;`_을 사용한다.</p>
+<p>여기에서도 몇가지 간단한 예를 제공하긴 하지만 더 복잡한 경우는 파이썬 로그 공식 문서를
+참조하기 바란다.</p>
+<p>로그 기능은 쉽게 사용할 수 있고 <a class="reference internal" href="#topics-logging-settings"><span class="std std-ref">로그 세팅</span></a> 스크래피 설정으로
+어느 정도는 설정할 수도 있다.</p>
+<p>스크래피는 <a class="reference internal" href="#scrapy.utils.log.configure_logging" title="scrapy.utils.log.configure_logging"><code class="xref py py-func docutils literal"><span class="pre">scrapy.utils.log.configure_logging()</span></code></a> 함수를 호출해서
+디폴트 설정을 하고 명령을 실행할 때는 <a class="reference internal" href="#topics-logging-settings"><span class="std std-ref">로그 세팅</span></a> 설정을 사용한다.
+만약 <a class="reference internal" href="practices.html#run-from-script"><span class="std std-ref">Run Scrapy from a script</span></a>에서처럼 스크립트에서 스크래피를 사용할 때는 이 함수를 수동으로
+호출해서 사용하기를 권장한다.</p>
+<div class="section" id="topics-logging-levels">
+<span id="id2"></span><h2>로그 레벨<a class="headerlink" href="#topics-logging-levels" title="제목 주소">¶</a></h2>
+<p>파이썬의 내장 로그 시스템에서는 로그 메세지의 중요도에 대해 5가지의 다른 레벨을 정의한다.
+표준적인 레벨 시스템은 다음과 같다. 가장 중요한 것부터 나열하였다.:</p>
+<ol class="arabic simple">
+<li><code class="docutils literal"><span class="pre">logging.CRITICAL</span></code> - for 치명적 오류 (가장 높은 중요도)</li>
+<li><code class="docutils literal"><span class="pre">logging.ERROR</span></code> - for 일반적 오류</li>
+<li><code class="docutils literal"><span class="pre">logging.WARNING</span></code> - for 워닝 메세지</li>
+<li><code class="docutils literal"><span class="pre">logging.INFO</span></code> - for 일반적 정보</li>
+<li><code class="docutils literal"><span class="pre">logging.DEBUG</span></code> - for 디버깅 메세지 (가장 낮은 중요도)</li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h2>메세지 로깅하는 법<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
+<p>다음은 <code class="docutils literal"><span class="pre">logging.WARNING</span></code> 레벨에서 메세지를 로깅하는 간단한 예이다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;This is a warning&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>표준 5 레벨에 대해서는 각 레벨의 로그 메세지를 남기는 단축 명령어가 있다.
+일반적인 <code class="docutils literal"><span class="pre">logging.log</span></code> 메서드는 레벨을 인수로 준다.
+필요한 경우에는 위 예제를 다음처럼 쓸 수 있다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;This is a warning&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>이외에도 여러가지 다른 종류의 로거를 만들 수도 있다.
+(모든 모듈에 대해 여러가지 다른 로거를 생성하는 것이 일반적이다.)
+이 로거들은 각각 독립적으로 설정할 수 있고 계층구조를 가지게 할 수도 있다.</p>
+<p>앞의 예에서는 모든 메세지를 전달하는 가장 상위의 루트 로거를 사용한다.
+<code class="docutils literal"><span class="pre">logging</span></code> 헬퍼는 루트 로거를 얻기 위한 단축 명령이다.
+따라서 위 코드는 다음 코드와 같다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;This is a warning&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">logging.getLogger</span></code> 함수를 쓰면 이름을 지정해서
+여러가지 다른 로거를 사용할 수 있다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;mycustomlogger&#39;</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;This is a warning&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>마지막으로 현재 모듈의 패스를 지정하는 <code class="docutils literal"><span class="pre">__name__</span></code> 변수를 사용하면
+모든 모듈에 대해 서로 다른 모듈을 쓸 수 있다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;This is a warning&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">더 보기</p>
+<dl class="last docutils">
+<dt>Module logging, <a class="reference external" href="https://veranostech.github.io/docs-korean-cpython/Doc/build/html/howto/logging_ko.html">HowTo</a></dt>
+<dd>기초적인 로깅 튜토리얼</dd>
+<dt>Module logging, <a class="reference external" href="https://veranostech.github.io/docs-korean-cpython/Doc/build/html/library/logging_ko.html#logger">Loggers</a></dt>
+<dd>로거에 대한 공식 문서</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="topics-logging-from-spiders">
+<span id="id4"></span><h2>스파이더에서 로그 남기기<a class="headerlink" href="#topics-logging-from-spiders" title="제목 주소">¶</a></h2>
+<p>스크래피는 각 스파이더에 대해 <a class="reference internal" href="spiders_ko.html#scrapy.spiders.Spider.logger" title="scrapy.spiders.Spider.logger"><code class="xref py py-data docutils literal"><span class="pre">logger</span></code></a> 인스턴스를 제공한다.
+다음처럼 사용할 수 있다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+
+<span class="k">class</span> <span class="nc">MySpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;myspider&#39;</span>
+    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;https://scrapinghub.com&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Parse function called on </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>이 로거는 스파이더 이름으로 생성된다. 하지만 원하는 종류의 파이썬 로거를
+사용하도록 커스터마이징할 수 있다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">scrapy</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;mycustomlogger&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">MySpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;myspider&#39;</span>
+    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;https://scrapinghub.com&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Parse function called on </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="topics-logging-configuration">
+<span id="id5"></span><h2>로그 설정<a class="headerlink" href="#topics-logging-configuration" title="제목 주소">¶</a></h2>
+<p>로거 자체는 메세지가 처리되고 표시되는 것을 관리하지 못한다.
+이 기능은 여러가지 다른 &quot;핸들러(handlers)&quot;가 처리한다.
+핸들러는 로거 인스턴스에 붙어서 메세지를 표준 출력이나 파일, 이메일 등의
+특정 목적지로 보낸다.</p>
+<p>디폴트로 스크래피는 다음 설정방법을 사용하여 루트 로거 핸들러를 설정할 수 있다.</p>
+<div class="section" id="topics-logging-settings">
+<span id="id6"></span><h3>로그 세팅<a class="headerlink" href="#topics-logging-settings" title="제목 주소">¶</a></h3>
+<p>로그 세팅에는 다음 설정값을 사용한다.:</p>
+<ul class="simple">
+<li><a class="reference internal" href="settings.html#std:setting-LOG_FILE"><code class="xref std std-setting docutils literal"><span class="pre">LOG_FILE</span></code></a></li>
+<li><a class="reference internal" href="settings.html#std:setting-LOG_ENABLED"><code class="xref std std-setting docutils literal"><span class="pre">LOG_ENABLED</span></code></a></li>
+<li><a class="reference internal" href="settings.html#std:setting-LOG_ENCODING"><code class="xref std std-setting docutils literal"><span class="pre">LOG_ENCODING</span></code></a></li>
+<li><a class="reference internal" href="settings.html#std:setting-LOG_LEVEL"><code class="xref std std-setting docutils literal"><span class="pre">LOG_LEVEL</span></code></a></li>
+<li><a class="reference internal" href="settings.html#std:setting-LOG_FORMAT"><code class="xref std std-setting docutils literal"><span class="pre">LOG_FORMAT</span></code></a></li>
+<li><a class="reference internal" href="settings.html#std:setting-LOG_DATEFORMAT"><code class="xref std std-setting docutils literal"><span class="pre">LOG_DATEFORMAT</span></code></a></li>
+<li><a class="reference internal" href="settings.html#std:setting-LOG_STDOUT"><code class="xref std std-setting docutils literal"><span class="pre">LOG_STDOUT</span></code></a></li>
+<li><a class="reference internal" href="settings.html#std:setting-LOG_SHORT_NAMES"><code class="xref std std-setting docutils literal"><span class="pre">LOG_SHORT_NAMES</span></code></a></li>
+</ul>
+<p>첫 두 설정값은 로그 메세지의 목적지를 정의한다.
+<a class="reference internal" href="settings.html#std:setting-LOG_FILE"><code class="xref std std-setting docutils literal"><span class="pre">LOG_FILE</span></code></a> 값이 주어지면 메세지는 루트 로거를 통해
+<a class="reference internal" href="settings.html#std:setting-LOG_ENCODING"><code class="xref std std-setting docutils literal"><span class="pre">LOG_ENCODING</span></code></a> 인코딩되는  <a class="reference internal" href="settings.html#std:setting-LOG_FILE"><code class="xref std std-setting docutils literal"><span class="pre">LOG_FILE</span></code></a> 파일로 저장된다.
+만약 이 값이 주어지지 않고 <a class="reference internal" href="settings.html#std:setting-LOG_ENABLED"><code class="xref std std-setting docutils literal"><span class="pre">LOG_ENABLED</span></code></a> 값이 <code class="docutils literal"><span class="pre">True</span></code>이면
+로그 메세지는 표준 출력으로만 주어진다.
+마지막으로 만약 <a class="reference internal" href="settings.html#std:setting-LOG_ENABLED"><code class="xref std std-setting docutils literal"><span class="pre">LOG_ENABLED</span></code></a> 값이 <code class="docutils literal"><span class="pre">False</span></code>이면
+로그 출력이 보이지 않는다.</p>
+<p><a class="reference internal" href="settings.html#std:setting-LOG_LEVEL"><code class="xref std std-setting docutils literal"><span class="pre">LOG_LEVEL</span></code></a>은 표시할 최소 중요도의 로그 레벨을 설정한다.
+이보다 중요하지 않는 로그는 필터링되어 없어진다. 가능한 로그 레벨은
+<a class="reference internal" href="#topics-logging-levels"><span class="std std-ref">로그 레벨</span></a>에 있다.</p>
+<p><a class="reference internal" href="settings.html#std:setting-LOG_FORMAT"><code class="xref std std-setting docutils literal"><span class="pre">LOG_FORMAT</span></code></a>과 <a class="reference internal" href="settings.html#std:setting-LOG_DATEFORMAT"><code class="xref std std-setting docutils literal"><span class="pre">LOG_DATEFORMAT</span></code></a>는
+메세지 포멧에 필요한 형식 문자열을 정의한다.
+이 문자열에 대해서는 <a class="reference external" href="https://veranostech.github.io/docs-korean-cpython/Doc/build/html/library/logging_ko.html#logrecord-attributes">로그 레코드 속성</a>
+문서와
+<a class="reference external" href="https://veranostech.github.io/docs-korean-cpython/Doc/build/html/library/datetime.html#strftime-and-strptime-behavior">datetime의 strftime and strptime 지시자</a>
+문서를 참조한다.</p>
+<p>만약 <a class="reference internal" href="settings.html#std:setting-LOG_SHORT_NAMES"><code class="xref std std-setting docutils literal"><span class="pre">LOG_SHORT_NAMES</span></code></a> 설정이 주어지면 로그에서 스크래피 구성요소가 출력되지 않는다.
+보통은 이 값이 설정되지 않고 로그를 출력하는 스크래피 구성요소가 출력에 같이 표시된다.</p>
+</div>
+<div class="section" id="id8">
+<h3>명령줄 옵션<a class="headerlink" href="#id8" title="제목 주소">¶</a></h3>
+<p>로깅에 대한 스크래피 설정을 오버라이드 할 수 있는 다음 옵션을
+모든 명령에서 사용할 수 있다.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">--logfile</span> <span class="pre">FILE</span></code></dt>
+<dd><a class="reference internal" href="settings.html#std:setting-LOG_FILE"><code class="xref std std-setting docutils literal"><span class="pre">LOG_FILE</span></code></a> 값을 오버라이드</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">--loglevel/-L</span> <span class="pre">LEVEL</span></code></dt>
+<dd><a class="reference internal" href="settings.html#std:setting-LOG_LEVEL"><code class="xref std std-setting docutils literal"><span class="pre">LOG_LEVEL</span></code></a>  값을 오버라이드</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">--nolog</span></code></dt>
+<dd><a class="reference internal" href="settings.html#std:setting-LOG_ENABLED"><code class="xref std std-setting docutils literal"><span class="pre">LOG_ENABLED</span></code></a> 값을 <code class="docutils literal"><span class="pre">False</span></code> 설정</dd>
+</dl>
+</li>
+</ul>
+<div class="admonition seealso">
+<p class="first admonition-title">더 보기</p>
+<p class="last">로그 핸들러에 대해서는 <a class="reference external" href="https://veranostech.github.io/docs-korean-cpython/Doc/build/html/library/logging.handlers_ko.html">logging.handlers</a>
+참조</p>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>고급 커스터마이징<a class="headerlink" href="#id9" title="제목 주소">¶</a></h3>
+<p>스크래피는 표준 라이브러리의 로깅 모듈을 사용하므로
+표준 로깅의 모든 기능을 사용하여 로거를 커스터마이징할 수 있다.</p>
+<p>예를 들어 HTTP 404 또는 500를 반환하는 웹사이를 스크래핑하면
+다음과 같은 모든 메세지를 감추고  싶을 것이다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">2016</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">16</span> <span class="mi">22</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">06</span> <span class="p">[</span><span class="n">scrapy</span><span class="o">.</span><span class="n">spidermiddlewares</span><span class="o">.</span><span class="n">httperror</span><span class="p">]</span> <span class="n">INFO</span><span class="p">:</span> <span class="n">Ignoring</span>
+<span class="n">response</span> <span class="o">&lt;</span><span class="mi">500</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">quotes</span><span class="o">.</span><span class="n">toscrape</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">page</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">34</span><span class="o">/&gt;</span><span class="p">:</span> <span class="n">HTTP</span> <span class="n">status</span> <span class="n">code</span>
+<span class="ow">is</span> <span class="ow">not</span> <span class="n">handled</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">allowed</span>
+</pre></div>
+</div>
+<p>우선 <code class="docutils literal"><span class="pre">[scrapy.spidermiddlewares.httperror]</span></code>라는 로거 이름에 주의하자.
+만약 <a class="reference internal" href="settings.html#std:setting-LOG_SHORT_NAMES"><code class="xref std std-setting docutils literal"><span class="pre">LOG_SHORT_NAMES</span></code></a>가 <code class="docutils literal"><span class="pre">True</span></code>면 <code class="docutils literal"><span class="pre">[scrapy]</span></code>라고만 출력된다.
+이 설정을 False로 하고 다시 크롤링을 하라.</p>
+<p>다음으로는 메세지가 INFO 레벨이라는 점에 유의하여
+<code class="docutils literal"><span class="pre">scrapy.spidermiddlewares.httperror</span></code> 로그 레벨을
+INFO보다 높게 설정한다. INFO보다 높은 로그 레벨은 WARNING이다.
+이 설정은 스파이더의 <code class="docutils literal"><span class="pre">__init__</span></code> 메서드에서 할 수 있다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">scrapy</span>
+
+
+<span class="k">class</span> <span class="nc">MySpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="c1"># ...</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;scrapy.spidermiddlewares.httperror&#39;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>다시 스파이더를 돌리면
+<code class="docutils literal"><span class="pre">scrapy.spidermiddlewares.httperror</span></code> 로거는 보이지 않을 것이다.</p>
+</div>
+</div>
+<div class="section" id="module-scrapy.utils.log">
+<span id="scrapy-utils-log"></span><h2>scrapy.utils.log 모듈<a class="headerlink" href="#module-scrapy.utils.log" title="제목 주소">¶</a></h2>
+<dl class="function">
+<dt id="scrapy.utils.log.configure_logging">
+<code class="descclassname">scrapy.utils.log.</code><code class="descname">configure_logging</code><span class="sig-paren">(</span><em>settings=None</em>, <em>install_root_handler=True</em><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.utils.log.configure_logging" title="정의 주소">¶</a></dt>
+<dd><p>Initialize logging defaults for Scrapy.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">매개 변수:</th><td class="field-body"><ul class="first last simple">
+<li><strong>settings</strong> (dict, <a class="reference internal" href="api_ko.html#scrapy.settings.Settings" title="scrapy.settings.Settings"><code class="xref py py-class docutils literal"><span class="pre">Settings</span></code></a> object or <code class="docutils literal"><span class="pre">None</span></code>) -- settings used to create and configure a handler for the
+root logger (default: None).</li>
+<li><strong>install_root_handler</strong> (<em>bool</em>) -- whether to install root logging handler
+(default: True)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This function does:</p>
+<ul class="simple">
+<li>Route warnings and twisted logging through Python standard logging</li>
+<li>Assign DEBUG and ERROR level to Scrapy and Twisted loggers respectively</li>
+<li>Route stdout to log if LOG_STDOUT setting is True</li>
+</ul>
+<p>When <code class="docutils literal"><span class="pre">install_root_handler</span></code> is True (default), this function also
+creates a handler for the root logger according to given settings
+(see <a class="reference internal" href="#topics-logging-settings"><span class="std std-ref">로그 세팅</span></a>). You can override default options
+using <code class="docutils literal"><span class="pre">settings</span></code> argument. When <code class="docutils literal"><span class="pre">settings</span></code> is empty or None, defaults
+are used.</p>
+<p>스크래피 명령을 사용하면 <code class="docutils literal"><span class="pre">configure_logging</span></code> 함수가 자동을 실행된다.
+만약 사용자 스크립트를 사용하면 명시적으로 이 함수를 호출한다.
+이 경우에도 반드시 호출할 필요는 없지만 권장한다.</p>
+<p>핸들러를 스스로 설정하고 싶을 때도 <cite>install_root_handler=False</cite> 인수를 넣고
+이 함수를 호출한다.
+이 경우에는 디폴트로 로그 출력이 나오지 않는다.</p>
+<p>만약 로그 출력을 수동으로 설정하고 싶으면
+<a class="reference external" href="https://veranostech.github.io/docs-korean-cpython/Doc/build/html/library/logging_ko.html#logging.basicConfig">logging.basicConfig()</a>를 사용하여 루트 핸들러를 설정한다.
+다음은 <code class="docutils literal"><span class="pre">INFO</span></code> 또는 그 이상의 로그 메세지를 파일로 출력하는 예이다.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">scrapy.utils.log</span> <span class="k">import</span> <span class="n">configure_logging</span>
+
+<span class="n">configure_logging</span><span class="p">(</span><span class="n">install_root_handler</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+    <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;log.txt&#39;</span><span class="p">,</span>
+    <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(levelname)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+    <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>이런 식으로 스크래피를 사용하는 것에 대해서는 <a class="reference internal" href="practices.html#run-from-script"><span class="std std-ref">Run Scrapy from a script</span></a>를 참조한다.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="stats_ko.html" class="btn btn-neutral float-right" title="통계 수집" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="exceptions.html" class="btn btn-neutral" title="Exceptions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2008-2016, Scrapy developers.
+      최종 업데이트: 2월 26, 2018
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.5.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

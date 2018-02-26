@@ -1,0 +1,813 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>커맨드 라인 툴 &mdash; Scrapy 1.5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="색인"
+              href="../genindex.html"/>
+        <link rel="search" title="검색" href="../search.html"/>
+    <link rel="top" title="Scrapy 1.5.0 documentation" href="../index.html"/>
+        <link rel="next" title="스파이더(Spider)" href="spiders_ko.html"/>
+        <link rel="prev" title="예제" href="../intro/examples_ko.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index_ko.html" class="icon icon-home"> Scrapy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">처음 시작하기</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/overview_ko.html">스크래피(Scrapy) 한눈에 보기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/install_ko.html">설치 가이드</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/tutorial_ko.html">스크래피 튜토리얼</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/examples_ko.html">예제</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기본 개념</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">커맨드 라인 툴</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#topics-config-settings">설정 세팅</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#topics-project-structure">스크래피 프로젝트의 기본 구조</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scrapy"><code class="docutils literal"><span class="pre">scrapy</span></code> 툴 사용하기</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">프로젝트 생성하기</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">프로젝트 제어하기</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#topics-commands-ref">사용 가능한 툴 커맨드</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#startproject">startproject</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#genspider">genspider</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crawl">crawl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#check">check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#list">list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#edit">edit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fetch">fetch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#view">view</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shell">shell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parse">parse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#settings">settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#runspider">runspider</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#version">version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bench">bench</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-project-commands">Custom project commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#commands-module">COMMANDS_MODULE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-py">setup.py 엔트리 포인트를 통한 커맨드 등록</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="spiders_ko.html">스파이더(Spider)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html">Selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="items.html">Items</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loaders.html">Item Loaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shell.html">Scrapy shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="item-pipeline.html">Item Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="feed-exports.html">Feed exports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-response.html">Requests and Responses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="link-extractors.html">Link Extractors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Built-in services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="logging_ko.html">로깅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats_ko.html">통계 수집</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.html">Sending e-mail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telnetconsole.html">Telnet Console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webservice.html">Web Service</a></li>
+</ul>
+<p class="caption"><span class="caption-text">특정 문제 해결하기</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contracts.html">Spiders Contracts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practices.html">Common Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="broad-crawls.html">Broad Crawls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firefox.html">Using Firefox for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firebug.html">Using Firebug for scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="leaks.html">Debugging memory leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="media-pipeline.html">Downloading and processing files and images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">Deploying Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autothrottle.html">AutoThrottle extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarking.html">Benchmarking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Jobs: pausing and resuming crawls</a></li>
+</ul>
+<p class="caption"><span class="caption-text">스크래피 확장</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloader-middleware.html">Downloader Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spider-middleware.html">Spider Middleware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extensions.html">Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_ko.html">코어 API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signals.html">Signals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exporters.html">Item Exporters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">기타</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to Scrapy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versioning.html">Versioning and API Stability</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index_ko.html">Scrapy</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index_ko.html">Docs</a> &raquo;</li>
+        
+      <li>커맨드 라인 툴</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/VeranosTech/docs-korean-scrapy/blob/docs-korean/docs/topics/commands_ko.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="topics-commands">
+<span id="id1"></span><h1>커맨드 라인 툴<a class="headerlink" href="#topics-commands" title="제목 주소">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified">버전 0.10에 추가.</span></p>
+</div>
+<p>스크래피는 <code class="docutils literal"><span class="pre">scrapy</span></code> 커맨드라인 툴을 이용해서 제어한다, 이 문서에서는
+우리가 단순히 &quot;커맨드&quot; 또는 &quot;스크래피 커맨드&quot;라 부르는 서브 커맨드와 구별하기 위해
+&quot;스크래피 툴&quot;이라고 할 것이다.</p>
+<p>스크래피 툴은 다양한 목적을 위해 몇 가지 커맨드를 제공하며, 각각은
+다른 인자와 옵션 세트를 사용한다.</p>
+<p>(<code class="docutils literal"><span class="pre">scrapy</span> <span class="pre">deploy</span></code> 커맨드는 독립된 <code class="docutils literal"><span class="pre">scrapyd-deploy</span></code>을 위해 1.0 버전에서부터 제거되었다.
+<a class="reference external" href="https://scrapyd.readthedocs.io/en/latest/deploy.html">Deploying your project</a>를 참고하라.)</p>
+<div class="section" id="topics-config-settings">
+<span id="id2"></span><h2>설정 세팅<a class="headerlink" href="#topics-config-settings" title="제목 주소">¶</a></h2>
+<p>스크래피는 기준 위치에 있는 ini 스타일의 <code class="docutils literal"><span class="pre">scrapy.cfg</span></code> 파일에서 설정 파라미터를 찾는다:</p>
+<ol class="arabic simple">
+<li><code class="docutils literal"><span class="pre">/etc/scrapy.cfg</span></code> 또는 <code class="docutils literal"><span class="pre">c:\scrapy\scrapy.cfg</span></code> (시스템 수준),</li>
+<li><code class="docutils literal"><span class="pre">~/.config/scrapy.cfg</span></code> (<code class="docutils literal"><span class="pre">$XDG_CONFIG_HOME</span></code>) 그리고 <code class="docutils literal"><span class="pre">~/.scrapy.cfg</span></code> (<code class="docutils literal"><span class="pre">$HOME</span></code>)
+전역 (사용자 수준) 세팅용, 그리고</li>
+<li>스크래피 프로젝트 루트 내부의 <code class="docutils literal"><span class="pre">scrapy.cfg</span></code> (다음 섹션 참고).</li>
+</ol>
+<p>이 파일들에서의 세팅은 나열된 선호도 순서대로 병합된다:
+사용자 지정 값은 시스템 수준 기본값보다 우선순위가 높으며
+프로젝트 수준 세팅은 다른 모든 세팅을 오버라이드한다.</p>
+<p>또한 스크래피는 많은 환경 변수를 이해할 수 있고 그것들을 통해 설정될 수 있다.
+현재는 아래와 같다:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">SCRAPY_SETTINGS_MODULE</span></code> (<a class="reference internal" href="settings.html#topics-settings-module-envvar"><span class="std std-ref">Designating the settings</span></a> 참고)</li>
+<li><code class="docutils literal"><span class="pre">SCRAPY_PROJECT</span></code></li>
+<li><code class="docutils literal"><span class="pre">SCRAPY_PYTHON_SHELL</span></code> (<a class="reference internal" href="shell.html#topics-shell"><span class="std std-ref">Scrapy shell</span></a> 참고)</li>
+</ul>
+</div>
+<div class="section" id="topics-project-structure">
+<span id="id3"></span><h2>스크래피 프로젝트의 기본 구조<a class="headerlink" href="#topics-project-structure" title="제목 주소">¶</a></h2>
+<p>커맨드라인 툴과 하위 커맨드를 알아보기 전에, 먼저
+스크래피 프로젝트의 디렉토리 구조를 먼저 살펴보자.</p>
+<p>수정할 수 있지만, 모든 스크래피 프로젝트는 기본적으로 아래와 유사한
+같은 파일을 가지고 있다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">scrapy</span><span class="o">.</span><span class="n">cfg</span>
+<span class="n">myproject</span><span class="o">/</span>
+    <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+    <span class="n">items</span><span class="o">.</span><span class="n">py</span>
+    <span class="n">middlewares</span><span class="o">.</span><span class="n">py</span>
+    <span class="n">pipelines</span><span class="o">.</span><span class="n">py</span>
+    <span class="n">settings</span><span class="o">.</span><span class="n">py</span>
+    <span class="n">spiders</span><span class="o">/</span>
+        <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">spider1</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">spider2</span><span class="o">.</span><span class="n">py</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">scrapy.cfg</span></code> 파일은 <em>프로젝트 루트 디렉토리</em>라는 디렉토리에 위치하다.
+이 파일은 프로젝트 세팅을 정의하는 파이썬 모듈의 이름을 포함하고 있다.
+아래는 예시다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">settings</span><span class="p">]</span>
+<span class="n">default</span> <span class="o">=</span> <span class="n">myproject</span><span class="o">.</span><span class="n">settings</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scrapy">
+<h2><code class="docutils literal"><span class="pre">scrapy</span></code> 툴 사용하기<a class="headerlink" href="#scrapy" title="제목 주소">¶</a></h2>
+<p>인자 없이 스크래피 툴을 실행해서 시작하면 사용 도움말과 이용 가능한 커맨드를 출력한다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Scrapy</span> <span class="n">X</span><span class="o">.</span><span class="n">Y</span> <span class="o">-</span> <span class="n">no</span> <span class="n">active</span> <span class="n">project</span>
+
+<span class="n">Usage</span><span class="p">:</span>
+  <span class="n">scrapy</span> <span class="o">&lt;</span><span class="n">command</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="p">[</span><span class="n">args</span><span class="p">]</span>
+
+<span class="n">Available</span> <span class="n">commands</span><span class="p">:</span>
+  <span class="n">crawl</span>         <span class="n">Run</span> <span class="n">a</span> <span class="n">spider</span>
+  <span class="n">fetch</span>         <span class="n">Fetch</span> <span class="n">a</span> <span class="n">URL</span> <span class="n">using</span> <span class="n">the</span> <span class="n">Scrapy</span> <span class="n">downloader</span>
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>만약 스크래피 프로젝트 내에 있으면 첫 번재 줄은 현재 활성화되어있는 프로젝트를 출력한다.
+이 예시에서는 프로젝트 바깥에서 실행됐다. 만약 프로젝트 안에서 실행하면
+아래와 같이 출력된다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Scrapy</span> <span class="n">X</span><span class="o">.</span><span class="n">Y</span> <span class="o">-</span> <span class="n">project</span><span class="p">:</span> <span class="n">myproject</span>
+
+<span class="n">Usage</span><span class="p">:</span>
+  <span class="n">scrapy</span> <span class="o">&lt;</span><span class="n">command</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="p">[</span><span class="n">args</span><span class="p">]</span>
+
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="id4">
+<h3>프로젝트 생성하기<a class="headerlink" href="#id4" title="제목 주소">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">scrapy</span></code> 툴로 첫 번째로 하는 일은 스크래피 프로젝트를 만드는 것이다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">scrapy</span> <span class="n">startproject</span> <span class="n">myproject</span> <span class="p">[</span><span class="n">project_dir</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>위 명령은 스크래피 프로젝트를 <code class="docutils literal"><span class="pre">project_dir</span></code> 디렉토리 안에 생성시킨다.
+<code class="docutils literal"><span class="pre">proejct_dir</span></code>이 지정되어있지 않으면 <code class="docutils literal"><span class="pre">project_dir</span></code>은 <code class="docutils literal"><span class="pre">myproject</span></code>가 된다.</p>
+<p>새 프로젝트 디렉토리로 들어가자:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">project_dir</span>
+</pre></div>
+</div>
+<p>이제 프로젝트를 관리하고 제어하기 위한 <code class="docutils literal"><span class="pre">scrapy</span></code> 커맨드를 사용할 준비가 되었다.</p>
+</div>
+<div class="section" id="id5">
+<h3>프로젝트 제어하기<a class="headerlink" href="#id5" title="제목 주소">¶</a></h3>
+<p>사용자는 프로젝트 내부에서 <code class="docutils literal"><span class="pre">scrapy</span></code> 툴을 사용해서 프로젝트를 관리하고 제어한다.</p>
+<p>예를 아래 명령으로 새 스파이더를 생성할 수 있다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">scrapy</span> <span class="n">genspider</span> <span class="n">mydomain</span> <span class="n">mydomain</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+<p>몇몇 스크래피 커맨드(<a class="reference internal" href="#std:command-crawl"><code class="xref std std-command docutils literal"><span class="pre">crawl</span></code></a> 등)는 반드시 스크래피 프로젝트 안에서 실행
+해야 한다. 어떤 커맨드를 프로젝트 안에서 써야 하는지에 대한 자세한 정보는
+아래의 <a class="reference internal" href="#topics-commands-ref"><span class="std std-ref">commands reference</span></a>를 참고하라라.</p>
+<p>또한 몇몇 커맨드는 프로젝트 안에서 실행 될 때 약간 다른 동작을 한다는 사실을 명심하라
+예를 들어, 가져오고 있는 url이 특정한 스파이더와 연결되어 있으면 fetch 커맨드는
+오버라이드된 스파이더 동작을 사용한다. (<code class="docutils literal"><span class="pre">user_agent</span></code> 속성이
+user-agent를 오버라이드 하는 것처럼) 이것은 의도된 것으로, <code class="docutils literal"><span class="pre">fetch</span></code> 커맨드는 스파이더 페이지를 다운로드하고 있는 방식을
+확인하기 위해 사용되는 것이기 때문이다</p>
+</div>
+</div>
+<div class="section" id="topics-commands-ref">
+<span id="id6"></span><h2>사용 가능한 툴 커맨드<a class="headerlink" href="#topics-commands-ref" title="제목 주소">¶</a></h2>
+<p>이 섹션은 사용 가능한 내장 커맨드에 대한 설명과 사용 예시를 포함한
+리스트로 구성되어 있다. 기억하라, 언제나 아래와 같이 실행하면 더 많은 정보를
+얻을 수 있다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">scrapy</span> <span class="o">&lt;</span><span class="n">command</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">h</span>
+</pre></div>
+</div>
+<p>모든 사용가능한 커맨드는 아래와 같이 실행해서 볼 수 있다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">scrapy</span> <span class="o">-</span><span class="n">h</span>
+</pre></div>
+</div>
+<p>커맨드는 스크래피 프로젝트 안에서만 작동하는 것(프로젝트 한정 커맨드)과 프로젝트 안에서
+실행할 때 (프로젝트의 오버라이드된 설정을 사용하기 때문에) 약간 다르게 작동하지만
+활성화된 스크래피 프로젝트 없이도 작동하는 것(글로벌 커맨드)이 있다.</p>
+<p>글로벌 커맨드:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#std:command-startproject"><code class="xref std std-command docutils literal"><span class="pre">startproject</span></code></a></li>
+<li><a class="reference internal" href="#std:command-genspider"><code class="xref std std-command docutils literal"><span class="pre">genspider</span></code></a></li>
+<li><a class="reference internal" href="#std:command-settings"><code class="xref std std-command docutils literal"><span class="pre">settings</span></code></a></li>
+<li><a class="reference internal" href="#std:command-runspider"><code class="xref std std-command docutils literal"><span class="pre">runspider</span></code></a></li>
+<li><a class="reference internal" href="#std:command-shell"><code class="xref std std-command docutils literal"><span class="pre">shell</span></code></a></li>
+<li><a class="reference internal" href="#std:command-fetch"><code class="xref std std-command docutils literal"><span class="pre">fetch</span></code></a></li>
+<li><a class="reference internal" href="#std:command-view"><code class="xref std std-command docutils literal"><span class="pre">view</span></code></a></li>
+<li><a class="reference internal" href="#std:command-version"><code class="xref std std-command docutils literal"><span class="pre">version</span></code></a></li>
+</ul>
+<p>프로젝트 한정 커맨드:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#std:command-crawl"><code class="xref std std-command docutils literal"><span class="pre">crawl</span></code></a></li>
+<li><a class="reference internal" href="#std:command-check"><code class="xref std std-command docutils literal"><span class="pre">check</span></code></a></li>
+<li><a class="reference internal" href="#std:command-list"><code class="xref std std-command docutils literal"><span class="pre">list</span></code></a></li>
+<li><a class="reference internal" href="#std:command-edit"><code class="xref std std-command docutils literal"><span class="pre">edit</span></code></a></li>
+<li><a class="reference internal" href="#std:command-parse"><code class="xref std std-command docutils literal"><span class="pre">parse</span></code></a></li>
+<li><a class="reference internal" href="#std:command-bench"><code class="xref std std-command docutils literal"><span class="pre">bench</span></code></a></li>
+</ul>
+<div class="section" id="startproject">
+<span id="std:command-startproject"></span><h3>startproject<a class="headerlink" href="#startproject" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>Syntax: <code class="docutils literal"><span class="pre">scrapy</span> <span class="pre">startproject</span> <span class="pre">&lt;project_name&gt;</span> <span class="pre">[project_dir]</span></code></li>
+<li>Requires project: <em>no</em></li>
+</ul>
+<p><code class="docutils literal"><span class="pre">project_name``의</span> <span class="pre">새로운</span> <span class="pre">스크래피</span> <span class="pre">프로젝트를</span> <span class="pre">``project_dir</span></code> 디렉토리 내에 생성한다.
+<code class="docutils literal"><span class="pre">project_dir</span></code>가 지정되지 않으면 <code class="docutils literal"><span class="pre">project_dir</span></code>는 <code class="docutils literal"><span class="pre">project_name</span></code>가 된다.</p>
+<p>사용 예시:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ scrapy startproject myproject
+</pre></div>
+</div>
+</div>
+<div class="section" id="genspider">
+<span id="std:command-genspider"></span><h3>genspider<a class="headerlink" href="#genspider" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>Syntax: <code class="docutils literal"><span class="pre">scrapy</span> <span class="pre">genspider</span> <span class="pre">[-t</span> <span class="pre">template]</span> <span class="pre">&lt;name&gt;</span> <span class="pre">&lt;domain&gt;</span></code></li>
+<li>Requires project: <em>no</em></li>
+</ul>
+<p>프로젝트 내에서 호출되면 현재 폴더에나 현재 폴더의 <code class="docutils literal"><span class="pre">spiders</span></code> 폴더에 새로운 스파이더를 생성한다.
+<code class="docutils literal"><span class="pre">&lt;name&gt;</span></code> 파라미더는 스파이더의 <code class="docutils literal"><span class="pre">name</span></code>으로 설정되고, <code class="docutils literal"><span class="pre">&lt;domain&gt;</span></code>는 <code class="docutils literal"><span class="pre">allowed_domains</span></code>과 <code class="docutils literal"><span class="pre">start_urls</span></code> 스파이더 속성을
+생성하기 위해 사용된다.</p>
+<p>사용 예시:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ scrapy genspider -l
+Available templates:
+  basic
+  crawl
+  csvfeed
+  xmlfeed
+
+$ scrapy genspider example example.com
+Created spider &#39;example&#39; using template &#39;basic&#39;
+
+$ scrapy genspider -t crawl scrapyorg scrapy.org
+Created spider &#39;scrapyorg&#39; using template &#39;crawl&#39;
+</pre></div>
+</div>
+<p>이것은 사전에 정의된 템플릿을 기반으로 스파이더를 만드는 편리한 숏컷 커맨드다.
+하지만 스파이더를 만드는 방법은 하나가 아니다.
+이 커맨드를 사용하는 대신에 직접 스파이더 소스코드 파일을 생성해도 된다.</p>
+</div>
+<div class="section" id="crawl">
+<span id="std:command-crawl"></span><h3>crawl<a class="headerlink" href="#crawl" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>Syntax: <code class="docutils literal"><span class="pre">scrapy</span> <span class="pre">crawl</span> <span class="pre">&lt;spider&gt;</span></code></li>
+<li>Requires project: <em>yes</em></li>
+</ul>
+<p>스파이더를 사용해서 크롤링을 시작한다.</p>
+<p>사용 예시:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ scrapy crawl myspider
+[ ... myspider starts crawling ... ]
+</pre></div>
+</div>
+</div>
+<div class="section" id="check">
+<span id="std:command-check"></span><h3>check<a class="headerlink" href="#check" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>Syntax: <code class="docutils literal"><span class="pre">scrapy</span> <span class="pre">check</span> <span class="pre">[-l]</span> <span class="pre">&lt;spider&gt;</span></code></li>
+<li>Requires project: <em>yes</em></li>
+</ul>
+<p>contract 확인을 실행한다.</p>
+<p>사용 예시:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ scrapy check -l
+first_spider
+  * parse
+  * parse_item
+second_spider
+  * parse
+  * parse_item
+
+$ scrapy check
+[FAILED] first_spider:parse_item
+&gt;&gt;&gt; &#39;RetailPricex&#39; field is missing
+
+[FAILED] first_spider:parse
+&gt;&gt;&gt; Returned 92 requests, expected 0..4
+</pre></div>
+</div>
+</div>
+<div class="section" id="list">
+<span id="std:command-list"></span><h3>list<a class="headerlink" href="#list" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>Syntax: <code class="docutils literal"><span class="pre">scrapy</span> <span class="pre">list</span></code></li>
+<li>Requires project: <em>yes</em></li>
+</ul>
+<p>현재 프로젝트 내의 사용가능한 모든 스파이더를 나열한다. 한 줄에 한 스파이더씩 출력된다.</p>
+<p>사용 예시:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ scrapy list
+spider1
+spider2
+</pre></div>
+</div>
+</div>
+<div class="section" id="edit">
+<span id="std:command-edit"></span><h3>edit<a class="headerlink" href="#edit" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>Syntax: <code class="docutils literal"><span class="pre">scrapy</span> <span class="pre">edit</span> <span class="pre">&lt;spider&gt;</span></code></li>
+<li>Requires project: <em>yes</em></li>
+</ul>
+<p><code class="docutils literal"><span class="pre">EDITOR</span></code> 환경 변수나 (설정되어 있지 않으면) <a class="reference internal" href="settings.html#std:setting-EDITOR"><code class="xref std std-setting docutils literal"><span class="pre">EDITOR</span></code></a>에서
+정의된 에디터를 사용해 주어진 스파이더를 편집한다.</p>
+<p>이 커맨드는 가장 일반적인 경우를 위한 편리한 숏컷으로 제공되는 것이다.
+개발자는 당연히 스파이더를 작성하고 디버그하는 데 사용할 IDE나 툴을 마음대로 고를 수 있다.</p>
+<p>사용 예시:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ scrapy edit spider1
+</pre></div>
+</div>
+</div>
+<div class="section" id="fetch">
+<span id="std:command-fetch"></span><h3>fetch<a class="headerlink" href="#fetch" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>Syntax: <code class="docutils literal"><span class="pre">scrapy</span> <span class="pre">fetch</span> <span class="pre">&lt;url&gt;</span></code></li>
+<li>Requires project: <em>no</em></li>
+</ul>
+<p>스크래피 다운로더를 사용해 주어진 URL을 다운로드하고 표준 출력에 컨텐츠를 작성한다.</p>
+<p>이 커맨드의 흥미로운 점은 스파이더가 다운로드하는 방식을 페이지에 불러온다는 점이다.
+예를 들어, 만약 스파이더가 User Agent를 오버라이드 하는 <code class="docutils literal"><span class="pre">USER_AGENT</span></code> 속성을
+가지고 있으면 이 커맨드는 그것을 사용한다.</p>
+<p>따라서 이 커맨드는 스파이더가 특정 페이지를 불러오는 방식을 보기위해 사용된다.</p>
+<p>프로젝트 밖에서 사용되면, 스파이더에 따른 특별핸 작동은 일어나지 않으며
+기본 스크래피 다운로더 세팅을 사용할 것이다.</p>
+<p>지원되는 옵션:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">--spider=SPIDER</span></code>: 우회 스파이더 자동감지 그리고 특정 스파이더 사용 강제</li>
+<li><code class="docutils literal"><span class="pre">--headers</span></code>: 리스펀스의 바디 대신 HTTP 헤더 출력</li>
+<li><code class="docutils literal"><span class="pre">--no-redirect</span></code>: HTTP의 3xx 리다이렉션 따라가지 않기 (기본은 따라가는 것을 설정)</li>
+</ul>
+<p>사용 예시:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ scrapy fetch --nolog http://www.example.com/some/page.html
+[ ... html content here ... ]
+
+$ scrapy fetch --nolog --headers http://www.example.com/
+{&#39;Accept-Ranges&#39;: [&#39;bytes&#39;],
+ &#39;Age&#39;: [&#39;1263   &#39;],
+ &#39;Connection&#39;: [&#39;close     &#39;],
+ &#39;Content-Length&#39;: [&#39;596&#39;],
+ &#39;Content-Type&#39;: [&#39;text/html; charset=UTF-8&#39;],
+ &#39;Date&#39;: [&#39;Wed, 18 Aug 2010 23:59:46 GMT&#39;],
+ &#39;Etag&#39;: [&#39;&quot;573c1-254-48c9c87349680&quot;&#39;],
+ &#39;Last-Modified&#39;: [&#39;Fri, 30 Jul 2010 15:30:18 GMT&#39;],
+ &#39;Server&#39;: [&#39;Apache/2.2.3 (CentOS)&#39;]}
+</pre></div>
+</div>
+</div>
+<div class="section" id="view">
+<span id="std:command-view"></span><h3>view<a class="headerlink" href="#view" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>Syntax: <code class="docutils literal"><span class="pre">scrapy</span> <span class="pre">view</span> <span class="pre">&lt;url&gt;</span></code></li>
+<li>Requires project: <em>no</em></li>
+</ul>
+<p>스크래피 스파이더가 보는 것처럼, 주어진 URL을 브라우저에서 연다.
+종종 스파이더는 페이지를 일반적인 사용자와 다르게 본다, 따라서
+이 스파이더가 무엇을 보는지 확인하고 기대했던 것인지 확인한다</p>
+<p>지원 옵션:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">--spider=SPIDER</span></code>: 우회 스파이더 자동 탐지 및 특정 스파이더 사용 강제</li>
+<li><code class="docutils literal"><span class="pre">--no-redirect</span></code>: HTTP 3xx 리다이렉트 따라가지 않기 (기본은 따라가는 것으로 설정)</li>
+</ul>
+<p>사용 예시:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ scrapy view http://www.example.com/some/page.html
+[ ... browser starts ... ]
+</pre></div>
+</div>
+</div>
+<div class="section" id="shell">
+<span id="std:command-shell"></span><h3>shell<a class="headerlink" href="#shell" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>Syntax: <code class="docutils literal"><span class="pre">scrapy</span> <span class="pre">shell</span> <span class="pre">[url]</span></code></li>
+<li>Requires project: <em>no</em></li>
+</ul>
+<p>주어진 URL에 대해 shell을 시작하거나 URL이 주어지지 않았으면 빈 상태로 시작한다.
+또한 UNIX 스타일의 로컬 파일경로 (<code class="docutils literal"><span class="pre">./</span></code>, <code class="docutils literal"><span class="pre">../</span></code> 또는 절대경로)를 지원한다.
+상세한 정보는 <a class="reference internal" href="shell.html#topics-shell"><span class="std std-ref">Scrapy shell</span></a>를 참고하라.</p>
+<p>지원 옵션:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">--spider=SPIDER</span></code>: 우회 스파이더 자동 탐색 및 특정 스파이더 사용 강제</li>
+<li><code class="docutils literal"><span class="pre">-c</span> <span class="pre">code</span></code>: shell에 있는 코드를 평가하고 결고를 출력한 뒤 종료</li>
+<li><code class="docutils literal"><span class="pre">--no-redirect</span></code>: HTTP 3xx 리다이렉트 따라가지 않기 (기본은 따라가는 것으로 설정);
+커맨드라인에서 인자로 전달된 URL에 대해서만 영향을 미친다;
+일단 shell 안에 있으면 <code class="docutils literal"><span class="pre">fetch(url)</span></code>가 기본적으로 계속해서 HTTP 리다이렉트를 따라갈 것이다.</li>
+</ul>
+<p>사용 예시:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ scrapy shell http://www.example.com/some/page.html
+[ ... scrapy shell starts ... ]
+
+$ scrapy shell --nolog http://www.example.com/ -c &#39;(response.status, response.url)&#39;
+(200, &#39;http://www.example.com/&#39;)
+
+# shell follows HTTP redirects by default
+$ scrapy shell --nolog http://httpbin.org/redirect-to?url=http%3A%2F%2Fexample.com%2F -c &#39;(response.status, response.url)&#39;
+(200, &#39;http://example.com/&#39;)
+
+# you can disable this with --no-redirect
+# (only for the URL passed as command line argument)
+$ scrapy shell --no-redirect --nolog http://httpbin.org/redirect-to?url=http%3A%2F%2Fexample.com%2F -c &#39;(response.status, response.url)&#39;
+(302, &#39;http://httpbin.org/redirect-to?url=http%3A%2F%2Fexample.com%2F&#39;)
+</pre></div>
+</div>
+</div>
+<div class="section" id="parse">
+<span id="std:command-parse"></span><h3>parse<a class="headerlink" href="#parse" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>Syntax: <code class="docutils literal"><span class="pre">scrapy</span> <span class="pre">parse</span> <span class="pre">&lt;url&gt;</span> <span class="pre">[options]</span></code></li>
+<li>Requires project: <em>yes</em></li>
+</ul>
+<p>주어진 URL을 불러오고 <code class="docutils literal"><span class="pre">--callback</span></code> 옵션으로 전달된 메서드나 옵션이 없으면 <code class="docutils literal"><span class="pre">parse</span></code>를 사용해 스파이더로
+파싱한다.</p>
+<p>지원 옵션:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">--spider=SPIDER</span></code>: 우회 스파이더 자동 탐색 및 특정 스파이더 사용 강제</li>
+<li><code class="docutils literal"><span class="pre">--a</span> <span class="pre">NAME=VALUE</span></code>: 스파이더 인자 설정 (반복해서 쓸 수 있음)</li>
+<li><code class="docutils literal"><span class="pre">--callback</span></code> 또는 <code class="docutils literal"><span class="pre">-c</span></code>: 리스펀스를 파싱하기 위해 콜백으로 사용되는 메서드</li>
+<li><code class="docutils literal"><span class="pre">--pipelines</span></code>: 파이프라인을 통한 아이템 처리</li>
+<li><code class="docutils literal"><span class="pre">--rules</span></code> 또는 <code class="docutils literal"><span class="pre">-r</span></code>: 리스펀스를 파싱하기 위해 사용할 콜백을 탐색하기 위해
+<a class="reference internal" href="spiders_ko.html#scrapy.spiders.CrawlSpider" title="scrapy.spiders.CrawlSpider"><code class="xref py py-class docutils literal"><span class="pre">CrawlSpider</span></code></a> rule 사용</li>
+<li><code class="docutils literal"><span class="pre">--noitems</span></code>: 스크랩된 아이템 보이지 않기</li>
+<li><code class="docutils literal"><span class="pre">--nolinks</span></code>: 추출된 링크 보이지 않기</li>
+<li><code class="docutils literal"><span class="pre">--nocolour</span></code>: 출력에 색을 입히지 않기</li>
+<li><code class="docutils literal"><span class="pre">--depth</span></code> 또는 <code class="docutils literal"><span class="pre">-d</span></code>: 재귀적으로 리퀘스트를 따라가야 하는 깊이 수준(기본: 1)</li>
+<li><code class="docutils literal"><span class="pre">--verbose</span></code> 또는 <code class="docutils literal"><span class="pre">-v</span></code>: 깊이 수준에 대한 정보 표시</li>
+</ul>
+<p>사용 예시:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ scrapy parse http://www.example.com/ -c parse_item
+[ ... scrapy log lines crawling example.com spider ... ]
+
+&gt;&gt;&gt; STATUS DEPTH LEVEL 1 &lt;&lt;&lt;
+# Scraped Items  ------------------------------------------------------------
+[{&#39;name&#39;: u&#39;Example item&#39;,
+ &#39;category&#39;: u&#39;Furniture&#39;,
+ &#39;length&#39;: u&#39;12 cm&#39;}]
+
+# Requests  -----------------------------------------------------------------
+[]
+</pre></div>
+</div>
+</div>
+<div class="section" id="settings">
+<span id="std:command-settings"></span><h3>settings<a class="headerlink" href="#settings" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>Syntax: <code class="docutils literal"><span class="pre">scrapy</span> <span class="pre">settings</span> <span class="pre">[options]</span></code></li>
+<li>Requires project: <em>no</em></li>
+</ul>
+<p>스크래피 세팅 값을 얻는다.</p>
+<p>프로젝트 안에서 사용되면 프로젝트의 세팅 값을 보여준다, 그렇지 않은 경우
+세팅에 대한 기본 스크래피 값을 보여준다.</p>
+<p>예시:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ scrapy settings --get BOT_NAME
+scrapybot
+$ scrapy settings --get DOWNLOAD_DELAY
+0
+</pre></div>
+</div>
+</div>
+<div class="section" id="runspider">
+<span id="std:command-runspider"></span><h3>runspider<a class="headerlink" href="#runspider" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>Syntax: <code class="docutils literal"><span class="pre">scrapy</span> <span class="pre">runspider</span> <span class="pre">&lt;spider_file.py&gt;</span></code></li>
+<li>Requires project: <em>no</em></li>
+</ul>
+<p>프로젝트 생성할 필요 없이 파이썬 파일에 포함되어있는 스파이더를 실행한다.</p>
+<p>사용 예시:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ scrapy runspider myspider.py
+[ ... spider starts crawling ... ]
+</pre></div>
+</div>
+</div>
+<div class="section" id="version">
+<span id="std:command-version"></span><h3>version<a class="headerlink" href="#version" title="제목 주소">¶</a></h3>
+<ul class="simple">
+<li>Syntax: <code class="docutils literal"><span class="pre">scrapy</span> <span class="pre">version</span> <span class="pre">[-v]</span></code></li>
+<li>Requires project: <em>no</em></li>
+</ul>
+<p>스크래피 버전을 출력한다.
+<code class="docutils literal"><span class="pre">-v</span></code>와 같이 쓰면 버그 리포트에 유용한 파이썬, Twisted, Platform 정보도 출력한다.</p>
+</div>
+<div class="section" id="bench">
+<span id="std:command-bench"></span><h3>bench<a class="headerlink" href="#bench" title="제목 주소">¶</a></h3>
+<div class="versionadded">
+<p><span class="versionmodified">버전 0.17에 추가.</span></p>
+</div>
+<ul class="simple">
+<li>Syntax: <code class="docutils literal"><span class="pre">scrapy</span> <span class="pre">bench</span></code></li>
+<li>Requires project: <em>no</em></li>
+</ul>
+<p>간단한 벤치마크 테스트를 실행한다. <a class="reference internal" href="benchmarking.html#benchmarking"><span class="std std-ref">Benchmarking</span></a>.</p>
+</div>
+</div>
+<div class="section" id="custom-project-commands">
+<h2>Custom project commands<a class="headerlink" href="#custom-project-commands" title="제목 주소">¶</a></h2>
+<p><a class="reference internal" href="#std:setting-COMMANDS_MODULE"><code class="xref std std-setting docutils literal"><span class="pre">COMMANDS_MODULE</span></code></a> 설정을 사용해서 사용자의 커스텀 프로젝트 커맨드를 추가할 수 있다.
+커맨드를 구현 방식에 대한 예시는 <a class="reference external" href="https://github.com/scrapy/scrapy/tree/master/scrapy/commands">scrapy/commands</a>에 있는 예제를 참고하라.</p>
+<div class="section" id="commands-module">
+<span id="std:setting-COMMANDS_MODULE"></span><h3>COMMANDS_MODULE<a class="headerlink" href="#commands-module" title="제목 주소">¶</a></h3>
+<p>Default: <code class="docutils literal"><span class="pre">''</span></code> (empty string)</p>
+<p>커스텀 스크래피 커맨드를 찾기위해 사용되는 모듈.
+사용자의 스크래피 프로젝트에 커스텀 커맨드를 추가하기 위해 사용된다.</p>
+<p>예시:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">COMMANDS_MODULE</span> <span class="o">=</span> <span class="s1">&#39;mybot.commands&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setup-py">
+<h3>setup.py 엔트리 포인트를 통한 커맨드 등록<a class="headerlink" href="#setup-py" title="제목 주소">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">주석</p>
+<p class="last">이것은 실험적인 기능이므로 사용에 주의를 요한다.</p>
+</div>
+<p>라이브러리 <code class="docutils literal"><span class="pre">setup.py</span></code> 파일의 엔트리 포인트에 <code class="docutils literal"><span class="pre">scrapy.commands</span></code> 섹션을
+추가해서 외부 라이브러리로부터 스크래피 커맨드를 추가할 수도 있다.</p>
+<p>다음의 예시는 <code class="docutils literal"><span class="pre">my_command</span></code> 커맨드를 추가했다:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">setuptools</span> <span class="k">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">find_packages</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;scrapy-mymodule&#39;</span><span class="p">,</span>
+  <span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;scrapy.commands&#39;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s1">&#39;my_command=my_scrapy_module.commands:MyCommand&#39;</span><span class="p">,</span>
+    <span class="p">],</span>
+  <span class="p">},</span>
+ <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="spiders_ko.html" class="btn btn-neutral float-right" title="스파이더(Spider)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../intro/examples_ko.html" class="btn btn-neutral" title="예제" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2008-2016, Scrapy developers.
+      최종 업데이트: 2월 26, 2018
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.5.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>
