@@ -42,7 +42,7 @@
     스크래피가 무엇이고 어떤 도움을 주는지 이해하기.
 
 :doc:`intro/install_ko`
-    컴퓨터에 스크래피 설치.
+    컴퓨터에 스크래피 설치하기.
 
 :doc:`intro/tutorial_ko`
     첫 번째 스크래피 프로젝트 제작.
@@ -118,7 +118,7 @@
    :hidden:
 
    topics/logging
-   topics/stats
+   topics/stats_ko
    topics/email
    topics/telnetconsole
    topics/webservice
@@ -126,7 +126,7 @@
 :doc:`topics/logging`
     파이썬에 내장된 logging 패키지를 스크래피에서 사용하는 법.
 
-:doc:`topics/stats`
+:doc:`topics/stats_ko`
     스크랩하고 있는 크롤러에 대한 통계 수집.
 
 :doc:`topics/email`
@@ -212,7 +212,7 @@
    topics/downloader-middleware
    topics/spider-middleware
    topics/extensions
-   topics/api
+   topics/api_ko
    topics/signals
    topics/exporters
 
@@ -229,7 +229,7 @@
 :doc:`topics/extensions`
     커스텀 기능으로 스크래피 확장.
 
-:doc:`topics/api`
+:doc:`topics/api_ko`
     확장 기능과 미들웨어를 사용하여 스크래피의 기능을 넓히기.
 
 :doc:`topics/signals`
