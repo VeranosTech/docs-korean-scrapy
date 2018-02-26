@@ -7,7 +7,7 @@
 .. module:: scrapy.http
    :synopsis: Request and Response classes
 
-스크래피(Scrapy)는 웹사이트 크롤링에 :class:`Request`\ 와 :class:`Response` 객체를 사용한다.
+스크래피는 웹사이트 크롤링에 :class:`Request`\ 와 :class:`Response` 객체를 사용한다.
 
 일반적으로, :class:`Request` 객체는 스파이더 내에서 생성되고 시스템을 지나서
 다운로더(Downloader)에 도달한다. 다운로더는 리퀘스트를 실행하고

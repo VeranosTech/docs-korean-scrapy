@@ -117,13 +117,13 @@
    :caption: Built-in services
    :hidden:
 
-   topics/logging
+   topics/logging_ko
    topics/stats_ko
    topics/email
    topics/telnetconsole
    topics/webservice
 
-:doc:`topics/logging`
+:doc:`topics/logging_ko`
     파이썬에 내장된 logging 패키지를 스크래피에서 사용하는 법.
 
 :doc:`topics/stats_ko`
